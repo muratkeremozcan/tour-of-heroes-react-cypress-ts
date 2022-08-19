@@ -18,7 +18,17 @@ declare global {
        * ```
        */
       getByCyLike(
-        dataTestPrefixAttribute: string,
+        qaSelector: string,
+        args?: any,
+      ): Chainable<JQuery<HTMLElement>>
+
+      /** Yields the element that partially matches the css class
+       * ```
+       * cy.getByClassLike('StyledIconBase') // where the class is class="StyledIconBase-ea9ulj-0 lbJwfL"
+       * ```
+       */
+      getByClassLike(
+        qaSelector: string,
         args?: any,
       ): Chainable<JQuery<HTMLElement>>
 

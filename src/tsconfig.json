@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts", "../cypress.d.ts"],
+  "include": [
+    "**/*.ts*",
+    "../cypress.d.ts",
+    "components/ButtonFooter.cy.cytsx"
+  ],
   "extends": "../tsconfig.json"
 }
