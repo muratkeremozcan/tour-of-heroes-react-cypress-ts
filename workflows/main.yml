@@ -1,0 +1,169 @@
+name: unit-lint-typecheck-e2e-ct
+on:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install-dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: 16.10.0
+
+      - uses: bahmutov/npm-install@v1.8.21
+        with: {useRollingCache: true} # recommended for large projects
+        env:
+          CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
+
+  unit-test:
+    needs: [install-dependencies]
+    name: Run Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bahmutov/npm-install@v1.8.21
+        with: {useRollingCache: true}
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: unit-test
+        run: npm test
+
+      # if you want to enable codecov
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3.1.0
+      #   with:
+      #     name: coverage
+      #     path: coverage/
+      #     retention-days: 1
+
+      # - name: ✅ Upload Jest coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     directory: coverage/
+      #     flags: unit-test-coverage
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+
+  lint:
+    needs: install-dependencies
+    name: Run Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bahmutov/npm-install@v1.8.21
+        with: {useRollingCache: true}
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: lint
+        run: yarn lint
+
+  typecheck:
+    needs: install-dependencies
+    name: Run typecheck!And
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bahmutov/npm-install@v1.8.21
+        with: {useRollingCache: true}
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: typecheck
+        run: yarn typecheck
+
+  cypress-e2e-test:
+    # if you want to enable parallelization
+    # strategy:
+    #   matrix:
+    #     machines: [1, 2]
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:10.4.0 # save time on not having to install cypress
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: bahmutov/npm-install@v1.8.21 # save time on dependencies
+        with: {useRollingCache: true}
+
+      - name: Cypress e2e tests 🧪
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false # no need to install
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          # if you want to enable parallelization
+          # record: true
+          # parallel: true
+          # group: e2e-tests
+          # tag: e2e-tests
+        env:
+          # if you want to enable parallelization
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # if you want to enable codecov
+      # - name: Upload artifacts (Coverage_step3)
+      #   uses: actions/upload-artifact@v3.1.0
+      #   with:
+      #     name: coverage-cy-e2e
+      #     path: coverage-cy/
+      #     retention-days: 1
+
+      # - name: ✅ Upload e2e coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     directory: coverage-cy/
+      #     flags: cypress-e2e-coverage
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+
+  cypress-ct-test:
+    strategy:
+      matrix:
+        machines: [1, 2, 3f]
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:10.4.0 # save time on not having to install cypress
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: bahmutov/npm-install@v1.8.21 # save time on dependencies
+        with: {useRollingCache: true}
+
+      - name: Cypress component tests 🧪
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          # we have already installed everything
+          install: false
+          component: true
+          browser: chrome
+          # if you want to enable parallelization
+          # record: true
+          # parallel: true
+          # group: ct-tests
+          # tag: ct-tests
+        env:
+          # if you want to enable parallelization
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # if you want to enable codecov
+      # - name: Upload artifacts (Coverage_step3)
+      #   uses: actions/upload-artifact@v3.1.0
+      #   with:
+      #     name: coverage-cy-ct
+      #     path: coverage-cy/
+      #     retention-days: 1
+
+      # - name: ✅ Upload CT coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     directory: coverage-cy/
+      #     flags: cypress-ct-coverage
+      #     token: ${{ secrets.CODECOV_TOKEN }}

@@ -1,0 +1,38 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage*
+/combined-coverage
+.nyc_output/out.json
+.nyc_output/
+cypress/screenshots
+/cypress/videos
+reports
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+dev-tools.local.js
+
+public/exercise
+public/final
+public/extra-*
+
+# Allow people to make ignored files anywhere
+*.ignored.*
+ignored/
+.eslintcache
+combined-coverage
+.nyc_output

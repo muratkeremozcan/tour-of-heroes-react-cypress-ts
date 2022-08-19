@@ -1,0 +1,8 @@
+{
+  "all": true,
+  "excludeAfterRemap": true,
+  "report-dir": "coverage-cy",
+  "reporter": ["text", "json", "html"],
+  "extension": [".ts"],
+  "include": "src/**/*.ts"
+}
