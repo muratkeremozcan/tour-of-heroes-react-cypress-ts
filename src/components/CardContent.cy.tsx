@@ -1,5 +1,5 @@
 import CardContent from './CardContent'
-import '../styles.css'
+import '../index.css'
 
 describe('CardContent', () => {
   it('should', () => {
