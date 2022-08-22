@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 export default function HeaderBarBrand() {
   return (
-    <div data-cy="navbar" className="navbar-brand">
+    <div data-cy="header-bar-brand" className="navbar-brand">
       <a
         href="https://reactjs.org/"
         target="_blank"

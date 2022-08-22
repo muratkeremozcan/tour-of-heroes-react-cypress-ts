@@ -16,7 +16,7 @@ describe('HeaderBarBrand', () => {
       .should('have.attr', 'href', 'https://reactjs.org/')
       .and('have.attr', 'target', '_blank')
       .and('have.attr', 'rel', 'noopener noreferrer')
-    cy.getByCy('navbar').within(() => cy.get('svg'))
+    cy.getByCy('header-bar-brand').within(() => cy.get('svg'))
   })
 
   it('should verify internal link spans and navigation', () => {
