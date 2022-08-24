@@ -1,6 +1,7 @@
 const {defineConfig} = require('cypress')
 
 module.exports = defineConfig({
+  experimentalSingleTabRunMode: true,
   retries: {
     runMode: 2,
     openMode: 0,
