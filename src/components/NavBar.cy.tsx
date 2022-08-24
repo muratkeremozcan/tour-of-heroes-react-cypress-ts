@@ -12,6 +12,7 @@ describe('NavBar', () => {
 
     cy.getByCy('nav-bar').within(() => {
       cy.contains('p', 'Menu')
+
       const routes = ['heroes', 'villains', 'about']
       cy.getByCy('menu-list').children().should('have.length', routes.length)
 
