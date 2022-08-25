@@ -3,7 +3,7 @@ import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
 
-type Hero = {
+export type Hero = {
   id: string
   name: string
   description: string
@@ -22,12 +22,11 @@ export default function HeroDetail({hero: initHero}: HeroDetailProps) {
     console.log('handleSave')
     return hero.name ? updateHero() : saveHero()
   }
+
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('handleNameChange')
     setHero({...hero, name: e.target.value})
   }
   const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('handleDescriptionChange')
     setHero({...hero, description: e.target.value})
   }
 

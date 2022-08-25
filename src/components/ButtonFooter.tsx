@@ -1,9 +1,9 @@
-import type {StyledIcon} from '@styled-icons/styled-icon'
+import {FaUndo, FaRegSave, FaEdit, FaTrash} from 'react-icons/fa'
 import {SyntheticEvent} from 'react'
 
 type ButtonFooterProps = {
   label: string
-  IconClass: any
+  IconClass: typeof FaUndo | typeof FaRegSave | typeof FaEdit | typeof FaTrash
   onClick: (e: SyntheticEvent) => void
 }
 

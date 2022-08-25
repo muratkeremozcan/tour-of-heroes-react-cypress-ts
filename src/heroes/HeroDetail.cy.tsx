@@ -1,61 +1,87 @@
-import HeroDetail from './HeroDetail'
+import HeroDetail, {Hero} from './HeroDetail'
 import '../styles.scss'
+import React from 'react'
 
 describe('HeroDetail', () => {
-  it('should handle Save', () => {
-    const hero = {id: '', name: '', description: ''}
-    cy.mount(<HeroDetail hero={hero} />)
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
+  context('handleSave, handleCancel', () => {
+    let hero: Hero
+    beforeEach(() => {
+      cy.window()
+        .its('console')
+        .then(console => cy.spy(console, 'log').as('log'))
 
-    cy.getByCy('save-button').click()
-    cy.get('@log').should('have.been.calledWith', 'handleSave')
+      hero = {id: '', name: '', description: ''}
+      cy.mount(<HeroDetail hero={hero} />)
+    })
+    it('should handle Save', () => {
+      cy.getByCy('save-button').click()
+      cy.get('@log').should('have.been.calledWith', 'handleSave')
+    })
+
+    it('should handle Cancel', () => {
+      cy.mount(<HeroDetail hero={hero} />)
+      cy.getByCy('cancel-button').click()
+      cy.get('@log').should('have.been.calledWith', 'handleCancel')
+    })
   })
 
-  it('should handle Cancel', () => {
-    const hero = {id: '', name: '', description: ''}
-    cy.mount(<HeroDetail hero={hero} />)
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
+  context('handleNameChange, handleDescriptionChange', () => {
+    let hero: Hero
+    beforeEach(() => {
+      cy.spy(React, 'useState').as('useState')
 
-    cy.getByCy('cancel-button').click()
+      hero = {id: '', name: '', description: ''}
+      cy.mount(<HeroDetail hero={hero} />)
+    })
 
-    cy.get('@log').should('have.been.calledWith', 'handleCancel')
-  })
+    it('should handle name change', () => {
+      const newHeroName = 'abc'
+      cy.getByCy('input-detail-name').type(newHeroName)
+      cy.get('@useState')
+        .should('have.been.calledWith', hero)
+        .its('returnValues')
+        .its(newHeroName.length)
+        .its(0)
+        .should('deep.eq', {...hero, name: newHeroName})
+    })
 
-  it('should handle name change', () => {
-    const hero = {id: '', name: '', description: ''}
-    cy.mount(<HeroDetail hero={hero} />)
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
-
-    cy.getByCy('input-detail-name').type('abc')
-    cy.get('@log').should('have.been.calledWith', 'handleNameChange')
-    cy.get('@log').its('callCount').should('eq', 3)
-  })
-
-  it('should handle description change', () => {
-    const hero = {id: '', name: '', description: ''}
-    cy.mount(<HeroDetail hero={hero} />)
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
-
-    cy.getByCy('input-detail-description').type('123')
-    cy.get('@log').should('have.been.calledWith', 'handleDescriptionChange')
-    cy.get('@log').its('callCount').should('eq', 3)
+    it('should handle description change', () => {
+      const newHeroDescription = '123'
+      cy.getByCy('input-detail-description').type(newHeroDescription)
+      cy.get('@useState')
+        .should('have.been.calledWith', hero)
+        .its('returnValues')
+        .its(newHeroDescription.length)
+        .its(0)
+        .should('deep.eq', {...hero, description: newHeroDescription})
+    })
   })
 
   context('state: should verify the layout of the component', () => {
-    it('id: false, name: false ', () => {
+    const shouldNotRenderName = () =>
+      cy.get('p').then($el => cy.wrap($el.text()).should('equal', ''))
+
+    const shouldNotRenderId = () => {
+      cy.getByCyLike('input-detail').should('have.length', 2)
+      cy.getByCy('input-detail-id').should('not.exist')
+    }
+
+    const shouldRenderName = (hero: Hero) => {
+      cy.contains('p', hero.name)
+      cy.findByDisplayValue(hero.name)
+    }
+
+    const shouldRenderId = (hero: Hero) => {
+      cy.findByDisplayValue(hero.id)
+      cy.getByCyLike('input-detail').should('have.length', 3)
+    }
+
+    it('id: false, name: false - should verify the minimal state of the component', () => {
       const hero = {id: '', name: '', description: ''}
       cy.mount(<HeroDetail hero={hero} />)
 
-      cy.getByCy('hero-detail')
-      cy.getByCyLike('input-detail').should('have.length', 2)
+      shouldNotRenderName()
+      shouldNotRenderId()
 
       cy.findByPlaceholderText('e.g. Colleen')
       cy.findByPlaceholderText('e.g. dance fight!')
@@ -68,32 +94,24 @@ describe('HeroDetail', () => {
       const hero = {id: '', name: 'Aslaug', description: ''}
       cy.mount(<HeroDetail hero={hero} />)
 
-      cy.contains('p', hero.name)
-      cy.findByDisplayValue(hero.name)
-
-      cy.getByCyLike('input-detail').should('have.length', 2)
-      cy.getByCy('input-detail-id').should('not.exist')
+      shouldRenderName(hero)
+      shouldNotRenderId()
     })
 
     it('id: true, name: false - should not display hero name, and display all fields', () => {
       const hero = {id: 'HeroAslaug', name: '', description: ''}
       cy.mount(<HeroDetail hero={hero} />)
 
-      cy.get('p').then($el => cy.wrap($el.text()).should('equal', ''))
-
-      cy.findByDisplayValue(hero.id)
-      cy.getByCyLike('input-detail').should('have.length', 3)
+      shouldNotRenderName()
+      shouldRenderId(hero)
     })
 
     it('id: true, name: true - should display hero name, id  ', () => {
       const hero = {id: 'HeroAslaug', name: 'Aslaug', description: ''}
       cy.mount(<HeroDetail hero={hero} />)
 
-      cy.contains('p', hero.name)
-      cy.findByDisplayValue(hero.name)
-      cy.findByDisplayValue(hero.id)
-
-      cy.getByCyLike('input-detail').should('have.length', 3)
+      shouldRenderName(hero)
+      shouldRenderId(hero)
 
       cy.getByCy('input-detail-description').type('hero description')
       cy.findByDisplayValue('hero description')
