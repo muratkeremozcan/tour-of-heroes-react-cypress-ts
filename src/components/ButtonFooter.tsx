@@ -3,7 +3,7 @@ import {SyntheticEvent} from 'react'
 
 type ButtonFooterProps = {
   label: string
-  IconClass: StyledIcon
+  IconClass: any
   onClick: (e: SyntheticEvent) => void
 }
 
@@ -13,8 +13,13 @@ export default function ButtonFooter({
   onClick,
 }: ButtonFooterProps) {
   return (
-    <button data-cy={`${label}-button`} aria-label={label} onClick={onClick}>
+    <button
+      data-cy={`${label.toLowerCase()}-button`}
+      aria-label={label}
+      onClick={onClick}
+    >
       <IconClass />
+      &nbsp;
       <span>{label}</span>
     </button>
   )
