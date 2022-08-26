@@ -2,7 +2,7 @@ import {FaUndo, FaRegSave, FaEdit, FaTrash} from 'react-icons/fa'
 import {SyntheticEvent} from 'react'
 
 type ButtonFooterProps = {
-  label: string
+  label: 'Cancel' | 'Save' | 'Edit' | 'Delete'
   IconClass: typeof FaUndo | typeof FaRegSave | typeof FaEdit | typeof FaTrash
   onClick: (e: SyntheticEvent) => void
 }

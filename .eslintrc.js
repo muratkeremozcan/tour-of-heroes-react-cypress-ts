@@ -7,6 +7,7 @@ module.exports = {
     'react-app/jest',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
   rules: {
     'no-only-tests/no-only-tests': 'error',
