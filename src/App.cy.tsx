@@ -5,10 +5,12 @@ describe('ct sanity', () => {
     cy.mount(<App />)
     cy.getByCy('not-found').should('be.visible')
 
-    cy.get(`[href="/heroes"]`).click()
+    cy.contains('Heroes').click()
     cy.getByCy('heroes').should('be.visible')
 
-    cy.get(`[href="/about"]`).click()
+    cy.contains('About').click()
     cy.getByCy('about').should('be.visible')
   })
 })
+
+// CT vs RTL: src/App.test.tsx
