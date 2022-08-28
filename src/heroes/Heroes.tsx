@@ -1,7 +1,7 @@
 import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
-import heroes from '../../cypress/fixtures/heroes.json'
+import heroes from './heroes.json'
 import {useState} from 'react'
 
 export default function Heroes() {
@@ -20,7 +20,7 @@ export default function Heroes() {
   }
 
   return (
-    <div>
+    <div data-cy="heroes">
       <ListHeader
         title="Heroes"
         handleAdd={addNewHero}
