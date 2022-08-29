@@ -1,3 +1,4 @@
+import {useNavigate} from 'react-router-dom'
 import CardContent from '../components/CardContent'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
@@ -8,7 +9,8 @@ type HeroListProps = {
 }
 
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
-  const handleSelectHero = () => console.log('handleSelectHero')
+  const navigate = useNavigate()
+  const handleSelectHero = () => navigate('/heroes/edit-hero')
 
   return (
     <ul data-cy="hero-list" className="list">

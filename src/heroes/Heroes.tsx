@@ -1,4 +1,4 @@
-import {useNavigate, Routes, Route, Navigate} from 'react-router-dom'
+import {useNavigate, Routes, Route, useParams} from 'react-router-dom'
 import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
@@ -7,6 +7,9 @@ import {useState} from 'react'
 import HeroDetail from './HeroDetail'
 
 export default function Heroes() {
+  const {id} = useParams()
+  const hero = heroes.find(h => h.id)
+
   const [showModal, setShowModal] = useState<boolean>(false)
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
@@ -40,6 +43,7 @@ export default function Heroes() {
               }
             />
             <Route path="/add-hero" element={<HeroDetail />} />
+            <Route path="/edit-hero" element={<HeroDetail hero={hero} />} />
             <Route
               path="*"
               element={
