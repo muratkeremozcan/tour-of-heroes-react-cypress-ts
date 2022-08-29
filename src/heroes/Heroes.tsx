@@ -1,4 +1,4 @@
-import {useNavigate, Routes, Route, Navigate} from 'react-router-dom'
+import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
@@ -40,6 +40,10 @@ export default function Heroes() {
               }
             />
             <Route path="/add-hero" element={<HeroDetail />} />
+            <Route
+              path="/edit-hero/HeroAslaug"
+              element={<HeroDetail hero={heroes[0]} />}
+            />
             <Route
               path="*"
               element={

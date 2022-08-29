@@ -1,3 +1,4 @@
+import {useNavigate} from 'react-router-dom'
 import InputDetail from '../components/InputDetail'
 import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
@@ -21,7 +22,8 @@ export default function HeroDetail({
 }: HeroDetailProps) {
   const [hero, setHero] = useState<Hero>({...initHero})
 
-  const handleCancel = () => console.log('handleCancel')
+  const navigate = useNavigate()
+  const handleCancel = () => navigate('/heroes')
   const updateHero = () => console.log('updateHero')
   const saveHero = () => console.log('saveHero')
   const handleSave = () => {
