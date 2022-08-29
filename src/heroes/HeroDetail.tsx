@@ -9,10 +9,16 @@ export type Hero = {
   description: string
 }
 type HeroDetailProps = {
-  hero: Hero
+  hero?: Hero
 }
 
-export default function HeroDetail({hero: initHero}: HeroDetailProps) {
+export default function HeroDetail({
+  hero: initHero = {
+    id: '',
+    name: '',
+    description: '',
+  },
+}: HeroDetailProps) {
   const [hero, setHero] = useState<Hero>({...initHero})
 
   const handleCancel = () => console.log('handleCancel')
