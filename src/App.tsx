@@ -15,7 +15,7 @@ function App() {
         <main className="column">
           <Routes>
             <Route path="/" element={<Navigate replace to="/heroes" />} />
-            <Route path="/heroes" element={<Heroes />} />
+            <Route path="/heroes/*" element={<Heroes />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

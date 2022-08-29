@@ -3,32 +3,21 @@ import {BrowserRouter} from 'react-router-dom'
 import '../styles.scss'
 
 describe('Heroes', () => {
-  it('should handle hero add and refresh', () => {
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
-
+  it('should display the hero list on render, and go through hero add & refresh flow', () => {
     cy.mount(
       <BrowserRouter>
         <Heroes />
       </BrowserRouter>,
     )
 
-    cy.getByCy('list-header')
+    cy.getByCy('list-header').should('be.visible')
+    cy.getByCy('hero-list').should('be.visible')
+
     cy.getByCy('add-button').click()
-    cy.get('@log').should('have.been.calledWith', 'handleAdd')
+    cy.location('pathname').should('eq', '/heroes/add-hero')
+
     cy.getByCy('refresh-button').click()
-    cy.get('@log').should('have.been.calledWith', 'handleRefresh')
-  })
-
-  it('should display hero list on render', () => {
-    cy.mount(
-      <BrowserRouter>
-        <Heroes />
-      </BrowserRouter>,
-    )
-
-    cy.getByCy('hero-list')
+    cy.location('pathname').should('eq', '/heroes')
   })
 
   const invokeHeroDelete = () => {
