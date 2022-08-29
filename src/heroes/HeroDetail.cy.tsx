@@ -1,6 +1,7 @@
 import HeroDetail, {Hero} from './HeroDetail'
 import '../styles.scss'
 import React from 'react'
+import {BrowserRouter} from 'react-router-dom'
 
 describe('HeroDetail', () => {
   context('handleSave, handleCancel', () => {
@@ -11,7 +12,11 @@ describe('HeroDetail', () => {
         .then(console => cy.spy(console, 'log').as('log'))
 
       hero = {id: '', name: '', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
     })
     it('should handle Save', () => {
       cy.getByCy('save-button').click()
@@ -19,9 +24,8 @@ describe('HeroDetail', () => {
     })
 
     it('should handle Cancel', () => {
-      cy.mount(<HeroDetail hero={hero} />)
       cy.getByCy('cancel-button').click()
-      cy.get('@log').should('have.been.calledWith', 'handleCancel')
+      cy.location('pathname').should('eq', '/heroes')
     })
   })
 
@@ -31,7 +35,11 @@ describe('HeroDetail', () => {
       cy.spy(React, 'useState').as('useState')
 
       hero = {id: '', name: '', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
     })
 
     it('should handle name change', () => {
@@ -40,7 +48,7 @@ describe('HeroDetail', () => {
       cy.get('@useState')
         .should('have.been.calledWith', hero)
         .its('returnValues')
-        .its(newHeroName.length)
+        .its(newHeroName.length + 1)
         .its(0)
         .should('deep.eq', {...hero, name: newHeroName})
     })
@@ -51,7 +59,7 @@ describe('HeroDetail', () => {
       cy.get('@useState')
         .should('have.been.calledWith', hero)
         .its('returnValues')
-        .its(newHeroDescription.length)
+        .its(newHeroDescription.length + 1)
         .its(0)
         .should('deep.eq', {...hero, description: newHeroDescription})
     })
@@ -78,7 +86,11 @@ describe('HeroDetail', () => {
 
     it('id: false, name: false - should verify the minimal state of the component', () => {
       const hero = {id: '', name: '', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
 
       shouldNotRenderName()
       shouldNotRenderId()
@@ -92,7 +104,11 @@ describe('HeroDetail', () => {
 
     it('id: false, name: true - should display hero title and field name, and not display id field', () => {
       const hero = {id: '', name: 'Aslaug', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
 
       shouldRenderName(hero)
       shouldNotRenderId()
@@ -100,7 +116,11 @@ describe('HeroDetail', () => {
 
     it('id: true, name: false - should not display hero name, and display all fields', () => {
       const hero = {id: 'HeroAslaug', name: '', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
 
       shouldNotRenderName()
       shouldRenderId(hero)
@@ -108,7 +128,11 @@ describe('HeroDetail', () => {
 
     it('id: true, name: true - should display hero name, id  ', () => {
       const hero = {id: 'HeroAslaug', name: 'Aslaug', description: ''}
-      cy.mount(<HeroDetail hero={hero} />)
+      cy.mount(
+        <BrowserRouter>
+          <HeroDetail hero={hero} />
+        </BrowserRouter>,
+      )
 
       shouldRenderName(hero)
       shouldRenderId(hero)
