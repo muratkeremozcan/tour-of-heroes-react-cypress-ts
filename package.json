@@ -50,6 +50,7 @@
     "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "5.33.1",
     "@typescript-eslint/parser": "5.33.1",
+    "axios": "^0.27.2",
     "concurrently": "7.3.0",
     "cypress": "10.6.0",
     "eslint": "8.22.0",
