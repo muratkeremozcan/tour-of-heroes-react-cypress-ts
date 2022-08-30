@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MountOptions, MountReturn} from 'cypress/react'
+import type {Hero} from './cypress/support/commands'
 
 export {}
 declare global {
@@ -40,6 +41,33 @@ declare global {
         component: React.ReactNode,
         options?: MountOptions,
       ): Cypress.Chainable<MountReturn>
+
+      /**
+       * Performs crud operations GET, POST, PUT and DELETE.
+       *
+       * `body` and `allowedToFail are optional.
+       *
+       * If they are not passed in, body is empty but `allowedToFail` still is `false`.
+       *
+       * If the body is passed in and the method is `POST` or `PUT`, the payload will be taken,
+       * otherwise undefined for `GET` and `DELETE`.
+       * @param method
+       * @param route
+       * @param options: {body?: Hero | object; allowedToFail?: boolean}
+       */
+      crud(
+        method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+        route: string,
+        {
+          body,
+          allowedToFail = false,
+        }: {body?: Hero | object; allowedToFail?: boolean} = {},
+      ): Cypress.Chainable<Response<Hero[] & Hero>>
+
+      /**
+       * Resets the data in the database to the initial data.
+       */
+      resetData(): Cypress.Chainable<Response<Hero[] & Hero>>
     }
   }
 }
