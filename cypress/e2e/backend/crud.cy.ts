@@ -1,4 +1,5 @@
 import type {Hero} from '../../support/commands'
+import {faker} from '@faker-js/faker'
 
 describe('Backend e2e', () => {
   const assertProperties = (entity: Hero) => {
@@ -22,7 +23,11 @@ describe('Backend e2e', () => {
   })
 
   it('should CRUD a new hero entity', () => {
-    const newHero = {id: 'Ragnarok', name: 'Ragnar', description: 'Lothbrok'}
+    const newHero = {
+      id: faker.datatype.uuid(),
+      name: faker.internet.userName(),
+      description: `description ${faker.internet.userName()}`,
+    }
 
     cy.crud('POST', 'heroes', {body: newHero})
 
