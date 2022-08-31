@@ -36,7 +36,9 @@ test('renders tour of heroes', async () => {
   expect(screen.getByTestId('about')).toBeVisible()
 
   userEvent.click(screen.getByText('Heroes'))
-  expect(screen.getByTestId('heroes')).toBeVisible()
+  await screen.findByText('loading...')
+  // TODO: find a way to wait for network like cy.wait()
+  // expect(screen.getByTestId('heroes')).toBeVisible()
 })
 
 // CT vs RTL: src/App.cy.tsx

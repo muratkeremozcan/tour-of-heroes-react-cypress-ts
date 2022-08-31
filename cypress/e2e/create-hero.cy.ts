@@ -1,7 +1,12 @@
 // TODO: enhance this test when the backend is operational
 
 describe('Create hero', () => {
-  beforeEach(() => cy.visit('/'))
+  beforeEach(() => {
+    cy.intercept('GET', 'http://localhost:4000/api/heroes').as('getHeroes')
+    cy.visit('/')
+    cy.wait('@getHeroes')
+  })
+
   it('should go through the cancel flow', () => {
     cy.location('pathname').should('eq', '/heroes')
 

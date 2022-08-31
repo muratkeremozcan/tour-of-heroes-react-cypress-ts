@@ -2,39 +2,20 @@ import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
-import {useState, useEffect, useCallback} from 'react'
-import HeroDetail from './HeroDetail'
-import axios, {AxiosResponse} from 'axios'
+import {useState} from 'react'
+import {useParams} from 'react-router-dom'
+import HeroDetail, {Hero} from './HeroDetail'
+import useAxios from './useAxios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const [heroes, setHeroes] = useState([])
+  const {id} = useParams<Hero>()
+  const {data: heroes = [], status} = useAxios(
+    'http://localhost:4000/api/heroes',
+  )
 
-  // TODO: identify a better type later
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const parseList = (response: AxiosResponse<any>) => {
-    if (response.status !== 200) throw Error(response.statusText)
-    let list = response.data
-    if (typeof list !== 'object') {
-      list = []
-    }
-    console.log(list)
-    return list
-  }
-
-  const getData = useCallback(async () => {
-    const response = await axios.get('http://localhost:4000/api/heroes')
-    return parseList(response)
-  }, [])
-
-  useEffect(() => {
-    console.log('mounting')
-    getData().then(data => {
-      setHeroes(data.heroes)
-    })
-
-    return () => console.log('unmounting')
-  }, [getData])
+  console.log('heroes are ', heroes)
+  const hero = heroes.find((h: Hero) => h.id === id)
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
@@ -49,6 +30,14 @@ export default function Heroes() {
   const handleDeleteFromModal = () => {
     setShowModal(false)
     console.log('handleDeleteFromModal')
+  }
+
+  if (status === 'error') {
+    return <p data-cy="error">there was an error</p>
+  }
+
+  if (status === 'loading') {
+    return <div>loading...</div>
   }
 
   return (
@@ -68,10 +57,7 @@ export default function Heroes() {
               }
             />
             <Route path="/add-hero" element={<HeroDetail />} />
-            <Route
-              path="/edit-hero/HeroAslaug"
-              element={<HeroDetail hero={heroes[0]} />}
-            />
+            <Route path="/edit-hero/:id" element={<HeroDetail hero={hero} />} />
             <Route
               path="*"
               element={
