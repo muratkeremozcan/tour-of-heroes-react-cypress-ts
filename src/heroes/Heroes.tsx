@@ -4,19 +4,21 @@ import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import {useState, useEffect, useCallback} from 'react'
 import HeroDetail from './HeroDetail'
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
   const [heroes, setHeroes] = useState([])
 
+  // TODO: identify a better type later
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const parseList = (response: any) => {
+  const parseList = (response: AxiosResponse<any>) => {
     if (response.status !== 200) throw Error(response.statusText)
     let list = response.data
     if (typeof list !== 'object') {
       list = []
     }
+    console.log(list)
     return list
   }
 
@@ -28,7 +30,7 @@ export default function Heroes() {
   useEffect(() => {
     console.log('mounting')
     getData().then(data => {
-      setHeroes(data)
+      setHeroes(data.heroes)
     })
 
     return () => console.log('unmounting')
