@@ -41,9 +41,6 @@ export default function HeroDetail() {
       </header>
       <div className="card-content">
         <div className="content">
-          <div>{hero.name}</div>
-          <div>{hero.description}</div>
-          <div>{hero.id}</div>
           {hero.id && (
             <InputDetail
               name={'id'}
