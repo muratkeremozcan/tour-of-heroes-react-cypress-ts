@@ -2,7 +2,7 @@ import {ChangeEvent} from 'react'
 
 type InputDetailProps = {
   name: string
-  value: string
+  value: string | undefined
   placeholder?: string
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   readOnly?: boolean

@@ -3,19 +3,16 @@ import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import {useState} from 'react'
-import {useParams} from 'react-router-dom'
-import HeroDetail, {Hero} from './HeroDetail'
+import HeroDetail from './HeroDetail'
 import useAxios from './useAxios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {id} = useParams<Hero>()
   const {data: heroes = [], status} = useAxios(
     'http://localhost:4000/api/heroes',
   )
 
   console.log('heroes are ', heroes)
-  const hero = heroes.find((h: Hero) => h.id === id)
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
@@ -57,7 +54,7 @@ export default function Heroes() {
               }
             />
             <Route path="/add-hero" element={<HeroDetail />} />
-            <Route path="/edit-hero/:id" element={<HeroDetail hero={hero} />} />
+            <Route path="/edit-hero/:id" element={<HeroDetail />} />
             <Route
               path="*"
               element={

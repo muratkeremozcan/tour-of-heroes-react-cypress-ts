@@ -11,7 +11,10 @@ type HeroListProps = {
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const navigate = useNavigate()
   const handleSelectHero = (id: string) => {
-    navigate(`/heroes/edit-hero/${id}`)
+    const hero = heroes.find((h: Hero) => h.id === id)
+    navigate(
+      `/heroes/edit-hero/${id}?name=${hero?.name}&description=${hero?.description}`,
+    )
   }
 
   return (
