@@ -10,10 +10,13 @@ describe('Edit hero', () => {
   it('should go through the cancel flow', () => {
     cy.location('pathname').should('eq', '/heroes')
 
-    cy.getByCy('edit-button').first().click()
-    cy.location('pathname').should('eq', '/heroes/edit-hero/HeroAslaug')
+    cy.getByCy('edit-button').eq(1).click()
+    cy.location('pathname').should('include', '/heroes/edit-hero/')
     cy.getByCy('hero-detail').should('be.visible')
     cy.getByCy('input-detail-id').should('be.visible')
+    cy.findByDisplayValue('HeroBjorn')
+    cy.findByDisplayValue('Bjorn Ironside')
+    cy.findByDisplayValue('king of 9th century Sweden')
 
     cy.getByCy('cancel-button').click()
     cy.location('pathname').should('eq', '/heroes')
