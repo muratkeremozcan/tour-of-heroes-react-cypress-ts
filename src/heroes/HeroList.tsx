@@ -10,7 +10,9 @@ type HeroListProps = {
 
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const navigate = useNavigate()
-  const handleSelectHero = () => navigate('/heroes/edit-hero/HeroAslaug')
+  const handleSelectHero = (id: string) => {
+    navigate(`/heroes/edit-hero/${id}`)
+  }
 
   return (
     <ul data-cy="hero-list" className="list">
@@ -27,7 +29,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
               <ButtonFooter
                 label="Edit"
                 IconClass={FaEdit}
-                onClick={handleSelectHero}
+                onClick={() => handleSelectHero(hero.id)}
               />
             </footer>
           </div>
