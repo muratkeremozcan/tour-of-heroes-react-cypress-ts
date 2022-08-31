@@ -26,6 +26,7 @@ afterEach(() => {
 afterAll(() => {
   server.close()
 })
+
 test('renders tour of heroes', async () => {
   render(<App />)
   // there is no concept of url in virtual DOM,

@@ -13,12 +13,13 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|css|md|mdx|html)\"",
     "lint": "eslint . --cache-location node_modules/.cache/eslint",
     "typecheck": "tsc --noEmit",
-    "validate": "npm-run-all --parallel format lint typecheck build",
+    "validate": "npm-run-all --parallel format lint typecheck build cy:run-ct-fast",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:open-e2e": "concurrently -k yarn:start:api 'server-test 3000 cy:open'",
     "cy:run-e2e": "concurrently -k yarn:start:api 'server-test 3000 cy:run'",
     "cy:open-ct": "cypress open --component --browser chrome",
-    "cy:run-ct": "cypress run --component --browser chrome"
+    "cy:run-ct": "cypress run --component --browser chrome",
+    "cy:run-ct-fast": "yarn cy:run-ct --config video=false screenshot=false"
   },
   "dependencies": {
     "bulma": "0.9.4",
@@ -71,7 +72,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn typecheck && yarn test --watchAll=false && lint-staged"
+      "pre-commit": "yarn typecheck || lint-staged || yarn test --watchAll=false || yarn cy:run-ct-fast"
     }
   },
   "browserslist": {
