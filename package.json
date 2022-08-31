@@ -72,7 +72,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn typecheck || lint-staged || yarn test --watchAll=false || yarn cy:run-ct-fast"
+      "pre-commit": "yarn typecheck && yarn test --watchAll=false && yarn cy:run-ct-fast && lint-staged "
     }
   },
   "browserslist": {
