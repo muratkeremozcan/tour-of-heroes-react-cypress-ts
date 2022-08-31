@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom'
 import InputDetail from '../components/InputDetail'
 import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
@@ -9,18 +9,13 @@ export type Hero = {
   name: string
   description: string
 }
-type HeroDetailProps = {
-  hero?: Hero
-}
 
-export default function HeroDetail({
-  hero: initHero = {
-    id: '',
-    name: '',
-    description: '',
-  },
-}: HeroDetailProps) {
-  const [hero, setHero] = useState<Hero>({...initHero})
+export default function HeroDetail() {
+  const {id} = useParams()
+  const [searchParams] = useSearchParams()
+  const name = searchParams.get('name')
+  const description = searchParams.get('description')
+  const [hero, setHero] = useState({id, name, description})
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')
@@ -28,7 +23,7 @@ export default function HeroDetail({
   const saveHero = () => console.log('saveHero')
   const handleSave = () => {
     console.log('handleSave')
-    return hero.name ? updateHero() : saveHero()
+    return name ? updateHero() : saveHero()
   }
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +36,7 @@ export default function HeroDetail({
   return (
     <div data-cy="hero-detail" className="card edit-detail">
       <header className="card-header">
-        <p className="card-header-title">{hero.name}</p>
+        <p className="card-header-title">{name}</p>
         &nbsp;
       </header>
       <div className="card-content">
@@ -55,13 +50,13 @@ export default function HeroDetail({
           )}
           <InputDetail
             name={'name'}
-            value={hero.name}
+            value={name ? name : ''}
             placeholder="e.g. Colleen"
             onChange={handleNameChange}
           ></InputDetail>
           <InputDetail
             name={'description'}
-            value={hero.description}
+            value={description ? description : ''}
             placeholder="e.g. dance fight!"
             onChange={handleDescriptionChange}
           ></InputDetail>
