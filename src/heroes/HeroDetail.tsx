@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from 'react-router-dom'
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom'
 import InputDetail from '../components/InputDetail'
 import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
@@ -11,7 +11,10 @@ export type Hero = {
 }
 
 export default function HeroDetail() {
-  const {id, name, description} = useParams()
+  const {id} = useParams()
+  const [searchParams] = useSearchParams()
+  const name = searchParams.get('name')
+  const description = searchParams.get('description')
   const [hero, setHero] = useState({id, name, description})
 
   const navigate = useNavigate()
@@ -38,6 +41,9 @@ export default function HeroDetail() {
       </header>
       <div className="card-content">
         <div className="content">
+          <div>{hero.name}</div>
+          <div>{hero.description}</div>
+          <div>{hero.id}</div>
           {hero.id && (
             <InputDetail
               name={'id'}
@@ -47,13 +53,13 @@ export default function HeroDetail() {
           )}
           <InputDetail
             name={'name'}
-            value={hero.name}
+            value={name ? name : ''}
             placeholder="e.g. Colleen"
             onChange={handleNameChange}
           ></InputDetail>
           <InputDetail
             name={'description'}
-            value={hero.name}
+            value={description ? description : ''}
             placeholder="e.g. dance fight!"
             onChange={handleDescriptionChange}
           ></InputDetail>

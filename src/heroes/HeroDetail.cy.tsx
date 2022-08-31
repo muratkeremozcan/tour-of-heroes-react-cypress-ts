@@ -1,4 +1,4 @@
-import HeroDetail, {Hero} from './HeroDetail'
+import HeroDetail from './HeroDetail'
 import '../styles.scss'
 import React from 'react'
 import {BrowserRouter} from 'react-router-dom'
