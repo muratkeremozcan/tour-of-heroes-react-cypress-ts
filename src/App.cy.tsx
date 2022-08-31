@@ -2,6 +2,10 @@ import App from './App'
 
 describe('ct sanity', () => {
   it('should render the App', () => {
+    cy.intercept('GET', 'http://localhost:4000/api/heroes', {
+      fixture: 'heroes.json',
+    }).as('getHeroes')
+
     cy.mount(<App />)
     cy.getByCy('not-found').should('be.visible')
 

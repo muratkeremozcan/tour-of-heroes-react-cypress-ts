@@ -3,12 +3,20 @@ import {BrowserRouter} from 'react-router-dom'
 import '../styles.scss'
 
 describe('Heroes', () => {
+  beforeEach(() => {
+    cy.intercept('GET', 'http://localhost:4000/api/heroes', {
+      fixture: 'heroes.json',
+    }).as('getHeroes')
+  })
+
   it('should display the hero list on render, and go through hero add & refresh flow', () => {
     cy.mount(
       <BrowserRouter>
         <Heroes />
       </BrowserRouter>,
     )
+
+    cy.wait('@getHeroes')
 
     cy.getByCy('list-header').should('be.visible')
     cy.getByCy('hero-list').should('be.visible')
