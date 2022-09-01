@@ -1,9 +1,8 @@
 import axios from 'axios'
+import {Hero} from '../models/Hero'
 
 export type CrudType = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type CrudOptions = {body?: Hero | object; config?: object}
-
-export type Hero = {id: string; name: string; description: string}
 
 /**
  * Performs crud operations GET, POST, PUT and DELETE.

@@ -2,7 +2,8 @@ import {useNavigate} from 'react-router-dom'
 import CardContent from '../components/CardContent'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
-import type {Hero} from './HeroDetail'
+import {Hero} from '../models/Hero'
+
 type HeroListProps = {
   heroes: Hero[]
   handleDeleteHero: () => void // TODO: consider better type
