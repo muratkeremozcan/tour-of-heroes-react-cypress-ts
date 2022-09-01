@@ -1,21 +1,30 @@
 import Heroes from './Heroes'
 import {BrowserRouter} from 'react-router-dom'
+import {QueryClient, QueryClientProvider} from 'react-query'
 import '../styles.scss'
 
 describe('Heroes', () => {
+  let queryClient: QueryClient
   beforeEach(() => {
     cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
       fixture: 'heroes.json',
     }).as('getHeroes')
+
+    cy.window()
+      .its('console')
+      .then(console => cy.spy(console, 'log').as('log'))
+
+    queryClient = new QueryClient()
+    cy.mount(
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Heroes />
+        </BrowserRouter>
+      </QueryClientProvider>,
+    )
   })
 
   it('should display the hero list on render, and go through hero add & refresh flow', () => {
-    cy.mount(
-      <BrowserRouter>
-        <Heroes />
-      </BrowserRouter>,
-    )
-
     cy.wait('@getHeroes')
 
     cy.getByCy('list-header').should('be.visible')
@@ -33,16 +42,6 @@ describe('Heroes', () => {
     cy.getByCy('modal-yes-no').should('be.visible')
   }
   it('should go through the modal flow', () => {
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
-
-    cy.mount(
-      <BrowserRouter>
-        <Heroes />
-      </BrowserRouter>,
-    )
-
     cy.getByCy('modal-yes-no').should('not.exist')
 
     cy.log('do not delete flow')

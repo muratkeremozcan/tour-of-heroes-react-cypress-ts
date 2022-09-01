@@ -1,14 +1,13 @@
-import {useNavigate, useParams, useSearchParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import InputDetail from '../components/InputDetail'
 import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
+import {useHeroParams} from './useHeroParams'
 
 export default function HeroDetail() {
   const {id} = useParams()
-  const [searchParams] = useSearchParams()
-  const name = searchParams.get('name')
-  const description = searchParams.get('description')
+  const {name, description} = useHeroParams()
   const [hero, setHero] = useState({id, name, description})
 
   const navigate = useNavigate()
