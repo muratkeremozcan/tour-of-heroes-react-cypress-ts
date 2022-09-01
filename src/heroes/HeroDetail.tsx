@@ -4,12 +4,6 @@ import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
 
-export type Hero = {
-  id: string
-  name: string
-  description: string
-}
-
 export default function HeroDetail() {
   const {id} = useParams()
   const [searchParams] = useSearchParams()

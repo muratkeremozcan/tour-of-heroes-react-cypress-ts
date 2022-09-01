@@ -7,10 +7,13 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0,
   },
+  env: {
+    API_URL: 'http://localhost:4000/api',
+  },
   e2e: {
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
-    setupNodeEvents(on, config) {
+    setupNodeEvents(_on, _config) {
       // implement node event listeners here
       // and load any plugins that require the Node environment
     },

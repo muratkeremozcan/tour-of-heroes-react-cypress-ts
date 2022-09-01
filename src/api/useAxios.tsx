@@ -1,25 +1,14 @@
 import {useEffect, useState} from 'react'
-import axios, {AxiosResponse} from 'axios'
-
-// TODO: identify a better type later
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const parseList = (response: AxiosResponse<any>) => {
-  if (response.status !== 200) throw Error(response.statusText)
-  let list = response.data
-  if (typeof list !== 'object') {
-    list = []
-  }
-  console.log('list is ', list)
-  return list
-}
-
-export const getData = async (url: string) => {
-  const response = await axios.get(url)
-  return parseList(response)
-}
+// import axios, {AxiosResponse} from 'axios'
+import {client, CrudOptions} from '../api/api'
+import type {CrudType} from '../api/api'
 
 /** Takes a url, returns an object of data, status & error */
-export default function useAxios(url: string) {
+export default function useAxios(
+  method: CrudType,
+  url: string,
+  {body, ...config}: CrudOptions = {},
+) {
   const [data, setData] = useState()
   const [error, setError] = useState(null)
   const [status, setStatus] = useState('idle')
@@ -37,7 +26,7 @@ export default function useAxios(url: string) {
     setError(null)
     setStatus('loading')
 
-    getData(url)
+    client(method, url, {body, ...config})
       .then(data => {
         if (doUpdate) {
           setData(data)
@@ -53,7 +42,8 @@ export default function useAxios(url: string) {
       })
 
     return () => (doUpdate = false)
-  }, [url])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [method, url, body])
 
   return {data, status, error}
 }

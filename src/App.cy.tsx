@@ -2,7 +2,7 @@ import App from './App'
 
 describe('ct sanity', () => {
   it('should render the App', () => {
-    cy.intercept('GET', 'http://localhost:4000/api/heroes', {
+    cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
       fixture: 'heroes.json',
     }).as('getHeroes')
 

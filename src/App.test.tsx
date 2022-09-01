@@ -7,9 +7,12 @@ import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 
 const handlers = [
-  rest.get('http://localhost:4000/api/heroes', async (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({data}))
-  }),
+  rest.get(
+    `${process.env.REACT_APP_API_URL}/heroes`,
+    async (_req, res, ctx) => {
+      return res(ctx.status(200), ctx.json({data}))
+    },
+  ),
 ]
 const server = setupServer(...handlers)
 
