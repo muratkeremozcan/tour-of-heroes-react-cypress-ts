@@ -6,7 +6,7 @@ import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
 import {getItem} from '../api/api'
-import useAxios from 'api/useAxios'
+// import useAxios from 'api/useAxios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)

@@ -68,6 +68,15 @@ declare global {
        * Resets the data in the database to the initial data.
        */
       resetData(): Cypress.Chainable<Response<Hero[] & Hero>>
+
+      /**
+       * Gets an entity by name.
+       * ```js
+       * cy.getEntityByName(newHero.name).then(myHero => ...)
+       * ```
+       * @param name: Hero['name']
+       */
+      getEntityByName(name: Hero['name']): Cypress.Chainable<Hero>
     }
   }
 }

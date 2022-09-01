@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",
-    "start:api": "json-server --watch db.json --port 4000 --delay 1000 --routes routes.json --middlewares ./node_modules/json-server-reset",
+    "start:api": "yarn reset:db && json-server --watch db.json --port 4000 --delay 1000 --routes routes.json --middlewares ./node_modules/json-server-reset",
     "dev": "concurrently -k yarn:start yarn:start:api",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -13,6 +13,8 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|css|md|mdx|html)\"",
     "lint": "eslint . --cache-location node_modules/.cache/eslint",
     "typecheck": "tsc --noEmit",
+    "reset": "node ./scripts/reset-database.js",
+    "reset:db": "npm run reset",
     "validate": "npm-run-all --parallel format lint typecheck build cy:run-ct-fast",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
