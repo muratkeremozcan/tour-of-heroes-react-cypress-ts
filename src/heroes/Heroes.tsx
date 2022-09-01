@@ -4,14 +4,11 @@ import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import {useState} from 'react'
 import HeroDetail from './HeroDetail'
-import useAxios from './useAxios'
+import useAxios from '../api/useAxios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {data: heroes = [], status} = useAxios(
-    'GET',
-    'http://localhost:4000/api/heroes',
-  )
+  const {data: heroes = [], status} = useAxios('GET', 'heroes')
 
   console.log('heroes are ', heroes)
 

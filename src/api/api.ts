@@ -18,12 +18,12 @@ export type Hero = {id: string; name: string; description: string}
  */
 export const client = (
   method: CrudType,
-  baseURL: string,
+  route: string,
   {body, ...config}: CrudOptions = {},
 ) =>
   axios({
     method,
-    baseURL,
+    baseURL: `${process.env.REACT_APP_API_URL}/${route}`,
     data: method === 'POST' || method === 'PUT' ? body : undefined,
     ...config,
   })

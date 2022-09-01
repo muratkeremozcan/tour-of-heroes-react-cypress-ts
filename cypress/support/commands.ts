@@ -26,7 +26,7 @@ Cypress.Commands.add(
   ) =>
     cy.request<Hero[] & Hero>({
       method: method,
-      url: `http://localhost:4000/api/${route}`,
+      url: `${Cypress.env('API_URL')}/${route}`,
       body: method === 'POST' || method === 'PUT' ? body : undefined,
       retryOnStatusCodeFailure: !allowedToFail,
       failOnStatusCode: !allowedToFail,
