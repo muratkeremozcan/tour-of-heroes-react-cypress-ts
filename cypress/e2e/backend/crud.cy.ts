@@ -1,5 +1,5 @@
-import type {Hero} from '../../support/commands'
 import {faker} from '@faker-js/faker'
+import {Hero} from '../../../src/models/Hero'
 
 describe('Backend e2e', () => {
   const assertProperties = (entity: Hero) => {
@@ -8,7 +8,7 @@ describe('Backend e2e', () => {
     expect(entity.description).to.be.a('string')
   }
 
-  beforeEach(() => cy.resetData())
+  before(() => cy.resetData())
 
   it('should GET heroes and villains ', () => {
     cy.crud('GET', 'heroes')

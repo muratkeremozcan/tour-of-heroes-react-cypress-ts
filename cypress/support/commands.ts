@@ -34,3 +34,12 @@ Cypress.Commands.add(
 )
 
 Cypress.Commands.add('resetData', () => cy.crud('POST', 'reset', {body: data}))
+
+const {_} = Cypress
+Cypress.Commands.add('getEntityByName', (name: Hero['name']) =>
+  cy
+    .crud('GET', 'heroes')
+    .its('body')
+    .then((body: Hero[]) => _.filter(body, (hero: Hero) => hero.name === name))
+    .its(0),
+)
