@@ -3,43 +3,15 @@ import InputDetail from '../components/InputDetail'
 import {useState, ChangeEvent} from 'react'
 import ButtonFooter from '../components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
-import {useHeroParams} from './useHeroParams'
-import {createItem} from 'api/api'
-import {useMutation, useQueryClient} from 'react-query'
+import {useHeroParams} from '../hooks/useHeroParams'
+import {usePostHero} from '../hooks/usePostHero'
 import {Hero} from 'models/Hero'
 
 export default function HeroDetail() {
   const {id} = useParams()
   const {name, description} = useHeroParams()
   const [hero, setHero] = useState({id, name, description})
-
-  // why useMutation?
-  // useParams and useQuery fetch state: UI state <- server/url , and caches it
-  // useMutation is just the opposite: UI state -> server , and still caches it
-  // yields data, status, error just like useQuery (10.4.2)
-  // const { dataToMutate, status, error } = useMutation((url) => fetch(url) {.. non-idempotent (POST for example) ..})
-  // the first arg is a function that that executes a non-idempotent request
-  // the second arg is an object with onSuccess property
-  const queryClient = useQueryClient()
-  const {
-    mutate: createHero,
-    status,
-    error,
-  } = useMutation((item: Hero) => createItem('heroes', item), {
-    onSuccess: newData => {
-      //  use queryClient's setQueryData to set the cache
-      // takes a key as the first arg, the 2nd arg is a cb that takes the old query cache and returns the new one
-      // TODO: make the types better
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      queryClient.setQueryData('heroes', (oldData: any) => [
-        ...(oldData || []),
-        newData,
-      ])
-
-      // as an extra, we direct navigate to the new item
-      return navigate(`/heroes`)
-    },
-  })
+  const {mutate: createHero, status, error} = usePostHero()
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')
@@ -53,7 +25,6 @@ export default function HeroDetail() {
     // @ts-ignore
     return name ? updateHero() : saveHero(hero)
   }
-
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setHero({...hero, name: e.target.value})
   }

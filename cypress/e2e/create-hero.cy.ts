@@ -36,6 +36,7 @@ describe('Create hero', () => {
     cy.getByCy('input-detail-name').type(newHero.name)
     cy.getByCy('input-detail-description').type(newHero.description)
     cy.getByCy('save-button').click()
+
     cy.location('pathname').should('eq', '/heroes')
     cy.getByCy('hero-list')
       .should('be.visible')
