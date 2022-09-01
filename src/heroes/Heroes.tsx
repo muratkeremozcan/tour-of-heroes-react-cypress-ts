@@ -9,6 +9,7 @@ import useAxios from './useAxios'
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
   const {data: heroes = [], status} = useAxios(
+    'GET',
     'http://localhost:4000/api/heroes',
   )
 
