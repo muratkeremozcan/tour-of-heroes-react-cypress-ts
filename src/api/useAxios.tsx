@@ -1,14 +1,9 @@
 import {useEffect, useState} from 'react'
 // import axios, {AxiosResponse} from 'axios'
-import {client, CrudOptions} from '../api/api'
-import type {CrudType} from '../api/api'
+import {getItem} from '../api/api'
 
 /** Takes a url, returns an object of data, status & error */
-export default function useAxios(
-  method: CrudType,
-  url: string,
-  {body, ...config}: CrudOptions = {},
-) {
+export default function useAxios(url: string) {
   const [data, setData] = useState()
   const [error, setError] = useState(null)
   const [status, setStatus] = useState('idle')
@@ -26,7 +21,7 @@ export default function useAxios(
     setError(null)
     setStatus('loading')
 
-    client(method, url, {body, ...config})
+    getItem(url)
       .then(data => {
         if (doUpdate) {
           setData(data)
@@ -42,8 +37,7 @@ export default function useAxios(
       })
 
     return () => (doUpdate = false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [method, url, body])
+  }, [url])
 
   return {data, status, error}
 }

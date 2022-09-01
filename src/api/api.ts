@@ -2,31 +2,31 @@ import axios from 'axios'
 import {Hero} from '../models/Hero'
 
 export type CrudType = 'GET' | 'POST' | 'PUT' | 'DELETE'
-export type CrudOptions = {body?: Hero | object; config?: object}
+export type CrudOptions = {item?: Hero | object; config?: object}
 
-/**
- * Performs crud operations GET, POST, PUT and DELETE.
- *
- * `body` and `config` are optional.
- *
- * If the body is passed in and the method is `POST` or `PUT`, the payload will be taken,
- * otherwise undefined for `GET` and `DELETE`.
- * @param method
- * @param baseUrl
- * @param options: {CrudOptions}
- */
-export const client = (
-  method: CrudType,
-  route: string,
-  {body, ...config}: CrudOptions = {},
-) =>
+export const client = (route: string, method: CrudType, item?: Hero | object) =>
   axios({
     method,
     baseURL: `${process.env.REACT_APP_API_URL}/${route}`,
-    data: method === 'POST' || method === 'PUT' ? body : undefined,
-    ...config,
+    data: method === 'POST' || method === 'PUT' ? item : undefined,
   })
     .then(res => res.data)
     .catch(err => {
       throw Error(`There was a problem fetching data: ${err}`)
     })
+
+export function createItem(route: string, item: Hero | object) {
+  return client(route, 'POST', item)
+}
+
+export function editItem(route: string, item: Hero | object) {
+  return client(route, 'PUT', item)
+}
+
+export function deleteItem(route: string) {
+  return client(route, 'DELETE')
+}
+
+export function getItem(route: string) {
+  return client(route, 'GET')
+}

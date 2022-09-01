@@ -5,13 +5,12 @@ import ListHeader from '../components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
-import {client} from '../api/api'
+import {getItem} from '../api/api'
+import useAxios from 'api/useAxios'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
 
-  // const {data: heroes = [], status} = useAxios('GET', 'heroes')
-  // TRY: toggle useAxios ve useQuery to see the performance difference
   // increase the json-server timeout to see a bigger difference
   // useQuery is similar to our custom useAxios: takes a url, returns an object of data, status & error
   // the key arg is a unique identifier for the query / data in cache; string, array or object
@@ -21,8 +20,10 @@ export default function Heroes() {
   // React Query will return the previously fetched  data from its cache
   // and then fetch the latest data in the background (very similar to PWAs and service workers)
   const {data: heroes = [], status} = useQuery('heroes', () =>
-    client('GET', 'heroes'),
+    getItem('heroes'),
   )
+  // TRY: toggle useAxios ve useQuery to see the performance difference
+  // const {data: heroes = [], status} = useAxios('heroes')
 
   console.log('heroes are ', heroes)
 
