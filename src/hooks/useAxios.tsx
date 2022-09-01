@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 // import axios, {AxiosResponse} from 'axios'
-import {getItem} from '../api/api'
+import {getItem} from './api'
 
 /** Takes a url, returns an object of data, status & error */
 export default function useAxios(url: string) {
