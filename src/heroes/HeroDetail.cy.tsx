@@ -8,10 +8,6 @@ describe('HeroDetail', () => {
   let queryClient: QueryClient
   context('handleSave, handleCancel', () => {
     beforeEach(() => {
-      cy.window()
-        .its('console')
-        .then(console => cy.spy(console, 'log').as('log'))
-
       queryClient = new QueryClient()
       cy.mount(
         <QueryClientProvider client={queryClient}>
@@ -22,8 +18,9 @@ describe('HeroDetail', () => {
       )
     })
     it('should handle Save', () => {
+      cy.intercept('POST', '*', {statusCode: 200}).as('postHero')
       cy.getByCy('save-button').click()
-      cy.get('@log').should('have.been.calledWith', 'handleSave')
+      cy.wait('@postHero')
     })
 
     it('should handle Cancel', () => {

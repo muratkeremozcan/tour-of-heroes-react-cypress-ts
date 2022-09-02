@@ -6,7 +6,7 @@ import {Hero} from '../models/Hero'
 
 type HeroListProps = {
   heroes: Hero[]
-  handleDeleteHero: () => void // TODO: consider better type
+  handleDeleteHero: (hero: Hero) => void // TODO: consider better type
 }
 
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
@@ -28,7 +28,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
               <ButtonFooter
                 label="Delete"
                 IconClass={FaRegSave}
-                onClick={handleDeleteHero}
+                onClick={() => handleDeleteHero(hero)}
               />
               <ButtonFooter
                 label="Edit"

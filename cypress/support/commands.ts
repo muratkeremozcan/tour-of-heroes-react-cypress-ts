@@ -43,3 +43,19 @@ Cypress.Commands.add('getEntityByName', (name: Hero['name']) =>
     .then((body: Hero[]) => _.filter(body, (hero: Hero) => hero.name === name))
     .its(0),
 )
+
+Cypress.Commands.add('visitStubbedHeroes', () => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
+    fixture: 'heroes',
+  }).as('stubbedGetHeroes')
+  cy.visit('/')
+  cy.wait('@stubbedGetHeroes')
+  return cy.location('pathname').should('eq', '/heroes')
+})
+
+Cypress.Commands.add('visitHeroes', () => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
+  cy.visit('/')
+  cy.wait('@getHeroes')
+  return cy.location('pathname').should('eq', '/heroes')
+})

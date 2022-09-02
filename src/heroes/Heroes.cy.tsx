@@ -10,10 +10,6 @@ describe('Heroes', () => {
       fixture: 'heroes.json',
     }).as('getHeroes')
 
-    cy.window()
-      .its('console')
-      .then(console => cy.spy(console, 'log').as('log'))
-
     queryClient = new QueryClient()
     cy.mount(
       <QueryClientProvider client={queryClient}>
@@ -51,8 +47,10 @@ describe('Heroes', () => {
 
     cy.log('delete flow')
     invokeHeroDelete()
+    cy.intercept('DELETE', '*', {statusCode: 200}).as('deleteHero')
+
     cy.getByCy('button-yes').click()
+    cy.wait('@deleteHero')
     cy.getByCy('modal-yes-no').should('not.exist')
-    cy.get('@log').should('have.been.calledWith', 'handleDeleteFromModal')
   })
 })

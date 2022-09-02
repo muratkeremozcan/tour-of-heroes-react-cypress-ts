@@ -42,6 +42,12 @@ declare global {
         options?: MountOptions,
       ): Cypress.Chainable<MountReturn>
 
+      /** Visits baseUrl, uses real network, verifies path */
+      visitHeroes(): Cypress.Chainable<string>
+
+      /** Visits baseUrl, uses stubbed network, verifies path */
+      visitStubbedHeroes(): Cypress.Chainable<string>
+
       /**
        * Performs crud operations GET, POST, PUT and DELETE.
        *

@@ -5,29 +5,35 @@ import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
 import {useGetHeroes} from '../hooks/useGetHeroes'
+import {useDeleteHero} from 'hooks/useDeleteHero'
+import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const {data: heroes = [], status} = useGetHeroes()
+  const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   // TRY: toggle useAxios ve useQuery to see the performance difference
   // const {data: heroes = [], status} = useAxios('heroes')
-
-  // console.log('heroes are ', heroes)
+  const {deleteHero} = useDeleteHero()
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
   const handleRefresh = () => navigate('/heroes')
 
   const handleCloseModal = () => {
+    setHeroToDelete(null)
     setShowModal(false)
   }
-  const handleDeleteHero = () => {
+  const handleDeleteHero = (hero: Hero) => {
+    setHeroToDelete(hero)
     setShowModal(true)
   }
   const handleDeleteFromModal = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    deleteHero(heroToDelete)
     setShowModal(false)
-    console.log('handleDeleteFromModal')
   }
 
   if (status === 'error') {
