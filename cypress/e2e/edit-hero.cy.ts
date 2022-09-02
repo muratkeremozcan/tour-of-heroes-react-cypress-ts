@@ -25,6 +25,26 @@ describe('Edit hero', () => {
     cy.getByCy('hero-list').should('be.visible')
   })
 
+  it('should go through flow: edit -> add -> refresh  (ui-integration)', () => {
+    cy.visitStubbedHeroes()
+    cy.fixture('heroes').then(heroes => {
+      const heroIndex = Cypress._.random(0, heroes.length - 1)
+      verifyHero(heroes, heroIndex)
+
+      cy.getByCy('add-button').click()
+      cy.location('pathname').should('eq', '/heroes/add-hero')
+      cy.findByDisplayValue(heroes[heroIndex].id).should('not.exist')
+      cy.findByDisplayValue(heroes[heroIndex].name).should('not.exist')
+      cy.findByDisplayValue(heroes[heroIndex].description).should('not.exist')
+      cy.findByPlaceholderText('e.g. Colleen')
+      cy.findByPlaceholderText('e.g. dance fight!')
+
+      cy.getByCy('refresh-button').click()
+      cy.getByCy('hero-list').should('be.visible')
+      cy.getByCyLike('hero-list-item').should('have.length', heroes.length)
+    })
+  })
+
   it('should go through the edit flow (ui-e2e)', () => {
     cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
     cy.visit('/')
