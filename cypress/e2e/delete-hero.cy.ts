@@ -33,6 +33,8 @@ describe('Delete hero', () => {
           .should('be.visible')
           .should('not.contain', heroes[heroIndex].name)
           .and('not.contain', heroes[heroIndex].description)
+
+        cy.resetData()
       })
   })
 })

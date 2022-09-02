@@ -17,7 +17,6 @@ export default function HeroDetail() {
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')
   const handleSave = () => {
-    console.log('handleSave')
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return name ? updateHero(hero) : createHero(hero)
