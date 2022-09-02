@@ -71,7 +71,7 @@
     "lint-staged": "13.0.3",
     "msw": "0.46.0",
     "prettier": "2.7.1",
-    "react-query": "^3.39.2",
+    "react-query": "3.39.2",
     "start-server-and-test": "1.14.0",
     "ts-jest": "28.0.8"
   },
