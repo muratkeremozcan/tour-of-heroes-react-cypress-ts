@@ -1,10 +1,10 @@
 import {useNavigate, useParams} from 'react-router-dom'
-import InputDetail from '../components/InputDetail'
+import InputDetail from 'components/InputDetail'
 import {useState, ChangeEvent} from 'react'
-import ButtonFooter from '../components/ButtonFooter'
+import ButtonFooter from 'components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
-import {useHeroParams} from '../hooks/useHeroParams'
-import {usePostHero} from '../hooks/usePostHero'
+import {useHeroParams} from 'hooks/useHeroParams'
+import {usePostHero} from 'hooks/usePostHero'
 import {useEditHero} from 'hooks/useEditHero'
 
 export default function HeroDetail() {

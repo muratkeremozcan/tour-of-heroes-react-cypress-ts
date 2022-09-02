@@ -1,10 +1,10 @@
 import {useState} from 'react'
 import {useNavigate, Routes, Route} from 'react-router-dom'
-import ListHeader from '../components/ListHeader'
+import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
-import {useGetHeroes} from '../hooks/useGetHeroes'
+import {useGetHeroes} from 'hooks/useGetHeroes'
 import {useDeleteHero} from 'hooks/useDeleteHero'
 import {Hero} from 'models/Hero'
 

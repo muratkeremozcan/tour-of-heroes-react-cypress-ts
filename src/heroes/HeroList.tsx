@@ -1,8 +1,8 @@
 import {useNavigate} from 'react-router-dom'
-import CardContent from '../components/CardContent'
-import ButtonFooter from '../components/ButtonFooter'
+import CardContent from 'components/CardContent'
+import ButtonFooter from 'components/ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
-import {Hero} from '../models/Hero'
+import {Hero} from 'models/Hero'
 
 type HeroListProps = {
   heroes: Hero[]
