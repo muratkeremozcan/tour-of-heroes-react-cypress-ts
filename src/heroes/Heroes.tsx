@@ -13,7 +13,7 @@ export default function Heroes() {
   // TRY: toggle useAxios ve useQuery to see the performance difference
   // const {data: heroes = [], status} = useAxios('heroes')
 
-  console.log('heroes are ', heroes)
+  // console.log('heroes are ', heroes)
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')

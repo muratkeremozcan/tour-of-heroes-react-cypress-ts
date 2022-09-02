@@ -1,5 +1,5 @@
 import {useQuery} from 'react-query'
-import {getItem} from '../hooks/api'
+import {getItem} from './api'
 
 // useQuery is similar to our custom useAxios: takes a url, returns an object of data, status & error
 // the key arg is a unique identifier for the query / data in cache; string, array or object

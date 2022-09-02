@@ -5,25 +5,22 @@ import ButtonFooter from '../components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
 import {useHeroParams} from '../hooks/useHeroParams'
 import {usePostHero} from '../hooks/usePostHero'
-import {Hero} from 'models/Hero'
+import {useEditHero} from 'hooks/useEditHero'
 
 export default function HeroDetail() {
   const {id} = useParams()
   const {name, description} = useHeroParams()
   const [hero, setHero] = useState({id, name, description})
   const {mutate: createHero, status, error} = usePostHero()
+  const {updateHero, isUpdating, isUpdateError} = useEditHero()
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')
-  const updateHero = () => console.log('updateHero')
-  const saveHero = (hero: Hero) => {
-    createHero(hero)
-  }
   const handleSave = () => {
     console.log('handleSave')
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return name ? updateHero() : saveHero(hero)
+    return name ? updateHero(hero) : createHero(hero)
   }
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setHero({...hero, name: e.target.value})
@@ -32,11 +29,11 @@ export default function HeroDetail() {
     setHero({...hero, description: e.target.value})
   }
 
-  if (error) {
-    return <p>Error</p>
+  if (error || isUpdateError) {
+    return <p data-cy="error">there was an error</p>
   }
 
-  if (status === 'loading') {
+  if (status === 'loading' || isUpdating) {
     return <div>Loading...</div>
   }
 
