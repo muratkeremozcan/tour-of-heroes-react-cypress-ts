@@ -1,17 +1,17 @@
 import {useNavigate, useParams} from 'react-router-dom'
-import InputDetail from '../components/InputDetail'
+import InputDetail from 'components/InputDetail'
 import {useState, ChangeEvent} from 'react'
-import ButtonFooter from '../components/ButtonFooter'
+import ButtonFooter from 'components/ButtonFooter'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
-import {useHeroParams} from '../hooks/useHeroParams'
-import {usePostHero} from '../hooks/usePostHero'
+import {useHeroParams} from 'hooks/useHeroParams'
+import {usePostHero} from 'hooks/usePostHero'
 import {useEditHero} from 'hooks/useEditHero'
 
 export default function HeroDetail() {
   const {id} = useParams()
   const {name, description} = useHeroParams()
   const [hero, setHero] = useState({id, name, description})
-  const {mutate: createHero, status, error} = usePostHero()
+  const {mutate: createHero, status, error: postError} = usePostHero()
   const {updateHero, isUpdating, isUpdateError} = useEditHero()
 
   const navigate = useNavigate()
@@ -28,7 +28,7 @@ export default function HeroDetail() {
     setHero({...hero, description: e.target.value})
   }
 
-  if (error || isUpdateError) {
+  if (postError || isUpdateError) {
     return <p data-cy="error">there was an error</p>
   }
 

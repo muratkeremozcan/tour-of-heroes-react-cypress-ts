@@ -27,6 +27,7 @@ export default function useAxios(url: string) {
           setData(data)
           setStatus('success')
         }
+        console.log('data is', data)
       })
       .catch(error => {
         if (doUpdate) {
