@@ -49,7 +49,7 @@
     "@testing-library/user-event": "13.5.0",
     "@types/jest": "28.1.7",
     "@types/node": "16.11.49",
-    "@types/react": "18.0.17",
+    "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "@types/react-icons": "3.0.0",
     "@types/styled-components": "5.1.26",
