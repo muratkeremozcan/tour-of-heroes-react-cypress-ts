@@ -24,7 +24,7 @@ export function usePostHero() {
       // takes a key as the first arg, the 2nd arg is a cb that takes the old query cache and returns the new one
       // TODO: make the types better
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      queryClient.setQueryData('heroes', (oldData: any) => [
+      queryClient.setQueryData(['heroes'], (oldData: any) => [
         ...(oldData || []),
         newData,
       ])

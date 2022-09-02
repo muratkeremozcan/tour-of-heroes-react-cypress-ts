@@ -1,7 +1,9 @@
 import {faker} from '@faker-js/faker'
 
 describe('Create hero', () => {
-  before(() => cy.resetData())
+  before(cy.resetData)
+  after(cy.resetData)
+
   beforeEach(() => {
     cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
     cy.visit('/')
