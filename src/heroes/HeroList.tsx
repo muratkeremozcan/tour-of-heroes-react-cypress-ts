@@ -6,7 +6,7 @@ import {Hero} from '../models/Hero'
 
 type HeroListProps = {
   heroes: Hero[]
-  handleDeleteHero: (hero: Hero) => void // TODO: consider better type
+  handleDeleteHero: (hero: Hero) => void
 }
 
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {

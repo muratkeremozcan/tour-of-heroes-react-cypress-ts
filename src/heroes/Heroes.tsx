@@ -10,12 +10,11 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-
-  const {data: heroes = [], status} = useGetHeroes()
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
+  const {data: heroes = [], status, error: getError} = useGetHeroes()
   // TRY: toggle useAxios ve useQuery to see the performance difference
   // const {data: heroes = [], status} = useAxios('heroes')
-  const {deleteHero} = useDeleteHero()
+  const {deleteHero, isDeleteError} = useDeleteHero()
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
@@ -30,13 +29,12 @@ export default function Heroes() {
     setShowModal(true)
   }
   const handleDeleteFromModal = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    deleteHero(heroToDelete)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    deleteHero(heroToDelete!)
     setShowModal(false)
   }
 
-  if (status === 'error') {
+  if (getError || isDeleteError) {
     return <p data-cy="error">there was an error</p>
   }
 
