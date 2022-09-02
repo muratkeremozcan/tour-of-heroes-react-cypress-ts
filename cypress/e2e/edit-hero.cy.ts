@@ -3,7 +3,6 @@ import {Hero} from '../../src/models/Hero'
 
 describe('Edit hero', () => {
   before(cy.resetData)
-  after(cy.resetData)
 
   const verifyHero = (heroes: Hero[], heroIndex: number) => {
     expect(heroes.length).to.be.greaterThan(0)
@@ -18,13 +17,7 @@ describe('Edit hero', () => {
   }
 
   it('should go through the cancel edit flow (ui-integration)', () => {
-    cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
-      fixture: 'heroes',
-    }).as('stubbedGetHeroes')
-    cy.visit('/')
-    cy.wait('@stubbedGetHeroes')
-    cy.location('pathname').should('eq', '/heroes')
-
+    cy.visitStubbedHeroes()
     cy.fixture('heroes').then(heroes => verifyHero(heroes, 0))
 
     cy.getByCy('cancel-button').click()
@@ -61,6 +54,8 @@ describe('Edit hero', () => {
           .should('be.visible')
           .should('contain', editedHero.name)
           .and('contain', editedHero.description)
+
+        cy.resetData()
       })
   })
 })
