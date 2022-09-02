@@ -44,12 +44,8 @@ export default function HeroDetail() {
       </header>
       <div className="card-content">
         <div className="content">
-          {hero.id && (
-            <InputDetail
-              name={'id'}
-              value={hero.id}
-              readOnly={true}
-            ></InputDetail>
+          {id && (
+            <InputDetail name={'id'} value={id} readOnly={true}></InputDetail>
           )}
           <InputDetail
             name={'name'}
