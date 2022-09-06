@@ -1,10 +1,10 @@
 import Modal from './Modal'
-import {SyntheticEvent} from 'react'
+import {MouseEvent} from 'react'
 
 type ModalYesNoProps = {
   message: string
-  onYes: (e: SyntheticEvent) => void
-  onNo: (e: SyntheticEvent) => void
+  onYes: (e: MouseEvent<HTMLButtonElement>) => void
+  onNo: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 export default function ModalYesNo({message, onYes, onNo}: ModalYesNoProps) {

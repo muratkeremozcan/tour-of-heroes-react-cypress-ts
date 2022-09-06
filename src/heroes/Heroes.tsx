@@ -24,7 +24,8 @@ export default function Heroes() {
     setHeroToDelete(null)
     setShowModal(false)
   }
-  const handleDeleteHero = (hero: Hero) => {
+  // currying: the outer fn takes our custom arg and returns a fn that takes the event
+  const handleDeleteHero = (hero: Hero) => () => {
     setHeroToDelete(hero)
     setShowModal(true)
   }

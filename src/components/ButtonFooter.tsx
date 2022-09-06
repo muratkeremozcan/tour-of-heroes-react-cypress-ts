@@ -1,10 +1,10 @@
 import {FaUndo, FaRegSave, FaEdit, FaTrash} from 'react-icons/fa'
-import {SyntheticEvent} from 'react'
+import {MouseEvent} from 'react'
 
 type ButtonFooterProps = {
   label: 'Cancel' | 'Save' | 'Edit' | 'Delete'
   IconClass: typeof FaUndo | typeof FaRegSave | typeof FaEdit | typeof FaTrash
-  onClick: (e: SyntheticEvent) => void
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 export default function ButtonFooter({
