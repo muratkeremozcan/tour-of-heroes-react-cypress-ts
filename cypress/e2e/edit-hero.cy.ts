@@ -36,8 +36,8 @@ describe('Edit hero', () => {
       cy.findByDisplayValue(heroes[heroIndex].id).should('not.exist')
       cy.findByDisplayValue(heroes[heroIndex].name).should('not.exist')
       cy.findByDisplayValue(heroes[heroIndex].description).should('not.exist')
-      cy.findByPlaceholderText('e.g. Colleen')
-      cy.findByPlaceholderText('e.g. dance fight!')
+      cy.findByPlaceholderText('e.g. Colleen').should('be.visible')
+      cy.findByPlaceholderText('e.g. dance fight!').should('be.visible')
 
       cy.getByCy('refresh-button').click()
       cy.getByCy('hero-list').should('be.visible')

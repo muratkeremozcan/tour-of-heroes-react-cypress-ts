@@ -1,12 +1,12 @@
-import {SyntheticEvent} from 'react'
+import {MouseEvent} from 'react'
 import {NavLink} from 'react-router-dom'
 import {FiRefreshCcw} from 'react-icons/fi'
 import {GrAdd} from 'react-icons/gr'
 
 type ListHeaderProps = {
   title: 'Heroes' | 'Villains' | 'About'
-  handleAdd: (e: SyntheticEvent) => void
-  handleRefresh: (e: SyntheticEvent) => void
+  handleAdd: (e: MouseEvent<HTMLButtonElement>) => void
+  handleRefresh: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 export default function ListHeader({

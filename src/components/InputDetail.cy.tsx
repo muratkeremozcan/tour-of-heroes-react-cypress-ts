@@ -2,11 +2,12 @@ import InputDetail from './InputDetail'
 import '../styles.scss'
 
 describe('InputDetail', () => {
+  const placeholder = 'Aslaug'
+  const name = 'name'
+  const value = 'some value'
+  const newValue = '42'
+
   it('should allow the input field to be modified', () => {
-    const placeholder = 'Aslaug'
-    const name = 'name'
-    const value = 'some value'
-    const newValue = '42'
     cy.mount(
       <InputDetail
         name={name}
@@ -23,9 +24,6 @@ describe('InputDetail', () => {
   })
 
   it('should not allow the input field to be modified', () => {
-    const placeholder = 'Aslaug'
-    const name = 'name'
-    const value = 'some value'
     cy.mount(
       <InputDetail
         name={name}

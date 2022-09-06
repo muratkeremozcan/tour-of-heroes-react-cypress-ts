@@ -20,7 +20,10 @@ const Modal = ({children}: ModalProps) => {
     const currentEl = el.current
 
     modalRoot!.appendChild(currentEl)
-    return () => void modalRoot!.removeChild(currentEl)
+
+    return () => {
+      modalRoot!.removeChild(currentEl)
+    }
   }, [modalRoot])
 
   return createPortal(children, el.current)
