@@ -1,40 +1,36 @@
+import {faker} from '@faker-js/faker'
+import {Hero} from '../../src/models/Hero'
 describe('Delete hero', () => {
   before(cy.resetData)
 
-  beforeEach(() => {
-    cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
-    cy.visit('/')
-    cy.wait('@getHeroes')
-  })
-
-  it('should go through the cancel flow', () => {
+  it('should go through the cancel flow (ui-integration)', () => {
     cy.visitStubbedHeroes()
 
     cy.getByCy('delete-button').first().click()
     cy.getByCy('modal-yes-no').within(() => cy.getByCy('button-no').click())
+    cy.getByCy('heroes').should('be.visible')
+    cy.get('modal-yes-no').should('not.exist')
   })
 
   it('should go through the edit flow (ui-e2e)', () => {
+    const hero: Hero = {
+      id: faker.datatype.uuid(),
+      name: faker.internet.userName(),
+      description: `description ${faker.internet.userName()}`,
+    }
+
+    cy.crud('POST', 'heroes', {body: hero})
+
     cy.visitHeroes()
 
-    cy.crud('GET', 'heroes')
-      .its('body')
-      .then(heroes => {
-        const heroIndex = Cypress._.random(0, heroes.length - 1)
+    cy.findHeroIndex(hero.id).then(({heroIndex, heroesArray}) => {
+      cy.getByCy('delete-button').eq(heroIndex).click()
+      cy.getByCy('modal-yes-no').within(() => cy.getByCy('button-yes').click())
 
-        cy.getByCyLike('hero-list-item').should('have.length', heroes.length)
-
-        cy.getByCy('delete-button').eq(heroIndex).click()
-        cy.getByCy('modal-yes-no').within(() =>
-          cy.getByCy('button-yes').click(),
-        )
-
-        cy.getByCy('hero-list')
-          .should('be.visible')
-          .should('not.contain', heroes[heroIndex].name)
-          .and('not.contain', heroes[heroIndex].description)
-
-        cy.resetData()
-      })
+      cy.getByCy('hero-list')
+        .should('be.visible')
+        .should('not.contain', heroesArray[heroIndex].name)
+        .and('not.contain', heroesArray[heroIndex].description)
+    })
   })
 })

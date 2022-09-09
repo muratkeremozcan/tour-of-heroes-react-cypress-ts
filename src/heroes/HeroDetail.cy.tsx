@@ -1,8 +1,7 @@
 import HeroDetail from './HeroDetail'
-import '../styles.scss'
-import React from 'react'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
+import '../styles.scss'
 
 describe('HeroDetail', () => {
   let queryClient: QueryClient
@@ -17,8 +16,9 @@ describe('HeroDetail', () => {
         </QueryClientProvider>,
       )
     })
+
     it('should handle Save', () => {
-      cy.intercept('POST', '*', {statusCode: 200}).as('postHero')
+      cy.intercept('POST', '*', {statusCode: 400}).as('postHero')
       cy.getByCy('save-button').click()
       cy.wait('@postHero')
     })
@@ -31,8 +31,6 @@ describe('HeroDetail', () => {
 
   context('handleNameChange, handleDescriptionChange', () => {
     beforeEach(() => {
-      cy.spy(React, 'useState').as('useState')
-
       queryClient = new QueryClient()
       cy.mount(
         <QueryClientProvider client={queryClient}>
@@ -47,13 +45,14 @@ describe('HeroDetail', () => {
       const newHeroName = 'abc'
       cy.getByCy('input-detail-name').type(newHeroName)
 
-      cy.get('@useState').should('have.been.called')
+      cy.findByDisplayValue(newHeroName).should('be.visible')
     })
 
     it('should handle description change', () => {
       const newHeroDescription = '123'
       cy.getByCy('input-detail-description').type(newHeroDescription)
-      cy.get('@useState').should('have.been.called')
+
+      cy.findByDisplayValue(newHeroDescription).should('be.visible')
     })
   })
 

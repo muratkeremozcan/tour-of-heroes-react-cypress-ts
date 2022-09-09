@@ -3,7 +3,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'chai-friendly', 'no-only-tests'],
   extends: [
-    'react-app',
+    // 'react-app', // error: ESLint couldn't determine the plugin "@typescript-eslint" uniquely.'react-app',
     'react-app/jest',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',

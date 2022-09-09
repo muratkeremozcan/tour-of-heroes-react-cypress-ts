@@ -8,7 +8,7 @@ import {editItem} from './api'
  * Helper for PUT to `/heroes` route
  * @returns {object} {updateHero, isUpdating, isUpdateError, updateError}
  */
-export function useEditHero() {
+export function usePutHero() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const mutation = useMutation(
@@ -30,18 +30,22 @@ export function useEditHero() {
 }
 
 /** Replace a hero in the cache with the updated version. */
-function updateHeroesCache(hero: Hero, queryClient: QueryClient) {
+function updateHeroesCache(updatedHero: Hero, queryClient: QueryClient) {
   // get all the heroes from the cache
-  let heroes: Hero[] = queryClient.getQueryData('heroes') || []
+  let heroesCache: Hero[] = queryClient.getQueryData('heroes') || []
 
   // find the index in the cache of the hero that's been edited
-  const heroIndex = heroes.findIndex(h => h.id === hero.id)
+  const heroIndex = heroesCache.findIndex(h => h.id === updatedHero.id)
 
-  // if the hero is found, replace the pre-edited hero with the edited one
   if (heroIndex !== -1) {
-    heroes = heroes.map(h => (h.id !== hero.id ? h : hero))
+    // if the hero is found, replace the pre-edited hero with the updated one
+    // this is just replacing an array item in place,
+    // while not mutating the original array
+    heroesCache = heroesCache.map(preEditedHero =>
+      preEditedHero.id === updatedHero.id ? updatedHero : preEditedHero,
+    )
     // use queryClient's setQueryData to set the cache
     // takes a key as the first arg, the 2nd arg is the new cache
-    return queryClient.setQueryData(['heroes'], heroes)
+    return queryClient.setQueryData(['heroes'], heroesCache)
   } else return null
 }

@@ -9,10 +9,6 @@ describe('HeaderBar', () => {
         <HeaderBar />
       </BrowserRouter>,
     )
-
-    cy.getByCy('header-bar').within(() => {
-      cy.findByRole('navigation')
-      cy.getByCy('header-bar-brand')
-    })
+    cy.getByCy('header-bar-brand')
   })
 })

@@ -10,10 +10,8 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {data: heroes = [], status, error: getError} = useGetHeroes()
-  // TRY: toggle useAxios ve useQuery to see the performance difference
-  // const {data: heroes = [], status} = useAxios('heroes')
+  const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {deleteHero, isDeleteError} = useDeleteHero()
 
   const navigate = useNavigate()

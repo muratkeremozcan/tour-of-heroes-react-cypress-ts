@@ -19,17 +19,14 @@ export function usePostHero() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   return useMutation((item: Hero) => createItem('heroes', item), {
-    onSuccess: newData => {
+    onSuccess: (newData: Hero) => {
       //  use queryClient's setQueryData to set the cache
       // takes a key as the first arg, the 2nd arg is a cb that takes the old query cache and returns the new one
-      // TODO: make the types better
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      queryClient.setQueryData(['heroes'], (oldData: any) => [
+      queryClient.setQueryData(['heroes'], (oldData: Hero[] | undefined) => [
         ...(oldData || []),
         newData,
       ])
 
-      // as an extra, we direct navigate to the new item
       return navigate(`/heroes`)
     },
   })

@@ -1,4 +1,4 @@
-describe('e2e sanity', () => {
+describe('routes navigation (ui-integration)', () => {
   beforeEach(() => {
     cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
       fixture: 'heroes',
