@@ -10,7 +10,7 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {data: heroes = [], status, error: getError} = useGetHeroes()
+  const {heroes, status, getError} = useGetHeroes()
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {deleteHero, isDeleteError} = useDeleteHero()
 
