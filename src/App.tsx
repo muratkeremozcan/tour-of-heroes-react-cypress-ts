@@ -21,22 +21,22 @@ const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <HeaderBar />
-        <div className="section columns">
-          <NavBar />
-          <main className="column">
+    <BrowserRouter>
+      <HeaderBar />
+      <div className="section columns">
+        <NavBar />
+        <main className="column">
+          <QueryClientProvider client={queryClient}>
             <Routes>
               <Route path="/" element={<Navigate replace to="/heroes" />} />
               <Route path="/heroes/*" element={<Heroes />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-    </QueryClientProvider>
+          </QueryClientProvider>
+        </main>
+      </div>
+    </BrowserRouter>
   )
 }
 
