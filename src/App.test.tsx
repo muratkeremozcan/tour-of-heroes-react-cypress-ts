@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
-import heroes from '../cypress/fixtures/heroes.json'
+// import heroes from '../cypress/fixtures/heroes.json'
+import {heroes} from '../db.json'
 
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
