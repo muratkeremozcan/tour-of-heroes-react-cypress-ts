@@ -11,12 +11,10 @@ import {getItem} from './api'
 
 /**
  * Helper for GET to `/heroes` route
- * @returns {object} {data, status, error}
+ * @returns {object} {heroes, status, getError}
  */
 export const useGetHeroes = () => {
   const query = useQuery('heroes', () => getItem('heroes'))
-
-  console.log('data is :', query.data)
 
   return {
     heroes: query.data,

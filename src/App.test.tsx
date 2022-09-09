@@ -33,11 +33,12 @@ afterAll(() => {
 test('renders tour of heroes', async () => {
   render(<App />)
 
+  expect(screen.getByText('loading...')).toBeVisible()
+
   await userEvent.click(screen.getByText('About'))
   expect(screen.getByTestId('about')).toBeVisible()
 
   await userEvent.click(screen.getByText('Heroes'))
-
   expect(screen.getByTestId('heroes')).toBeVisible()
 })
 
