@@ -49,6 +49,25 @@ declare global {
       visitStubbedHeroes(): Cypress.Chainable<string>
 
       /**
+       * Gets an entity by name.
+       * ```js
+       * cy.getEntityByName(newHero.name).then(myHero => ...)
+       * ```
+       * @param name: Hero['name']
+       */
+      getEntityByProperty(
+        property: Hero['name'] | Hero['description'] | Hero['id'],
+      ): Cypress.Chainable<Hero>
+
+      /**
+       * Given a hero property (name, description or id),
+       * returns the index of the hero, and the entire collection, as an object.
+       */
+      findHeroIndex(
+        property: Hero['name'] | Hero['description'] | Hero['id'],
+      ): Cypress.Chainable<{heroIndex: number; heroesArray: Hero[]}>
+
+      /**
        * Performs crud operations GET, POST, PUT and DELETE.
        *
        * `body` and `allowedToFail are optional.
@@ -74,15 +93,6 @@ declare global {
        * Resets the data in the database to the initial data.
        */
       resetData(): Cypress.Chainable<Response<Hero[] & Hero>>
-
-      /**
-       * Gets an entity by name.
-       * ```js
-       * cy.getEntityByName(newHero.name).then(myHero => ...)
-       * ```
-       * @param name: Hero['name']
-       */
-      getEntityByName(name: Hero['name']): Cypress.Chainable<Hero>
     }
   }
 }

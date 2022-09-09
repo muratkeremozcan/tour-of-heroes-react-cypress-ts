@@ -1,5 +1,4 @@
 import {faker} from '@faker-js/faker'
-
 describe('Create hero', () => {
   before(cy.resetData)
 
@@ -11,11 +10,23 @@ describe('Create hero', () => {
     cy.getByCy('input-detail-id').should('not.exist')
   }
 
-  it('should go through the cancel flow (ui-integration)', () => {
+  it('should go through the refresh flow (ui-integration)', () => {
     cy.visitStubbedHeroes()
     navToAddHero()
 
     cy.getByCy('refresh-button').click()
+    cy.location('pathname').should('eq', '/heroes')
+    cy.getByCy('hero-list').should('be.visible')
+  })
+
+  it('should go through the cancel flow and perform direct navigation (ui-integration)', () => {
+    cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
+      fixture: 'heroes',
+    }).as('stubbedGetHeroes')
+    cy.visit('/heroes/add-hero')
+    cy.wait('@stubbedGetHeroes')
+
+    cy.getByCy('cancel-button').click()
     cy.location('pathname').should('eq', '/heroes')
     cy.getByCy('hero-list').should('be.visible')
   })
@@ -28,18 +39,19 @@ describe('Create hero', () => {
       name: faker.internet.userName(),
       description: `description ${faker.internet.userName()}`,
     }
-
     cy.getByCy('input-detail-name').type(newHero.name)
     cy.getByCy('input-detail-description').type(newHero.description)
     cy.getByCy('save-button').click()
 
     cy.location('pathname').should('eq', '/heroes')
+
+    cy.getByCy('heroes').should('be.visible')
+    cy.getByCyLike('hero-list-item').should('have.length.gt', 0)
     cy.getByCy('hero-list')
-      .should('be.visible')
       .should('contain', newHero.name)
       .and('contain', newHero.description)
 
-    cy.getEntityByName(newHero.name).then(myHero =>
+    cy.getEntityByProperty(newHero.name).then(myHero =>
       cy.crud('DELETE', `heroes/${myHero.id}`),
     )
   })

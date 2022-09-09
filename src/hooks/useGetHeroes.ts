@@ -13,6 +13,4 @@ import {getItem} from './api'
  * Helper for GET to `/heroes` route
  * @returns {object} {data, status, error}
  */
-export function useGetHeroes() {
-  return useQuery('heroes', () => getItem('heroes'))
-}
+export const useGetHeroes = () => useQuery('heroes', () => getItem('heroes'))

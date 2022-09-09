@@ -1,26 +1,24 @@
-import {useNavigate, useParams} from 'react-router-dom'
-import InputDetail from 'components/InputDetail'
 import {useState, ChangeEvent} from 'react'
-import ButtonFooter from 'components/ButtonFooter'
+import {useNavigate, useParams} from 'react-router-dom'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
+import InputDetail from 'components/InputDetail'
+import ButtonFooter from 'components/ButtonFooter'
 import {useHeroParams} from 'hooks/useHeroParams'
 import {usePostHero} from 'hooks/usePostHero'
-import {useEditHero} from 'hooks/useEditHero'
+import {Hero} from 'models/Hero'
+import {usePutHero} from 'hooks/usePutHero'
 
 export default function HeroDetail() {
   const {id} = useParams()
   const {name, description} = useHeroParams()
   const [hero, setHero] = useState({id, name, description})
   const {mutate: createHero, status, error: postError} = usePostHero()
-  const {updateHero, isUpdating, isUpdateError} = useEditHero()
+  const {updateHero, isUpdating, isUpdateError} = usePutHero()
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')
-  const handleSave = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return name ? updateHero(hero) : createHero(hero)
-  }
+  const handleSave = () =>
+    name ? updateHero(hero as Hero) : createHero(hero as Hero)
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setHero({...hero, name: e.target.value})
   }

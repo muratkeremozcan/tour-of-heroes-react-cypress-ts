@@ -15,18 +15,12 @@ export const client = (route: string, method: CrudType, item?: Hero | object) =>
       throw Error(`There was a problem fetching data: ${err}`)
     })
 
-export function createItem(route: string, item: Hero | object) {
-  return client(route, 'POST', item)
-}
+export const createItem = (route: string, item: Hero | object) =>
+  client(route, 'POST', item)
 
-export function editItem(route: string, item: Hero | object) {
-  return client(route, 'PUT', item)
-}
+export const editItem = (route: string, item: Hero | object) =>
+  client(route, 'PUT', item)
 
-export function deleteItem(route: string) {
-  return client(route, 'DELETE')
-}
+export const deleteItem = (route: string) => client(route, 'DELETE')
 
-export function getItem(route: string) {
-  return client(route, 'GET')
-}
+export const getItem = (route: string) => client(route, 'GET')

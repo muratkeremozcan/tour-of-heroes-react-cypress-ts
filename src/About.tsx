@@ -1,5 +1,3 @@
-import React from 'react'
-
 const About = () => (
   <div data-cy="about" className="content-container">
     <div className="content-title-group not-found">
@@ -9,7 +7,7 @@ const About = () => (
         using Cypress component and e2e testing to develop a React application.
         There are many versions of Angular's Tour of Heroes tutorial and John
         Papa has re-created them in Angular, Vue and React. The 3 apps are
-        consistent in their styles and design decisions. This up inspires from
+        consistent in their styles and design decisions. This one inspires from
         them, uses CCTDD and takes variances along the way.
       </p>
 

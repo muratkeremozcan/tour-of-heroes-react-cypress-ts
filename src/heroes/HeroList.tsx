@@ -13,10 +13,10 @@ type HeroListProps = {
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const navigate = useNavigate()
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleSelectHero = (id: string) => () => {
-    const hero = heroes.find((h: Hero) => h.id === id)
+  const handleSelectHero = (heroId: string) => () => {
+    const hero = heroes.find((h: Hero) => h.id === heroId)
     navigate(
-      `/heroes/edit-hero/${id}?name=${hero?.name}&description=${hero?.description}`,
+      `/heroes/edit-hero/${hero?.id}?name=${hero?.name}&description=${hero?.description}`,
     )
   }
 

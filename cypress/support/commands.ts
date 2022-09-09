@@ -1,4 +1,3 @@
-import '@testing-library/cypress/add-commands'
 import {Hero} from '../../src/models/Hero'
 import data from '../fixtures/db.json'
 
@@ -36,12 +35,27 @@ Cypress.Commands.add(
 Cypress.Commands.add('resetData', () => cy.crud('POST', 'reset', {body: data}))
 
 const {_} = Cypress
-Cypress.Commands.add('getEntityByName', (name: Hero['name']) =>
-  cy
-    .crud('GET', 'heroes')
-    .its('body')
-    .then((body: Hero[]) => _.filter(body, (hero: Hero) => hero.name === name))
+
+type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
+
+const propExists = (property: HeroProperty) => (hero: Hero) =>
+  hero.name === property ||
+  hero.description === property ||
+  hero.id === property
+
+const getHeroes = () => cy.crud('GET', 'heroes').its('body')
+
+Cypress.Commands.add('getEntityByProperty', (property: HeroProperty) =>
+  getHeroes()
+    .then((body: Hero[]) => _.filter(body, propExists(property)))
     .its(0),
+)
+
+Cypress.Commands.add('findHeroIndex', (property: HeroProperty) =>
+  getHeroes().then((body: Hero[]) => ({
+    heroIndex: _.findIndex(body, propExists(property)),
+    heroesArray: body,
+  })),
 )
 
 Cypress.Commands.add('visitStubbedHeroes', () => {

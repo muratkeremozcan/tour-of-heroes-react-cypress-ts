@@ -15,6 +15,7 @@ export function useDeleteHero() {
     (item: Hero) => deleteItem(`heroes/${item.id}`),
     {
       // on success receives the original item as a second argument
+      // if you recall, the first argument is the created item
       onSuccess: (_, deletedHero: Hero) => {
         // get all the heroes from the cache
         const heroes: Hero[] = queryClient.getQueryData(['heroes']) || []

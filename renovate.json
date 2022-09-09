@@ -10,7 +10,7 @@
   "dependencyDashboardApproval": false,
   "packageRules": [
     {
-      "packageNames": ["node", "husky"],
+      "packageNames": ["node", "husky", "typescript"],
       "enabled": false
     }
   ]
