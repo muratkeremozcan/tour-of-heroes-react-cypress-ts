@@ -3,6 +3,8 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
 import InputDetail from 'components/InputDetail'
 import ButtonFooter from 'components/ButtonFooter'
+import PageSpinner from 'components/PageSpinner'
+import ErrorComp from 'components/ErrorComp'
 import {useHeroParams} from 'hooks/useHeroParams'
 import {usePostHero} from 'hooks/usePostHero'
 import {Hero} from 'models/Hero'
@@ -27,11 +29,11 @@ export default function HeroDetail() {
   }
 
   if (postError || isUpdateError) {
-    return <p data-cy="error">there was an error</p>
+    return <ErrorComp />
   }
 
   if (status === 'loading' || isUpdating) {
-    return <div>Loading...</div>
+    return <PageSpinner />
   }
 
   return (

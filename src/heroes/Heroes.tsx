@@ -2,6 +2,8 @@ import {useState} from 'react'
 import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
+import PageSpinner from 'components/PageSpinner'
+import ErrorComp from 'components/ErrorComp'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
 import {useGetHeroes} from 'hooks/useGetHeroes'
@@ -34,11 +36,11 @@ export default function Heroes() {
   }
 
   if (getError || isDeleteError) {
-    return <p data-cy="error">there was an error</p>
+    return <ErrorComp />
   }
 
   if (status === 'loading') {
-    return <div>loading...</div>
+    return <PageSpinner />
   }
 
   return (

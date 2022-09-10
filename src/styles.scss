@@ -166,3 +166,31 @@ button.link {
   border: none;
   cursor: pointer;
 }
+
+.page-loading {
+  font-size: 300%;
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.icon-loading {
+  animation: circle 1.2s steps(8) infinite;
+}
+
+@keyframes circle {
+  from {
+    transform: rotate(90deg);
+  }
+
+  to {
+    transform: rotate(450deg);
+  }
+}

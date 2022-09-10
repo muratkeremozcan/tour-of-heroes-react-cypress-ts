@@ -1,7 +1,6 @@
-import {render, screen} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
-// import heroes from '../cypress/fixtures/heroes.json'
 import {heroes} from '../db.json'
 
 import {rest} from 'msw'
@@ -33,8 +32,7 @@ afterAll(() => {
 
 test('renders tour of heroes', async () => {
   render(<App />)
-
-  expect(screen.getByText('loading...')).toBeVisible()
+  await act(() => new Promise(r => setTimeout(r, 0))) // spinner
 
   await userEvent.click(screen.getByText('About'))
   expect(screen.getByTestId('about')).toBeVisible()

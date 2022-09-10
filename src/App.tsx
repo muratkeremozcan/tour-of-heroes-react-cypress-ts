@@ -1,13 +1,46 @@
+import {lazy, Suspense} from 'react'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
-import About from 'About'
+import {ErrorBoundary} from 'react-error-boundary'
 import HeaderBar from 'components/HeaderBar'
 import NavBar from 'components/NavBar'
-import NotFound from 'components/NotFound'
-import Heroes from 'heroes/Heroes'
+import PageSpinner from 'components/PageSpinner'
+import ErrorComp from 'components/ErrorComp'
 import './styles.scss'
+const Heroes = lazy(() => import('heroes/Heroes'))
+const NotFound = lazy(
+  () => import(/* webpackPrefetch: tru */ 'components/NotFound'),
+)
+const About = lazy(() => import(/* webpackPrefetch: tru */ 'About'))
 
 const queryClient = new QueryClient()
+
+function App() {
+  return (
+    <BrowserRouter>
+      <HeaderBar />
+      <div className="section columns">
+        <NavBar />
+        <main className="column">
+          <QueryClientProvider client={queryClient}>
+            <ErrorBoundary fallback={<ErrorComp />}>
+              <Suspense fallback={<PageSpinner />}>
+                <Routes>
+                  <Route path="/" element={<Navigate replace to="/heroes" />} />
+                  <Route path="/heroes/*" element={<Heroes />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
+          </QueryClientProvider>
+        </main>
+      </div>
+    </BrowserRouter>
+  )
+}
+
+export default App
 
 // why react-query? https://react-query.tanstack.com/
 // to prevent duplicated data-fetching, we want to move all the data-fetching code into a central store
@@ -18,26 +51,3 @@ const queryClient = new QueryClient()
 
 // For components to access a shared React Query cache,
 // we make the cache available by wrapping our app JSX in a provider component
-
-function App() {
-  return (
-    <BrowserRouter>
-      <HeaderBar />
-      <div className="section columns">
-        <NavBar />
-        <main className="column">
-          <QueryClientProvider client={queryClient}>
-            <Routes>
-              <Route path="/" element={<Navigate replace to="/heroes" />} />
-              <Route path="/heroes/*" element={<Heroes />} />
-              <Route path="/about" element={<About />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </QueryClientProvider>
-        </main>
-      </div>
-    </BrowserRouter>
-  )
-}
-
-export default App
