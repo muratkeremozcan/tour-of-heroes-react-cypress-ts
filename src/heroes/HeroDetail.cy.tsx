@@ -18,9 +18,17 @@ describe('HeroDetail', () => {
     })
 
     it('should handle Save', () => {
-      cy.intercept('POST', '*', {statusCode: 400}).as('postHero')
+      cy.intercept('POST', '*', {statusCode: 200}).as('postHero')
       cy.getByCy('save-button').click()
       cy.wait('@postHero')
+    })
+
+    it('should handle non-200 Save', () => {
+      cy.intercept('POST', '*', {statusCode: 400, delay: 100}).as('postHero')
+      cy.getByCy('save-button').click()
+      cy.getByCy('spinner')
+      cy.wait('@postHero')
+      cy.getByCy('error')
     })
 
     it('should handle Cancel', () => {
