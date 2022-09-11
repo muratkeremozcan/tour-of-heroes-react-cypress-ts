@@ -4,7 +4,7 @@ import '../styles.scss'
 import heroes from '../../cypress/fixtures/heroes.json'
 
 describe('HeroList', () => {
-  it('should render the item layout', () => {
+  beforeEach(() => {
     cy.mount(
       <BrowserRouter>
         <HeroList
@@ -13,7 +13,8 @@ describe('HeroList', () => {
         />
       </BrowserRouter>,
     )
-
+  })
+  it('should render the item layout', () => {
     cy.getByCyLike('hero-list-item').should('have.length', heroes.length)
 
     cy.getByCy('card-content')
@@ -26,17 +27,17 @@ describe('HeroList', () => {
     })
   })
 
+  it('should search for items', () => {
+    cy.getByCy('search').type(heroes[0].name)
+    cy.getByCy('hero-list').should('have.length', 1).contains(heroes[0].name)
+
+    cy.getByCy('search').clear().type(heroes[2].description)
+    cy.getByCy('hero-list')
+      .should('have.length', 1)
+      .contains(heroes[2].description)
+  })
+
   context('handleDelete, handleEdit', () => {
-    beforeEach(() => {
-      cy.mount(
-        <BrowserRouter>
-          <HeroList
-            heroes={heroes}
-            handleDeleteHero={cy.stub().as('handleDeleteHero')}
-          />
-        </BrowserRouter>,
-      )
-    })
     it('should handle delete', () => {
       cy.getByCy('delete-button').first().click()
       cy.get('@handleDeleteHero').should('have.been.called')

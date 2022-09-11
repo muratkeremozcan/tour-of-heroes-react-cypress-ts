@@ -30,6 +30,26 @@ describe('Edit hero', () => {
     cy.getByCy('hero-list').should('be.visible')
   })
 
+  it('should go through the PUT error flow (ui-integration)', () => {
+    cy.visitStubbedHeroes()
+
+    cy.fixture('heroes').then(heroes => {
+      const heroIndex = randomHeroIndex(heroes)
+      cy.getByCy('edit-button').eq(heroIndex).click()
+      verifyHero(heroes, heroIndex)
+    })
+
+    cy.intercept('PUT', `${Cypress.env('API_URL')}/heroes/*`, {
+      statusCode: 500,
+      delay: 100,
+    }).as('isUpdateError')
+
+    cy.getByCy('save-button').click()
+    cy.getByCy('spinner')
+    cy.wait('@isUpdateError')
+    cy.getByCy('error')
+  })
+
   it('should navigate to add from an existing hero (ui-integration)', () => {
     cy.visitStubbedHeroes()
 
