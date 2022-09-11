@@ -8,6 +8,7 @@ import {
   useState,
   useTransition,
   useDeferredValue,
+  useEffect,
 } from 'react'
 import {Hero} from 'models/Hero'
 
@@ -23,7 +24,9 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const [isPending, startTransition] = useTransition()
   const navigate = useNavigate()
 
-  console.log(isStale)
+  // needed to refresh the list after deleting a hero
+  useEffect(() => setFilteredList(deferredHeroes), [deferredHeroes])
+
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
   const handleSelectHero = (heroId: string) => () => {
     const hero = heroes.find((h: Hero) => h.id === heroId)
