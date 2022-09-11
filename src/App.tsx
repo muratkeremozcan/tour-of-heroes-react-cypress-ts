@@ -8,10 +8,8 @@ import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import './styles.scss'
 const Heroes = lazy(() => import('heroes/Heroes'))
-const NotFound = lazy(
-  () => import(/* webpackPrefetch: tru */ 'components/NotFound'),
-)
-const About = lazy(() => import(/* webpackPrefetch: tru */ 'About'))
+const NotFound = lazy(() => import('components/NotFound'))
+const About = lazy(() => import('About'))
 
 const queryClient = new QueryClient()
 
