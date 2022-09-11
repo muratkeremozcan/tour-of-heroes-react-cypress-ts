@@ -2,7 +2,13 @@ import {useNavigate} from 'react-router-dom'
 import CardContent from 'components/CardContent'
 import ButtonFooter from 'components/ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
-import {MouseEvent, ChangeEvent, useState} from 'react'
+import {
+  MouseEvent,
+  ChangeEvent,
+  useState,
+  useTransition,
+  useDeferredValue,
+} from 'react'
 import {Hero} from 'models/Hero'
 
 type HeroListProps = {
@@ -11,9 +17,13 @@ type HeroListProps = {
 }
 
 export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
-  const [filteredList, setFilteredList] = useState(heroes)
+  const deferredHeroes = useDeferredValue(heroes)
+  const isStale = deferredHeroes !== heroes
+  const [filteredList, setFilteredList] = useState(deferredHeroes)
+  const [isPending, startTransition] = useTransition()
   const navigate = useNavigate()
 
+  console.log(isStale)
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
   const handleSelectHero = (heroId: string) => () => {
     const hero = heroes.find((h: Hero) => h.id === heroId)
@@ -30,17 +40,24 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const handleSearch =
     (data: Hero[]) => (event: ChangeEvent<HTMLInputElement>) => {
       const searchPhrase = event.target.value
-      return setFilteredList(
-        [...data].filter(
-          ({name, description}: Hero) =>
-            queryExists(searchPhrase, name) ||
-            queryExists(searchPhrase, description),
+      return startTransition(() =>
+        setFilteredList(
+          [...data].filter(
+            ({name, description}: Hero) =>
+              queryExists(searchPhrase, name) ||
+              queryExists(searchPhrase, description),
+          ),
         ),
       )
     }
 
   return (
-    <>
+    <div
+      style={{
+        opacity: isPending ? 0.5 : 1,
+        color: isStale ? 'dimgray' : 'black',
+      }}
+    >
       <div className="card-content">
         <span>Search </span>
         <input data-cy="search" onChange={handleSearch(heroes)} />
@@ -67,6 +84,6 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
