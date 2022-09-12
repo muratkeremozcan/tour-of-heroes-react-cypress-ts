@@ -38,7 +38,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   /** returns a boolean whether the hero properties exist in the search field */
   type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
   /** returns a boolean whether the hero properties exist in the search field */
-  const searchExists = (searchField: string, searchProperty: HeroProperty) =>
+  const searchExists = (searchProperty: HeroProperty, searchField: string) =>
     String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
     -1
 
@@ -46,7 +46,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   const searchProperties = (searchField: string, data: Hero[]) =>
     [...data].filter((item: Hero) =>
       Object.values(item).find((property: HeroProperty) =>
-        searchExists(searchField, property),
+        searchExists(property, searchField),
       ),
     )
 
