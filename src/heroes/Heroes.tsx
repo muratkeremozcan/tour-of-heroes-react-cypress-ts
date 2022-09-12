@@ -35,12 +35,12 @@ export default function Heroes() {
     setShowModal(false)
   }
 
-  if (getError || isDeleteError) {
-    return <ErrorComp />
-  }
-
   if (status === 'loading') {
     return <PageSpinner />
+  }
+
+  if (getError || isDeleteError) {
+    return <ErrorComp />
   }
 
   return (

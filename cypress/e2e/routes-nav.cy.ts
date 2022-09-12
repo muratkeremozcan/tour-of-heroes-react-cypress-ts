@@ -35,6 +35,7 @@ describe('routes navigation (ui-integration)', () => {
   })
 
   it('should cover route history with browser back and forward', () => {
+    cy.visit('/about')
     const routes = ['villains', 'heroes', 'about']
     cy.wrap(routes).each((route: string) =>
       cy.get(`[href="/${route}"]`).click(),

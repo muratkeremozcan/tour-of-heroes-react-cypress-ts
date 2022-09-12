@@ -28,12 +28,12 @@ export default function HeroDetail() {
     setHero({...hero, description: e.target.value})
   }
 
-  if (postError || isUpdateError) {
-    return <ErrorComp />
-  }
-
   if (status === 'loading' || isUpdating) {
     return <PageSpinner />
+  }
+
+  if (postError || isUpdateError) {
+    return <ErrorComp />
   }
 
   return (

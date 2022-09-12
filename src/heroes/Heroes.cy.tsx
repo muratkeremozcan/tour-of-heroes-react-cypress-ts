@@ -1,18 +1,22 @@
+import {Suspense} from 'react'
 import Heroes from './Heroes'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
-import '../styles.scss'
 import {ErrorBoundary} from 'react-error-boundary'
 import ErrorComp from 'components/ErrorComp'
+import PageSpinner from 'components/PageSpinner'
+import '../styles.scss'
 
 describe('Heroes', () => {
   const mounter = (queryClient: QueryClient) =>
     cy.mount(
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary fallback={<ErrorComp />}>
-          <BrowserRouter>
-            <Heroes />
-          </BrowserRouter>
+          <Suspense fallback={<PageSpinner />}>
+            <BrowserRouter>
+              <Heroes />
+            </BrowserRouter>
+          </Suspense>
         </ErrorBoundary>
       </QueryClientProvider>,
     )
@@ -27,9 +31,9 @@ describe('Heroes', () => {
 
     mounter(new QueryClient())
 
+    cy.getByCy('page-spinner').should('be.visible')
     Cypress._.times(4, () => {
       cy.tick(5000)
-      cy
       cy.wait('@notFound')
     })
 

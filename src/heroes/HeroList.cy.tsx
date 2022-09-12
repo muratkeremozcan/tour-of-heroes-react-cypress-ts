@@ -14,7 +14,8 @@ describe('HeroList', () => {
       </BrowserRouter>,
     )
   })
-  it('should render the item layout', () => {
+
+  it('should render the hero layout', () => {
     cy.getByCyLike('hero-list-item').should('have.length', heroes.length)
 
     cy.getByCy('card-content')
@@ -27,12 +28,14 @@ describe('HeroList', () => {
     })
   })
 
-  it('should search for items', () => {
+  it('should search and filter hero by name and description', () => {
     cy.getByCy('search').type(heroes[0].name)
-    cy.getByCy('hero-list').should('have.length', 1).contains(heroes[0].name)
+    cy.getByCyLike('hero-list-item')
+      .should('have.length', 1)
+      .contains(heroes[0].name)
 
     cy.getByCy('search').clear().type(heroes[2].description)
-    cy.getByCy('hero-list')
+    cy.getByCyLike('hero-list-item')
       .should('have.length', 1)
       .contains(heroes[2].description)
   })
