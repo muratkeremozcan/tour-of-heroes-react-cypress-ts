@@ -1,15 +1,18 @@
 import ListHeader from './ListHeader'
+import {BrowserRouter} from 'react-router-dom'
 import '../styles.scss'
 
 describe('ListHeader', () => {
   it('should call click handlers on add & refresh button clicks', () => {
     const title = 'Heroes'
-    cy.wrappedMount(
-      <ListHeader
-        title={title}
-        handleAdd={cy.stub().as('handleAdd')}
-        handleRefresh={cy.stub().as('handleRefresh')}
-      />,
+    cy.mount(
+      <BrowserRouter>
+        <ListHeader
+          title={title}
+          handleAdd={cy.stub().as('handleAdd')}
+          handleRefresh={cy.stub().as('handleRefresh')}
+        />
+      </BrowserRouter>,
     )
 
     cy.getByCy('add-button').click()

@@ -19,8 +19,10 @@ describe('HeaderBarBrand', () => {
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
 
-    within(await screen.findByTestId('header-bar-brand'))
-    // TODO: find out how to we verify a svg with RTL
+    // not easy to get a tag with RTL, needed to use a test id
+    within(await screen.findByTestId('header-bar-brand')).getByTestId(
+      'react-icon-svg',
+    )
   })
 
   it('should verify internal link spans and navigation', async () => {
@@ -29,6 +31,6 @@ describe('HeaderBarBrand', () => {
     ;['TOUR', 'OF', 'HEROES'].map(part => withinNavLink.getByText(part))
 
     await userEvent.click(navLink)
-    expect(window.location.href).toBe('http://localhost/')
+    expect(window.location.pathname).toBe('/')
   })
 })

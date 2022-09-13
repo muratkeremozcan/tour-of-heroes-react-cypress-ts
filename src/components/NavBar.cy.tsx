@@ -1,9 +1,14 @@
 import NavBar from './NavBar'
+import {BrowserRouter} from 'react-router-dom'
 import '../styles.scss'
 
 describe('NavBar', () => {
   it('should navigate to the correct routes', () => {
-    cy.wrappedMount(<NavBar />)
+    cy.mount(
+      <BrowserRouter>
+        <NavBar />
+      </BrowserRouter>,
+    )
 
     cy.getByCy('nav-bar').within(() => {
       cy.contains('p', 'Menu')
