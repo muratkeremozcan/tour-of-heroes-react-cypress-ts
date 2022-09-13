@@ -11,6 +11,7 @@ describe('HeroList', () => {
       />,
     )
 
+    cy.getByCy('hero-list').should('exist')
     cy.getByCyLike('hero-list-item').should('not.exist')
     cy.getByCy('search').should('not.exist')
   })
