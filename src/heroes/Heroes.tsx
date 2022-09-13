@@ -30,8 +30,7 @@ export default function Heroes() {
     setShowModal(true)
   }
   const handleDeleteFromModal = () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    deleteHero(heroToDelete!)
+    heroToDelete ? deleteHero(heroToDelete) : null
     setShowModal(false)
   }
 

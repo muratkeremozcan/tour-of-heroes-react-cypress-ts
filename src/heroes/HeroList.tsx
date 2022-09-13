@@ -35,8 +35,8 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
     )
   }
 
-  /** returns a boolean whether the hero properties exist in the search field */
   type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
+
   /** returns a boolean whether the hero properties exist in the search field */
   const searchExists = (searchProperty: HeroProperty, searchField: string) =>
     String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
@@ -50,7 +50,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
       ),
     )
 
-  /** filters the heroes data to see if the name or the description exists in the list */
+  /** filters the heroes data to see if the any of the properties exist in the list */
   const handleSearch =
     (data: Hero[]) => (event: ChangeEvent<HTMLInputElement>) => {
       const searchField = event.target.value
@@ -67,10 +67,12 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
         color: isStale ? 'dimgray' : 'black',
       }}
     >
-      <div className="card-content">
-        <span>Search </span>
-        <input data-cy="search" onChange={handleSearch(deferredHeroes)} />
-      </div>
+      {deferredHeroes.length > 0 && (
+        <div className="card-content">
+          <span>Search </span>
+          <input data-cy="search" onChange={handleSearch(deferredHeroes)} />
+        </div>
+      )}
       &nbsp;
       <ul data-cy="hero-list" className="list">
         {filteredHeroes.map((hero, index) => (

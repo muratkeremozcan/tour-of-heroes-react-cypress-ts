@@ -3,12 +3,7 @@
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "types": ["cypress", "node", "@testing-library/cypress"],
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@models/*": ["models/*"]
-    }
+    "baseUrl": "./"
   },
   "include": ["**/*.ts*", "../cypress.d.ts"],
   "extends": "../tsconfig.json"
