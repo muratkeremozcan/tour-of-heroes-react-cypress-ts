@@ -9,6 +9,7 @@ export default function HeaderBarBrand() {
         target="_blank"
         rel="noopener noreferrer"
         className="navbar-item"
+        data-cy="header-bar-brand-link"
       >
         <FaReact />
       </a>
