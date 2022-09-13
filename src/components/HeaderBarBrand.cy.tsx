@@ -1,9 +1,14 @@
 import HeaderBarBrand from './HeaderBarBrand'
+import {BrowserRouter} from 'react-router-dom'
 import '../styles.scss'
 
 describe('HeaderBarBrand', () => {
   beforeEach(() => {
-    cy.wrappedMount(<HeaderBarBrand />)
+    cy.mount(
+      <BrowserRouter>
+        <HeaderBarBrand />
+      </BrowserRouter>,
+    )
   })
 
   it('should verify external link attributes', () => {

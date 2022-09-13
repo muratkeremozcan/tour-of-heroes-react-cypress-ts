@@ -40,5 +40,3 @@ describe('200 flow', () => {
     expect(screen.getByTestId('heroes')).toBeVisible()
   })
 })
-
-// CT vs RTL: src/App.cy.tsx

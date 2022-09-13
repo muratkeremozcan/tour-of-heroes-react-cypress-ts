@@ -9,8 +9,11 @@ export default function HeaderBarBrand() {
         target="_blank"
         rel="noopener noreferrer"
         className="navbar-item"
+        data-cy="header-bar-brand-link"
       >
-        <FaReact />
+        <div data-cy="react-icon-svg">
+          <FaReact />
+        </div>
       </a>
       <NavLink data-cy="navLink" to="/" className="navbar-item navbar-home">
         <span className="tour">TOUR</span>
