@@ -1,17 +1,14 @@
-import {BrowserRouter} from 'react-router-dom'
 import HeroList from './HeroList'
 import '../styles.scss'
 import heroes from '../../cypress/fixtures/heroes.json'
 
 describe('HeroList', () => {
   it('no heroes should not display a list nor search bar', () => {
-    cy.mount(
-      <BrowserRouter>
-        <HeroList
-          heroes={[]}
-          handleDeleteHero={cy.stub().as('handleDeleteHero')}
-        />
-      </BrowserRouter>,
+    cy.wrappedMount(
+      <HeroList
+        heroes={[]}
+        handleDeleteHero={cy.stub().as('handleDeleteHero')}
+      />,
     )
 
     cy.getByCyLike('hero-list-item').should('not.exist')
@@ -20,13 +17,11 @@ describe('HeroList', () => {
 
   context('with heroes in the list', () => {
     beforeEach(() => {
-      cy.mount(
-        <BrowserRouter>
-          <HeroList
-            heroes={heroes}
-            handleDeleteHero={cy.stub().as('handleDeleteHero')}
-          />
-        </BrowserRouter>,
+      cy.wrappedMount(
+        <HeroList
+          heroes={heroes}
+          handleDeleteHero={cy.stub().as('handleDeleteHero')}
+        />,
       )
     })
 

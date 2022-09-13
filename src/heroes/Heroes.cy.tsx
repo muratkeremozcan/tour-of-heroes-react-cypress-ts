@@ -1,26 +1,7 @@
-import {Suspense} from 'react'
 import Heroes from './Heroes'
-import {BrowserRouter} from 'react-router-dom'
-import {QueryClient, QueryClientProvider} from 'react-query'
-import {ErrorBoundary} from 'react-error-boundary'
-import ErrorComp from 'components/ErrorComp'
-import PageSpinner from 'components/PageSpinner'
 import '../styles.scss'
 
 describe('Heroes', () => {
-  const mounter = (queryClient: QueryClient) =>
-    cy.mount(
-      <QueryClientProvider client={queryClient}>
-        <ErrorBoundary fallback={<ErrorComp />}>
-          <Suspense fallback={<PageSpinner />}>
-            <BrowserRouter>
-              <Heroes />
-            </BrowserRouter>
-          </Suspense>
-        </ErrorBoundary>
-      </QueryClientProvider>,
-    )
-
   it('should go through the error flow', () => {
     Cypress.on('uncaught:exception', () => false)
     cy.clock()
@@ -29,7 +10,7 @@ describe('Heroes', () => {
       delay: 100,
     }).as('notFound')
 
-    mounter(new QueryClient())
+    cy.wrappedMount(<Heroes />)
 
     cy.getByCy('page-spinner').should('be.visible')
     Cypress._.times(4, () => {
@@ -46,7 +27,7 @@ describe('Heroes', () => {
         fixture: 'heroes.json',
       }).as('getHeroes')
 
-      mounter(new QueryClient())
+      cy.wrappedMount(<Heroes />)
     })
 
     it('should display the hero list on render, and go through hero add & refresh flow', () => {

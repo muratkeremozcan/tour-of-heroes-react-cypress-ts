@@ -1,20 +1,10 @@
 import HeroDetail from './HeroDetail'
-import {BrowserRouter} from 'react-router-dom'
-import {QueryClient, QueryClientProvider} from 'react-query'
 import '../styles.scss'
 
 describe('HeroDetail', () => {
-  let queryClient: QueryClient
   context('handleSave, handleCancel', () => {
     beforeEach(() => {
-      queryClient = new QueryClient()
-      cy.mount(
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <HeroDetail />
-          </BrowserRouter>
-        </QueryClientProvider>,
-      )
+      cy.wrappedMount(<HeroDetail />)
     })
 
     it('should handle Save', () => {
@@ -39,14 +29,7 @@ describe('HeroDetail', () => {
 
   context('handleNameChange, handleDescriptionChange', () => {
     beforeEach(() => {
-      queryClient = new QueryClient()
-      cy.mount(
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <HeroDetail />
-          </BrowserRouter>
-        </QueryClientProvider>,
-      )
+      cy.wrappedMount(<HeroDetail />)
     })
 
     it('should handle name change', () => {
@@ -66,14 +49,7 @@ describe('HeroDetail', () => {
 
   context('state: should verify the layout of the component', () => {
     it('id: false, name: false - should verify the minimal state of the component', () => {
-      queryClient = new QueryClient()
-      cy.mount(
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <HeroDetail />
-          </BrowserRouter>
-        </QueryClientProvider>,
-      )
+      cy.wrappedMount(<HeroDetail />)
 
       cy.get('p').then($el => cy.wrap($el.text()).should('equal', ''))
       cy.getByCyLike('input-detail').should('have.length', 2)
