@@ -42,6 +42,16 @@ declare global {
         options?: MountOptions,
       ): Cypress.Chainable<MountReturn>
 
+      /** Mounts the component wrapped by all the providers:
+       * QueryClientProvider, ErrorBoundary, Suspense, BrowserRouter
+       * @param component React Node to mount
+       * @param options Additional options to pass into mount
+       */
+      wrappedMount(
+        component: React.ReactNode,
+        options?: MountOptions,
+      ): Cypress.Chainable<MountReturn>
+
       /** Visits baseUrl, uses real network, verifies path */
       visitHeroes(): Cypress.Chainable<string>
 
