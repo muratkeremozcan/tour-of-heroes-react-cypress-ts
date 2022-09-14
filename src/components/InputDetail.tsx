@@ -27,6 +27,7 @@ export default function InputDetail({
       </label>
       <input
         name={name}
+        role={name}
         defaultValue={shownValue}
         placeholder={placeholder}
         onChange={onChange}

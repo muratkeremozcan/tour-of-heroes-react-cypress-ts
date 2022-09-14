@@ -10,7 +10,14 @@
   "dependencyDashboardApproval": false,
   "packageRules": [
     {
-      "packageNames": ["node", "husky", "typescript"],
+      "packageNames": [
+        "node",
+        "husky",
+        "typescript",
+        "jest",
+        "ts-jest",
+        "jest-environment-jsdom"
+      ],
       "enabled": false
     }
   ]
