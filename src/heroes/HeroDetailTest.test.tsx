@@ -4,8 +4,6 @@ import {act, logRoles, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
-import {matchRequestUrl, MockedRequest, rest} from 'msw'
-import {setupServer, SetupServerApi} from 'msw/node'
 
 describe('HeroDetail', () => {
   beforeEach(() => {
@@ -65,64 +63,64 @@ describe('HeroDetail', () => {
   // instead it advises to check the consequences of the network within the UI
   // I could not get it to work as advertized
   // https://mswjs.io/docs/extensions/life-cycle-events#tracking-a-request
-  describe.skip('verify network calls', () => {
-    function waitForRequest(
-      method: string,
-      url: string,
-      server: SetupServerApi,
-    ) {
-      let requestId = ''
-      return new Promise<MockedRequest>((resolve, reject) => {
-        server.events.on('request:start', req => {
-          const matchesMethod =
-            req.method.toLowerCase() === method.toLowerCase()
-          const matchesUrl = matchRequestUrl(req.url, url).matches
-          if (matchesMethod && matchesUrl) {
-            requestId = req.id
-          }
-        })
-        server.events.on('request:match', req => {
-          if (req.id === requestId) {
-            resolve(req)
-          }
-        })
-        server.events.on('request:unhandled', req => {
-          if (req.id === requestId) {
-            reject(
-              new Error(
-                `The ${req.method} ${req.url.href} request was unhandled.`,
-              ),
-            )
-          }
-        })
-      })
-    }
+  // describe.skip('verify network calls', () => {
+  //   function waitForRequest(
+  //     method: string,
+  //     url: string,
+  //     server: SetupServerApi,
+  //   ) {
+  //     let requestId = ''
+  //     return new Promise<MockedRequest>((resolve, reject) => {
+  //       server.events.on('request:start', req => {
+  //         const matchesMethod =
+  //           req.method.toLowerCase() === method.toLowerCase()
+  //         const matchesUrl = matchRequestUrl(req.url, url).matches
+  //         if (matchesMethod && matchesUrl) {
+  //           requestId = req.id
+  //         }
+  //       })
+  //       server.events.on('request:match', req => {
+  //         if (req.id === requestId) {
+  //           resolve(req)
+  //         }
+  //       })
+  //       server.events.on('request:unhandled', req => {
+  //         if (req.id === requestId) {
+  //           reject(
+  //             new Error(
+  //               `The ${req.method} ${req.url.href} request was unhandled.`,
+  //             ),
+  //           )
+  //         }
+  //       })
+  //     })
+  //   }
 
-    it('should handle save', async () => {
-      const handlers = [
-        rest.post(
-          `${process.env.REACT_APP_API_URL}/heroes`,
-          async (_req, res, ctx) => {
-            return res(ctx.status(200))
-          },
-        ),
-      ]
-      const server = setupServer(...handlers)
-      const pendingRequest = waitForRequest('POST', '/heroes', server)
-      server.listen({
-        onUnhandledRequest: 'warn',
-      })
+  //   it('should handle save', async () => {
+  //     const handlers = [
+  //       rest.post(
+  //         `${process.env.REACT_APP_API_URL}/heroes`,
+  //         async (_req, res, ctx) => {
+  //           return res(ctx.status(200))
+  //         },
+  //       ),
+  //     ]
+  //     const server = setupServer(...handlers)
+  //     const pendingRequest = waitForRequest('POST', '/heroes', server)
+  //     server.listen({
+  //       onUnhandledRequest: 'warn',
+  //     })
 
-      // cause the request to go out
-      const saveButton = await screen.findByTestId('save-button')
-      expect(saveButton).toBeVisible()
-      await userEvent.click(saveButton)
+  //     // cause the request to go out
+  //     const saveButton = await screen.findByTestId('save-button')
+  //     expect(saveButton).toBeVisible()
+  //     await userEvent.click(saveButton)
 
-      // ensure that a network call was made (but it times out)
-      await pendingRequest
+  //     // ensure that a network call was made (but it times out)
+  //     await pendingRequest
 
-      server.resetHandlers()
-      server.close()
-    })
-  })
+  //     server.resetHandlers()
+  //     server.close()
+  //   })
+  // })
 })

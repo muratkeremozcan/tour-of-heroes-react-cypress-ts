@@ -6,6 +6,20 @@ describe('HeroDetail', () => {
     cy.wrappedMount(<HeroDetail />)
   })
 
+  it('should handle Save', () => {
+    cy.intercept('POST', '*', {statusCode: 200}).as('postHero')
+    cy.getByCy('save-button').click()
+    cy.wait('@postHero')
+  })
+
+  it('should handle non-200 Save', () => {
+    cy.intercept('POST', '*', {statusCode: 400, delay: 100}).as('postHero')
+    cy.getByCy('save-button').click()
+    cy.getByCy('spinner')
+    cy.wait('@postHero')
+    cy.getByCy('error')
+  })
+
   it('should handle Cancel', () => {
     cy.getByCy('cancel-button').click()
     cy.location('pathname').should('eq', '/heroes')
@@ -35,21 +49,5 @@ describe('HeroDetail', () => {
 
     cy.getByCy('save-button').should('be.visible')
     cy.getByCy('cancel-button').should('be.visible')
-  })
-
-  context('spy on network', () => {
-    it('should handle Save', () => {
-      cy.intercept('POST', '*', {statusCode: 200}).as('postHero')
-      cy.getByCy('save-button').click()
-      cy.wait('@postHero')
-    })
-
-    it('should handle non-200 Save', () => {
-      cy.intercept('POST', '*', {statusCode: 400, delay: 100}).as('postHero')
-      cy.getByCy('save-button').click()
-      cy.getByCy('spinner')
-      cy.wait('@postHero')
-      cy.getByCy('error')
-    })
   })
 })
