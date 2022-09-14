@@ -1,6 +1,6 @@
 import HeroDetail from './HeroDetail'
 import '@testing-library/jest-dom'
-import {act, logRoles, render, screen, waitFor} from '@testing-library/react'
+import {act, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
