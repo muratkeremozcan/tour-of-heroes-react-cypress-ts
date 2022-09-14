@@ -46,7 +46,7 @@
     "@testing-library/user-event": "14.4.3",
     "@types/jest": "29.0.1",
     "@types/node": "16.11.58",
-    "@types/react": "18.0.19",
+    "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@types/react-icons": "3.0.0",
     "@typescript-eslint/eslint-plugin": "5.36.2",
