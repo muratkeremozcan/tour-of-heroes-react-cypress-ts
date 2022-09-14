@@ -20,13 +20,13 @@ describe('ButtonFooter', () => {
     const label = 'Edit'
     render(<ButtonFooter label={label} IconClass={FaEdit} onClick={click} />)
 
-    doAssertions(label)
+    await doAssertions(label)
   })
 
   it('should render and Save button, the label, and trigger an onClick', async () => {
     const label = 'Save'
     render(<ButtonFooter label={label} IconClass={FaRegSave} onClick={click} />)
 
-    doAssertions(label)
+    await doAssertions(label)
   })
 })

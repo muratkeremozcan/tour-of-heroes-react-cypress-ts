@@ -12,8 +12,10 @@ describe('ModalYesNo', () => {
 
     await screen.findByText('Confirm')
     await screen.findByText(message)
+
     const buttonYes = await screen.findByTestId('button-yes')
     const buttonNo = await screen.findByTestId('button-no')
+
     expect(buttonYes).toBeVisible()
     expect(buttonNo).toBeVisible()
 
