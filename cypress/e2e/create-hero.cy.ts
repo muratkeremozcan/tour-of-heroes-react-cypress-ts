@@ -11,7 +11,7 @@ describe('Create hero', () => {
   }
 
   it('should go through the refresh flow (ui-integration)', () => {
-    cy.visitStubbedHeroes()
+    cy.visitStubbedEntities('heroes')
     navToAddHero()
 
     cy.getByCy('refresh-button').click()
@@ -32,7 +32,7 @@ describe('Create hero', () => {
   })
 
   it('should go through the add hero flow (ui-e2e)', () => {
-    cy.visitHeroes()
+    cy.visitEntities('heroes')
     navToAddHero()
 
     const newHero = {
@@ -51,7 +51,7 @@ describe('Create hero', () => {
       .should('contain', newHero.name)
       .and('contain', newHero.description)
 
-    cy.getHeroByProperty(newHero.name).then(myHero =>
+    cy.getEntityByProperty('hero', newHero.name).then(myHero =>
       cy.crud('DELETE', `heroes/${myHero.id}`),
     )
   })

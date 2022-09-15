@@ -1,4 +1,5 @@
-import {Villain} from 'models/Villain'
+import {Hero} from 'models/Hero'
+import {EntityType} from 'models/types'
 import {useMutation, useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {createItem} from './api'
@@ -12,22 +13,23 @@ import {createItem} from './api'
 // the second arg is an object with onSuccess property
 
 /**
- * Helper for simple POST to `/villains` route
+ * Helper for simple POST to `/heroes` route
  * @returns {object} {mutate, status, error}
  */
-export function usePostVillain() {
+export function usePostEntity(entityType: EntityType) {
+  const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  return useMutation((item: Villain) => createItem('villains', item), {
-    onSuccess: (newData: Villain) => {
+  return useMutation((item: Hero) => createItem(entityRoute, item), {
+    onSuccess: (newData: Hero) => {
       //  use queryClient's setQueryData to set the cache
       // takes a key as the first arg, the 2nd arg is a cb that takes the old query cache and returns the new one
-      queryClient.setQueryData(
-        ['villains'],
-        (oldData: Villain[] | undefined) => [...(oldData || []), newData],
-      )
+      queryClient.setQueryData([entityRoute], (oldData: Hero[] | undefined) => [
+        ...(oldData || []),
+        newData,
+      ])
 
-      return navigate(`/villains`)
+      return navigate(`/${entityRoute}`)
     },
   })
 }

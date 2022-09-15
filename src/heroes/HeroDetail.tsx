@@ -6,16 +6,20 @@ import ButtonFooter from 'components/ButtonFooter'
 import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import {useEntityParams} from 'hooks/useEntityParams'
-import {usePostHero} from 'hooks/usePostHero'
+import {usePostEntity} from 'hooks/usePostEntity'
 import {Hero} from 'models/Hero'
-import {usePutHero} from 'hooks/usePutHero'
+import {usePutEntity} from 'hooks/usePutEntity'
 
 export default function HeroDetail() {
   const {id} = useParams()
   const {name, description} = useEntityParams()
   const [hero, setHero] = useState({id, name, description})
-  const {mutate: createHero, status, error: postError} = usePostHero()
-  const {updateHero, isUpdating, isUpdateError} = usePutHero()
+  const {mutate: createHero, status, error: postError} = usePostEntity('hero')
+  const {
+    updateEntity: updateHero,
+    isUpdating,
+    isUpdateError,
+  } = usePutEntity('hero')
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/heroes')

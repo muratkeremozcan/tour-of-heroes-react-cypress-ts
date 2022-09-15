@@ -6,15 +6,15 @@ import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
-import {useGetHeroes} from 'hooks/useGetHeroes'
-import {useDeleteHero} from 'hooks/useDeleteHero'
+import {useGetEntities} from 'hooks/useGetEntities'
+import {useDeleteEntity} from 'hooks/useDeleteEntity'
 import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {heroes, status, getError} = useGetHeroes()
+  const {entities: heroes, status, getError} = useGetEntities('heroes')
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
-  const {deleteHero, isDeleteError} = useDeleteHero()
+  const {deleteEntity: deleteHero, isDeleteError} = useDeleteEntity('hero')
 
   const navigate = useNavigate()
   const addNewHero = () => navigate('/heroes/add-hero')
