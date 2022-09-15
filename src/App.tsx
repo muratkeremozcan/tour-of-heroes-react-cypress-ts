@@ -6,6 +6,7 @@ import HeaderBar from 'components/HeaderBar'
 import NavBar from 'components/NavBar'
 import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
+import Villains from 'villains/Villains'
 import './styles.scss'
 const Heroes = lazy(() => import('heroes/Heroes'))
 const NotFound = lazy(() => import('components/NotFound'))
@@ -26,6 +27,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Navigate replace to="/heroes" />} />
                   <Route path="/heroes/*" element={<Heroes />} />
+                  <Route path="/villains/*" element={<Villains />} />
                   <Route path="/about" element={<About />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
