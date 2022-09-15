@@ -84,7 +84,7 @@ jobs:
     #     machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.7.0 # save time on not having to install cypress
+    container: cypress/included:10.8.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -130,7 +130,7 @@ jobs:
     #     machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.7.0 # save time on not having to install cypress
+    container: cypress/included:10.8.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
