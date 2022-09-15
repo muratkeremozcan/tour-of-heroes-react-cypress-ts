@@ -1,5 +1,4 @@
 import Heroes from './Heroes'
-import '@testing-library/jest-dom'
 import {wrappedRender, screen, waitForElementToBeRemoved} from 'test-utils'
 import userEvent from '@testing-library/user-event'
 import {rest} from 'msw'

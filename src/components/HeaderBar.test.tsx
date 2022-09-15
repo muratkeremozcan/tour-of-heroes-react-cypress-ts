@@ -1,7 +1,6 @@
 import HeaderBar from './HeaderBar'
 import {render, screen} from '@testing-library/react'
 import {BrowserRouter} from 'react-router-dom'
-import '@testing-library/jest-dom'
 
 describe('HeaderBar', () => {
   it('should render error', async () => {
