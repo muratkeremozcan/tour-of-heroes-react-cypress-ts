@@ -47,7 +47,7 @@ describe('Heroes', () => {
       cy.getByCy('delete-button').first().click()
       cy.getByCy('modal-yes-no').should('be.visible')
     }
-    it('should go through the modal flow', () => {
+    it('should go through the modal flow, and cover error on DELETE', () => {
       cy.getByCy('modal-yes-no').should('not.exist')
 
       cy.log('do not delete flow')
