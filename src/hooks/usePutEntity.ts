@@ -3,26 +3,28 @@ import {useMutation, useQueryClient} from 'react-query'
 import type {QueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {editItem} from './api'
+import {Villain} from 'models/Villain'
 
 /**
  * Helper for PUT to `/heroes` route
  * @returns {object} {updateHero, isUpdating, isUpdateError, updateError}
  */
-export function usePutHero() {
+export function usePutEntity(entityType: 'hero' | 'villain') {
+  const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const mutation = useMutation(
-    (item: Hero) => editItem(`heroes/${item.id}`, item),
+    (item: Hero) => editItem(`${entityRoute}/${item.id}`, item),
     {
-      onSuccess: (updatedHero: Hero) => {
-        updateHeroesCache(updatedHero, queryClient)
-        navigate(`/heroes`)
+      onSuccess: (updatedEntity: Hero) => {
+        updateEntityCache(entityType, updatedEntity, queryClient)
+        navigate(`/${entityRoute}`)
       },
     },
   )
 
   return {
-    updateHero: mutation.mutate,
+    updateEntity: mutation.mutate,
     isUpdating: mutation.isLoading,
     isUpdateError: mutation.isError,
     updateError: mutation.error,
@@ -30,22 +32,29 @@ export function usePutHero() {
 }
 
 /** Replace a hero in the cache with the updated version. */
-function updateHeroesCache(updatedHero: Hero, queryClient: QueryClient) {
+function updateEntityCache(
+  entityType: 'hero' | 'villain',
+  updatedEntity: Hero | Villain,
+  queryClient: QueryClient,
+) {
+  const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   // get all the heroes from the cache
-  let heroesCache: Hero[] = queryClient.getQueryData('heroes') || []
+  let entityCache: Hero[] | Villain[] =
+    queryClient.getQueryData(entityRoute) || []
 
   // find the index in the cache of the hero that's been edited
-  const heroIndex = heroesCache.findIndex(h => h.id === updatedHero.id)
+  const entityIndex = entityCache.findIndex(h => h.id === updatedEntity.id)
 
-  if (heroIndex !== -1) {
+  if (entityIndex !== -1) {
     // if the hero is found, replace the pre-edited hero with the updated one
     // this is just replacing an array item in place,
     // while not mutating the original array
-    heroesCache = heroesCache.map(preEditedHero =>
-      preEditedHero.id === updatedHero.id ? updatedHero : preEditedHero,
+    entityCache = entityCache.map(preEditedEntity =>
+      preEditedEntity.id === updatedEntity.id ? updatedEntity : preEditedEntity,
     )
+    console.log('entityCache is', entityCache)
     // use queryClient's setQueryData to set the cache
     // takes a key as the first arg, the 2nd arg is the new cache
-    return queryClient.setQueryData(['heroes'], heroesCache)
+    return queryClient.setQueryData([entityRoute], entityCache)
   } else return null
 }

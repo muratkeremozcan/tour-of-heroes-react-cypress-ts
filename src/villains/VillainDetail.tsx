@@ -6,16 +6,24 @@ import ButtonFooter from 'components/ButtonFooter'
 import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import {useEntityParams} from 'hooks/useEntityParams'
-import {usePostVillain} from 'hooks/usePostVillain'
+import {usePostEntity} from 'hooks/usePostEntity'
 import {Villain} from 'models/Villain'
-import {usePutVillain} from 'hooks/usePutVillain'
+import {usePutEntity} from 'hooks/usePutEntity'
 
 export default function VillainDetail() {
   const {id} = useParams()
   const {name, description} = useEntityParams()
   const [villain, setVillain] = useState({id, name, description})
-  const {mutate: createVillain, status, error: postError} = usePostVillain()
-  const {updateVillain, isUpdating, isUpdateError} = usePutVillain()
+  const {
+    mutate: createVillain,
+    status,
+    error: postError,
+  } = usePostEntity('villain')
+  const {
+    updateEntity: updateVillain,
+    isUpdating,
+    isUpdateError,
+  } = usePutEntity('villain')
 
   const navigate = useNavigate()
   const handleCancel = () => navigate('/villains')

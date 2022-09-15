@@ -6,16 +6,17 @@ import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import VillainList from './VillainList'
 import VillainDetail from './VillainDetail'
-import {useGetVillains} from 'hooks/useGetVillains'
-import {useDeleteVillain} from 'hooks/useDeleteVillain'
+import {useGetEntities} from 'hooks/useGetEntities'
+import {useDeleteEntity} from 'hooks/useDeleteEntity'
 import {Villain} from 'models/Villain'
 import VillainsContext from 'hooks/useVillainsContext'
 
 export default function Villains() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {villains, status, getError} = useGetVillains()
+  const {entities: villains, status, getError} = useGetEntities('villains')
   const [villainToDelete, setVillainToDelete] = useState<Villain | null>(null)
-  const {deleteVillain, isDeleteError} = useDeleteVillain()
+  const {deleteEntity: deleteVillain, isDeleteError} =
+    useDeleteEntity('villain')
 
   const navigate = useNavigate()
   const addNewVillain = () => navigate('/villains/add-villain')

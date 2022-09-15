@@ -11,16 +11,16 @@ import {getItem} from './api'
 // useQuery takes a third arg as a configuration option
 // which tells useQuery to suspend (throw a promise) when loading its initial data
 /**
- * Helper for GET to `/heroes` route
- * @returns {object} {heroes, status, getError}
+ * Helper for GET to `/heroes` or `/villains` routes
+ * @returns {object} {entities, status, getError}
  */
-export const useGetHeroes = () => {
-  const query = useQuery('heroes', () => getItem('heroes'), {
+export const useGetEntities = (entityRoute: 'heroes' | 'villains') => {
+  const query = useQuery(entityRoute, () => getItem(entityRoute), {
     suspense: true,
   })
 
   return {
-    heroes: query.data,
+    entities: query.data,
     status: query.status,
     getError: query.error,
   }
