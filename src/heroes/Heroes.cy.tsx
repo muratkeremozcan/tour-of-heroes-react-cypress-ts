@@ -2,7 +2,7 @@ import Heroes from './Heroes'
 import '../styles.scss'
 
 describe('Heroes', () => {
-  it('should go through the error flow', () => {
+  it('should see error on initial load with GET', () => {
     Cypress.on('uncaught:exception', () => false)
     cy.clock()
     cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
@@ -57,11 +57,12 @@ describe('Heroes', () => {
 
       cy.log('delete flow')
       invokeHeroDelete()
-      cy.intercept('DELETE', '*', {statusCode: 200}).as('deleteHero')
+      cy.intercept('DELETE', '*', {statusCode: 500}).as('deleteHero')
 
       cy.getByCy('button-yes').click()
       cy.wait('@deleteHero')
       cy.getByCy('modal-yes-no').should('not.exist')
+      cy.getByCy('error').should('be.visible')
     })
   })
 })

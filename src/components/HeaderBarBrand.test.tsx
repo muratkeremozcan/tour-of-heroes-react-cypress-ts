@@ -6,7 +6,6 @@ import '@testing-library/jest-dom'
 
 describe('HeaderBarBrand', () => {
   beforeEach(() => {
-    // eslint-disable-next-line testing-library/no-render-in-setup
     render(
       <BrowserRouter>
         <HeaderBarBrand />

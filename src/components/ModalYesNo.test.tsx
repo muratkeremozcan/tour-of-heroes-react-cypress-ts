@@ -7,6 +7,7 @@ describe('ModalYesNo', () => {
   const message = 'Are you sure?'
   const onYes = jest.fn()
   const onNo = jest.fn()
+
   it('should render the modal and call onClick handlers', async () => {
     render(<ModalYesNo message={message} onYes={onYes} onNo={onNo} />)
 
