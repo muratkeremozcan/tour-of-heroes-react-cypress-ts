@@ -6,26 +6,26 @@ import ButtonFooter from 'components/ButtonFooter'
 import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import {useEntityParams} from 'hooks/useEntityParams'
-import {usePostHero} from 'hooks/usePostHero'
-import {Hero} from 'models/Hero'
-import {usePutHero} from 'hooks/usePutHero'
+import {usePostVillain} from 'hooks/usePostVillain'
+import {Villain} from 'models/Villain'
+import {usePutVillain} from 'hooks/usePutVillain'
 
-export default function HeroDetail() {
+export default function VillainDetail() {
   const {id} = useParams()
   const {name, description} = useEntityParams()
-  const [hero, setHero] = useState({id, name, description})
-  const {mutate: createHero, status, error: postError} = usePostHero()
-  const {updateHero, isUpdating, isUpdateError} = usePutHero()
+  const [villain, setVillain] = useState({id, name, description})
+  const {mutate: createVillain, status, error: postError} = usePostVillain()
+  const {updateVillain, isUpdating, isUpdateError} = usePutVillain()
 
   const navigate = useNavigate()
-  const handleCancel = () => navigate('/heroes')
+  const handleCancel = () => navigate('/villains')
   const handleSave = () =>
-    name ? updateHero(hero as Hero) : createHero(hero as Hero)
+    name ? updateVillain(villain as Villain) : createVillain(villain as Villain)
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setHero({...hero, name: e.target.value})
+    setVillain({...villain, name: e.target.value})
   }
   const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setHero({...hero, description: e.target.value})
+    setVillain({...villain, description: e.target.value})
   }
 
   if (status === 'loading' || isUpdating) {
@@ -37,7 +37,7 @@ export default function HeroDetail() {
   }
 
   return (
-    <div data-cy="hero-detail" className="card edit-detail">
+    <div data-cy="villain-detail" className="card edit-detail">
       <header className="card-header">
         <p className="card-header-title">{name}</p>
         &nbsp;
