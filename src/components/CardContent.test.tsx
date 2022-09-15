@@ -1,6 +1,5 @@
 import CardContent from './CardContent'
 import {render, screen} from '@testing-library/react'
-import '@testing-library/jest-dom'
 
 describe('CardContent', () => {
   it('should render the card content', async () => {
