@@ -1,63 +1,75 @@
 import Heroes from './Heroes'
 import '@testing-library/jest-dom'
-import {render, screen} from '@testing-library/react'
+import {wrappedRender, screen, waitForElementToBeRemoved} from 'test-utils'
 import userEvent from '@testing-library/user-event'
-import {BrowserRouter} from 'react-router-dom'
-import {QueryClient, QueryClientProvider} from 'react-query'
-import {ErrorBoundary} from 'react-error-boundary'
-import {Suspense} from 'react'
-import ErrorComp from 'components/ErrorComp'
-import PageSpinner from 'components/PageSpinner'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import {heroes} from '../../db.json'
 
 describe('Heroes', () => {
+  // mute the expected console.error message, because we are mocking non-200 responses
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'error').mockImplementation(() => {})
+
   beforeEach(() => {
-    // eslint-disable-next-line testing-library/no-render-in-setup
-    render(
-      <QueryClientProvider client={new QueryClient()}>
-        <ErrorBoundary fallback={<ErrorComp />}>
-          <Suspense fallback={<PageSpinner />}>
-            <BrowserRouter>
-              <Heroes />
-            </BrowserRouter>
-          </Suspense>
-        </ErrorBoundary>
-      </QueryClientProvider>,
-    )
+    wrappedRender(<Heroes />)
   })
 
-  const handlers = [
-    rest.get(
-      `${process.env.REACT_APP_API_URL}/heroes`,
-      async (_req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(heroes))
-      },
-    ),
-    rest.delete(
-      `${process.env.REACT_APP_API_URL}/heroes/${heroes[0].id}`, // use /.*/ for all requests
-      async (_req, res, ctx) => {
-        return res(ctx.status(400), ctx.json('expected error'))
-      },
-    ),
-  ]
-  const server = setupServer(...handlers)
-  beforeAll(() => {
+  it('should see error on initial load with GET', async () => {
+    const handlers = [
+      rest.get(
+        `${process.env.REACT_APP_API_URL}/heroes`,
+        async (_req, res, ctx) => {
+          return res(ctx.status(500))
+        },
+      ),
+    ]
+    const server = setupServer(...handlers)
     server.listen({
       onUnhandledRequest: 'warn',
     })
-  })
+    jest.useFakeTimers()
 
-  afterEach(() => {
+    expect(await screen.findByTestId('page-spinner')).toBeVisible()
+
+    jest.advanceTimersByTime(25000)
+    await waitForElementToBeRemoved(
+      () => screen.queryByTestId('page-spinner'),
+      {
+        timeout: 25000,
+      },
+    )
+
+    expect(await screen.findByTestId('error')).toBeVisible()
+    jest.useRealTimers()
     server.resetHandlers()
-  })
-
-  afterAll(() => {
     server.close()
   })
 
   describe('200 flows', () => {
+    const handlers = [
+      rest.get(
+        `${process.env.REACT_APP_API_URL}/heroes`,
+        async (_req, res, ctx) => {
+          return res(ctx.status(200), ctx.json(heroes))
+        },
+      ),
+      rest.delete(
+        `${process.env.REACT_APP_API_URL}/heroes/${heroes[0].id}`, // use /.*/ for all requests
+        async (_req, res, ctx) => {
+          return res(ctx.status(400), ctx.json('expected error'))
+        },
+      ),
+    ]
+    const server = setupServer(...handlers)
+    beforeAll(() => {
+      server.listen({
+        onUnhandledRequest: 'warn',
+      })
+    })
+    afterEach(server.resetHandlers)
+    afterAll(server.close)
+
     it('should display the hero list on render, and go through hero add & refresh flow', async () => {
       expect(await screen.findByTestId('list-header')).toBeVisible()
       expect(await screen.findByTestId('hero-list')).toBeVisible()
@@ -69,42 +81,27 @@ describe('Heroes', () => {
       expect(window.location.pathname).toBe('/heroes')
     })
 
-    it('should go through the modal flow - do not delete', async () => {
+    const deleteButtons = async () => screen.findAllByTestId('delete-button')
+    const modalYesNo = async () => screen.findByTestId('modal-yes-no')
+    const maybeModalYesNo = () => screen.queryByTestId('modal-yes-no')
+    const invokeHeroDelete = async () => {
+      userEvent.click((await deleteButtons())[0])
+      expect(await modalYesNo()).toBeVisible()
+    }
+
+    it('should go through the modal flow, and cover error on DELETE', async () => {
       expect(screen.queryByTestId('modal-dialog')).not.toBeInTheDocument()
-      const deleteButtons = await screen.findAllByTestId('delete-button')
 
-      // TODO: can we make this part into a helper function like invokeHeroDelete() in Heroes.cy.tsx?
-      await userEvent.click(deleteButtons[0])
-      const modalYesNo = await screen.findByTestId('modal-yes-no')
-
-      expect(modalYesNo).toBeVisible()
+      await invokeHeroDelete()
       await userEvent.click(await screen.findByTestId('button-no'))
-      expect(modalYesNo).not.toBeInTheDocument()
-    })
+      expect(maybeModalYesNo()).not.toBeInTheDocument()
 
-    // NOTE: it is not easy to merge these two tests, or create helpers to reduce code bloat
-    // in comparison to Cypress api
-    // therefore we took advantage of the situation by incorporating the non-200 flow into this test
-    // in the Cypress CT version we covered the non-200 separately, on initial load "should go through the error flow"
-    // covering the error message on GET on initial flow was painful,
-    // working with jest timers
-
-    it('should go through the modal delete flow, and get a delete error', async () => {
-      // mute the expected console.error message, because we are mocking a 400 response
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      jest.spyOn(console, 'error').mockImplementation(() => {})
-
-      expect(screen.queryByTestId('modal-dialog')).not.toBeInTheDocument()
-      const deleteButtons = await screen.findAllByTestId('delete-button')
-
-      await userEvent.click(deleteButtons[0])
-      const modalYesNo = await screen.findByTestId('modal-yes-no')
-
-      expect(modalYesNo).toBeVisible()
+      await invokeHeroDelete()
       await userEvent.click(await screen.findByTestId('button-yes'))
 
-      expect(modalYesNo).not.toBeInTheDocument()
+      expect(maybeModalYesNo()).not.toBeInTheDocument()
       expect(await screen.findByTestId('error')).toBeVisible()
+      expect(screen.queryByTestId('modal-dialog')).not.toBeInTheDocument()
     })
   })
 })

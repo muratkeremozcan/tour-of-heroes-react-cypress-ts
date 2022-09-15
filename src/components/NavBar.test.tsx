@@ -9,7 +9,6 @@ const link = async (name: string) => screen.findByRole('link', {name})
 
 describe('NavBar', () => {
   beforeEach(() => {
-    // eslint-disable-next-line testing-library/no-render-in-setup
     render(
       <BrowserRouter>
         <NavBar />
