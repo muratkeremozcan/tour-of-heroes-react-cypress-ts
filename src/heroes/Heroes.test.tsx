@@ -11,17 +11,13 @@ describe('Heroes', () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   jest.spyOn(console, 'error').mockImplementation(() => {})
 
-  beforeEach(() => {
-    wrappedRender(<Heroes />)
-  })
+  beforeEach(() => wrappedRender(<Heroes />))
 
   it('should see error on initial load with GET', async () => {
     const handlers = [
       rest.get(
         `${process.env.REACT_APP_API_URL}/heroes`,
-        async (_req, res, ctx) => {
-          return res(ctx.status(500))
-        },
+        async (_req, res, ctx) => res(ctx.status(500)),
       ),
     ]
     const server = setupServer(...handlers)
@@ -50,15 +46,12 @@ describe('Heroes', () => {
     const handlers = [
       rest.get(
         `${process.env.REACT_APP_API_URL}/heroes`,
-        async (_req, res, ctx) => {
-          return res(ctx.status(200), ctx.json(heroes))
-        },
+        async (_req, res, ctx) => res(ctx.status(200), ctx.json(heroes)),
       ),
       rest.delete(
         `${process.env.REACT_APP_API_URL}/heroes/${heroes[0].id}`, // use /.*/ for all requests
-        async (_req, res, ctx) => {
-          return res(ctx.status(400), ctx.json('expected error'))
-        },
+        async (_req, res, ctx) =>
+          res(ctx.status(400), ctx.json('expected error')),
       ),
     ]
     const server = setupServer(...handlers)
