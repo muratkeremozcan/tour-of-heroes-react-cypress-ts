@@ -1,6 +1,5 @@
 import HeroList from './HeroList'
-import {render, screen, waitFor} from '@testing-library/react'
-import {BrowserRouter} from 'react-router-dom'
+import {wrappedRender, screen, waitFor} from 'test-utils'
 import userEvent from '@testing-library/user-event'
 import {heroes} from '../../db.json'
 
@@ -8,11 +7,7 @@ describe('HeroList', () => {
   const handleDeleteHero = jest.fn()
 
   it('no heroes should not display a list nor search bar', async () => {
-    render(
-      <BrowserRouter>
-        <HeroList heroes={[]} handleDeleteHero={handleDeleteHero} />
-      </BrowserRouter>,
-    )
+    wrappedRender(<HeroList heroes={[]} handleDeleteHero={handleDeleteHero} />)
 
     expect(await screen.findByTestId('hero-list')).toBeInTheDocument()
     expect(screen.queryByTestId('hero-list-item-1')).not.toBeInTheDocument()
@@ -21,10 +16,8 @@ describe('HeroList', () => {
 
   describe('with heroes in the list', () => {
     beforeEach(() => {
-      render(
-        <BrowserRouter>
-          <HeroList heroes={heroes} handleDeleteHero={handleDeleteHero} />
-        </BrowserRouter>,
+      wrappedRender(
+        <HeroList heroes={heroes} handleDeleteHero={handleDeleteHero} />,
       )
     })
 

@@ -1,18 +1,14 @@
 import VillainList from './VillainList'
-import {render, screen, waitFor} from '@testing-library/react'
-import {BrowserRouter} from 'react-router-dom'
+import {wrappedRender, screen, waitFor} from 'test-utils'
 import userEvent from '@testing-library/user-event'
 import {villains} from '../../db.json'
+import VillainsContext from 'hooks/useVillainsContext'
 
 describe('VillainList', () => {
   const handleDeleteVillain = jest.fn()
 
   it('no villains should not display a list nor search bar', async () => {
-    render(
-      <BrowserRouter>
-        <VillainList villains={[]} handleDeleteVillain={handleDeleteVillain} />
-      </BrowserRouter>,
-    )
+    wrappedRender(<VillainList handleDeleteVillain={handleDeleteVillain} />)
 
     expect(await screen.findByTestId('villain-list')).toBeInTheDocument()
     expect(screen.queryByTestId('villain-list-item-1')).not.toBeInTheDocument()
@@ -21,13 +17,10 @@ describe('VillainList', () => {
 
   describe('with villains in the list', () => {
     beforeEach(() => {
-      render(
-        <BrowserRouter>
-          <VillainList
-            villains={villains}
-            handleDeleteVillain={handleDeleteVillain}
-          />
-        </BrowserRouter>,
+      wrappedRender(
+        <VillainsContext.Provider value={villains}>
+          <VillainList handleDeleteVillain={handleDeleteVillain} />
+        </VillainsContext.Provider>,
       )
     })
 

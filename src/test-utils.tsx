@@ -1,11 +1,10 @@
-import React, {FC, ReactElement} from 'react'
+import React, {FC, Suspense} from 'react'
 import {render, RenderOptions} from '@testing-library/react'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ErrorBoundary} from 'react-error-boundary'
 import ErrorComp from 'components/ErrorComp'
 import PageSpinner from 'components/PageSpinner'
-import {Suspense} from 'react'
 
 const AllTheProviders: FC<{children: React.ReactNode}> = ({children}) => {
   return (

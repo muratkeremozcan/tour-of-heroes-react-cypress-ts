@@ -1,14 +1,12 @@
 import VillainList from './VillainList'
 import '../styles.scss'
 import villains from '../../cypress/fixtures/villains.json'
+import VillainsContext from 'hooks/useVillainsContext'
 
 describe('VillainList', () => {
   it('no villains should not display a list nor search bar', () => {
     cy.wrappedMount(
-      <VillainList
-        villains={[]}
-        handleDeleteVillain={cy.stub().as('handleDeleteVillain')}
-      />,
+      <VillainList handleDeleteVillain={cy.stub().as('handleDeleteVillain')} />,
     )
 
     cy.getByCy('villain-list').should('exist')
@@ -19,10 +17,11 @@ describe('VillainList', () => {
   context('with villains in the list', () => {
     beforeEach(() => {
       cy.wrappedMount(
-        <VillainList
-          villains={villains}
-          handleDeleteVillain={cy.stub().as('handleDeleteVillain')}
-        />,
+        <VillainsContext.Provider value={villains}>
+          <VillainList
+            handleDeleteVillain={cy.stub().as('handleDeleteVillain')}
+          />
+        </VillainsContext.Provider>,
       )
     })
 

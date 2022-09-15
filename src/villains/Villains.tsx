@@ -9,6 +9,7 @@ import VillainDetail from './VillainDetail'
 import {useGetVillains} from 'hooks/useGetVillains'
 import {useDeleteVillain} from 'hooks/useDeleteVillain'
 import {Villain} from 'models/Villain'
+import VillainsContext from 'hooks/useVillainsContext'
 
 export default function Villains() {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -51,28 +52,24 @@ export default function Villains() {
       />
       <div>
         <div>
-          <Routes>
-            <Route
-              path=""
-              element={
-                <VillainList
-                  villains={villains}
-                  handleDeleteVillain={handleDeleteVillain}
-                />
-              }
-            />
-            <Route path="/add-villain" element={<VillainDetail />} />
-            <Route path="/edit-villain/:id" element={<VillainDetail />} />
-            <Route
-              path="*"
-              element={
-                <VillainList
-                  villains={villains}
-                  handleDeleteVillain={handleDeleteVillain}
-                />
-              }
-            />
-          </Routes>
+          <VillainsContext.Provider value={villains}>
+            <Routes>
+              <Route
+                path=""
+                element={
+                  <VillainList handleDeleteVillain={handleDeleteVillain} />
+                }
+              />
+              <Route path="/add-villain" element={<VillainDetail />} />
+              <Route path="/edit-villain/:id" element={<VillainDetail />} />
+              <Route
+                path="*"
+                element={
+                  <VillainList handleDeleteVillain={handleDeleteVillain} />
+                }
+              />
+            </Routes>
+          </VillainsContext.Provider>
         </div>
       </div>
 
