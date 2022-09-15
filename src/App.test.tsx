@@ -19,14 +19,9 @@ describe('200 flow', () => {
       onUnhandledRequest: 'warn',
     })
   })
+  afterEach(server.resetHandlers)
+  afterAll(server.close)
 
-  afterEach(() => {
-    server.resetHandlers()
-  })
-
-  afterAll(() => {
-    server.close()
-  })
   test('renders tour of heroes', async () => {
     render(<App />)
     await act(() => new Promise(r => setTimeout(r, 0))) // spinner
