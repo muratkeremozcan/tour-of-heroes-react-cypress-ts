@@ -1,5 +1,6 @@
 import {Villain} from './../../src/models/Villain'
 import {Hero} from '../../src/models/Hero'
+import {HeroProperty, VillainProperty} from '../../src/models/types'
 import data from '../fixtures/db.json'
 
 Cypress.Commands.add('getByCy', (selector, ...args) =>
@@ -36,9 +37,6 @@ Cypress.Commands.add(
 Cypress.Commands.add('resetData', () => cy.crud('POST', 'reset', {body: data}))
 
 const {_} = Cypress
-
-type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
-type VillainProperty = Villain['name'] | Villain['description'] | Villain['id']
 
 const propExists =
   (property: HeroProperty | VillainProperty) => (entity: Hero | Villain) =>

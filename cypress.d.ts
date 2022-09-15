@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MountOptions, MountReturn} from 'cypress/react'
+import {HeroProperty} from 'models/types'
 import type {Hero} from './cypress/support/commands'
 
 export {}
@@ -71,9 +72,7 @@ declare global {
        * ```
        * @param name: Hero['name']
        */
-      getHeroByProperty(
-        property: Hero['name'] | Hero['description'] | Hero['id'],
-      ): Cypress.Chainable<Hero>
+      getHeroByProperty(property: HeroProperty): Cypress.Chainable<Hero>
 
       getVillainByProperty(
         property: Villain['name'] | Villain['description'] | Villain['id'],
@@ -84,7 +83,7 @@ declare global {
        * returns the index of the hero, and the entire collection, as an object.
        */
       findHeroIndex(
-        property: Hero['name'] | Hero['description'] | Hero['id'],
+        property: HeroProperty,
       ): Cypress.Chainable<{heroIndex: number; heroesArray: Hero[]}>
 
       /**

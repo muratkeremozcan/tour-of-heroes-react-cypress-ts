@@ -1,4 +1,5 @@
 import {Hero} from 'models/Hero'
+import {EntityType} from 'models/types'
 import {useMutation, useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {createItem} from './api'
@@ -15,7 +16,7 @@ import {createItem} from './api'
  * Helper for simple POST to `/heroes` route
  * @returns {object} {mutate, status, error}
  */
-export function usePostEntity(entityType: 'hero' | 'villain') {
+export function usePostEntity(entityType: EntityType) {
   const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   const queryClient = useQueryClient()
   const navigate = useNavigate()

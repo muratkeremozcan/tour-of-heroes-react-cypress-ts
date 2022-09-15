@@ -1,3 +1,4 @@
+import {EntityRoute} from 'models/types'
 import {useQuery} from 'react-query'
 import {getItem} from './api'
 
@@ -14,7 +15,7 @@ import {getItem} from './api'
  * Helper for GET to `/heroes` or `/villains` routes
  * @returns {object} {entities, status, getError}
  */
-export const useGetEntities = (entityRoute: 'heroes' | 'villains') => {
+export const useGetEntities = (entityRoute: EntityRoute) => {
   const query = useQuery(entityRoute, () => getItem(entityRoute), {
     suspense: true,
   })

@@ -4,12 +4,13 @@ import type {QueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
 import {editItem} from './api'
 import {Villain} from 'models/Villain'
+import {EntityType} from 'models/types'
 
 /**
  * Helper for PUT to `/heroes` route
  * @returns {object} {updateHero, isUpdating, isUpdateError, updateError}
  */
-export function usePutEntity(entityType: 'hero' | 'villain') {
+export function usePutEntity(entityType: EntityType) {
   const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   const queryClient = useQueryClient()
   const navigate = useNavigate()
@@ -33,7 +34,7 @@ export function usePutEntity(entityType: 'hero' | 'villain') {
 
 /** Replace a hero in the cache with the updated version. */
 function updateEntityCache(
-  entityType: 'hero' | 'villain',
+  entityType: EntityType,
   updatedEntity: Hero | Villain,
   queryClient: QueryClient,
 ) {

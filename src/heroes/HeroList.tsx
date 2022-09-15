@@ -11,6 +11,7 @@ import {
   useDeferredValue,
 } from 'react'
 import {Hero} from 'models/Hero'
+import {HeroProperty} from 'models/types'
 
 type HeroListProps = {
   heroes: Hero[]
@@ -34,8 +35,6 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
       `/heroes/edit-hero/${hero?.id}?name=${hero?.name}&description=${hero?.description}`,
     )
   }
-
-  type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
 
   /** returns a boolean whether the hero properties exist in the search field */
   const searchExists = (searchProperty: HeroProperty, searchField: string) =>

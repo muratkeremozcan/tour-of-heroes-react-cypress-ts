@@ -1,4 +1,5 @@
 import {Hero} from 'models/Hero'
+import {EntityType} from 'models/types'
 import {Villain} from 'models/Villain'
 import {useMutation, useQueryClient} from 'react-query'
 import {useNavigate} from 'react-router-dom'
@@ -8,7 +9,7 @@ import {deleteItem} from './api'
  * Helper for DELETE to `/entities` route
  * @returns {object} {deleteEntity, isDeleting, isDeleteError, deleteError}
  */
-export function useDeleteEntity(entityType: 'hero' | 'villain') {
+export function useDeleteEntity(entityType: EntityType) {
   const entityRoute = entityType === 'hero' ? 'heroes' : 'villains'
   const navigate = useNavigate()
   const queryClient = useQueryClient()
