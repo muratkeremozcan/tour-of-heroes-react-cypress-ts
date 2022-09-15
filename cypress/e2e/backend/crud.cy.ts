@@ -48,4 +48,31 @@ describe('Backend e2e', () => {
       .its('status')
       .should('eq', 404)
   })
+
+  it('should CRUD a new villain entity', () => {
+    const newVillain = {
+      id: faker.datatype.uuid(),
+      name: faker.internet.userName(),
+      description: `description ${faker.internet.userName()}`,
+    }
+
+    cy.crud('POST', 'villains', {body: newVillain})
+
+    cy.crud('GET', 'villains')
+      .its('body')
+      .then(body => {
+        expect(body.at(-1)).to.deep.eq(newVillain)
+      })
+
+    const editedVillain = {...newVillain, name: 'Murat'}
+    cy.crud('PUT', `villains/${editedVillain.id}`, {body: editedVillain})
+    cy.crud('GET', `villains/${editedVillain.id}`)
+      .its('body')
+      .should('deep.eq', editedVillain)
+
+    cy.crud('DELETE', `villains/${editedVillain.id}`)
+    cy.crud('GET', `villains/${editedVillain.id}`, {allowedToFail: true})
+      .its('status')
+      .should('eq', 404)
+  })
 })

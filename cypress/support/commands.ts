@@ -1,3 +1,4 @@
+import {Villain} from './../../src/models/Villain'
 import {Hero} from '../../src/models/Hero'
 import data from '../fixtures/db.json'
 
@@ -37,17 +38,26 @@ Cypress.Commands.add('resetData', () => cy.crud('POST', 'reset', {body: data}))
 const {_} = Cypress
 
 type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
+type VillainProperty = Villain['name'] | Villain['description'] | Villain['id']
 
-const propExists = (property: HeroProperty) => (hero: Hero) =>
-  hero.name === property ||
-  hero.description === property ||
-  hero.id === property
+const propExists =
+  (property: HeroProperty | VillainProperty) => (entity: Hero | Villain) =>
+    entity.name === property ||
+    entity.description === property ||
+    entity.id === property
 
 const getHeroes = () => cy.crud('GET', 'heroes').its('body')
+const getVillains = () => cy.crud('GET', 'villains').its('body')
 
-Cypress.Commands.add('getEntityByProperty', (property: HeroProperty) =>
+Cypress.Commands.add('getHeroByProperty', (property: HeroProperty) =>
   getHeroes()
     .then((body: Hero[]) => _.filter(body, propExists(property)))
+    .its(0),
+)
+
+Cypress.Commands.add('getVillainByProperty', (property: VillainProperty) =>
+  getVillains()
+    .then((body: Villain[]) => _.filter(body, propExists(property)))
     .its(0),
 )
 
@@ -55,6 +65,13 @@ Cypress.Commands.add('findHeroIndex', (property: HeroProperty) =>
   getHeroes().then((body: Hero[]) => ({
     heroIndex: _.findIndex(body, propExists(property)),
     heroesArray: body,
+  })),
+)
+
+Cypress.Commands.add('findVillainIndex', (property: VillainProperty) =>
+  getVillains().then((body: Villain[]) => ({
+    villainIndex: _.findIndex(body, propExists(property)),
+    villainsArray: body,
   })),
 )
 
@@ -67,9 +84,25 @@ Cypress.Commands.add('visitStubbedHeroes', () => {
   return cy.location('pathname').should('eq', '/heroes')
 })
 
+Cypress.Commands.add('visitStubbedVillains', () => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/villains`, {
+    fixture: 'villains',
+  }).as('stubbedGetVillains')
+  cy.visit('/villains')
+  cy.wait('@stubbedGetVillains')
+  return cy.location('pathname').should('eq', '/villains')
+})
+
 Cypress.Commands.add('visitHeroes', () => {
   cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
   cy.visit('/')
   cy.wait('@getHeroes')
   return cy.location('pathname').should('eq', '/heroes')
+})
+
+Cypress.Commands.add('visitVillains', () => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/villains`).as('getVillains')
+  cy.visit('/villains')
+  cy.wait('@getVillains')
+  return cy.location('pathname').should('eq', '/villains')
 })

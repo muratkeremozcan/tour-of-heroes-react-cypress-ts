@@ -10,19 +10,18 @@ import {
   useState,
   useDeferredValue,
 } from 'react'
+import {useVillainsContext} from 'hooks/useVillainsContext'
 import {Villain} from 'models/Villain'
 
 type VillainListProps = {
-  villains: Villain[]
   handleDeleteVillain: (
     villain: Villain,
   ) => (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export default function VillainList({
-  villains,
-  handleDeleteVillain,
-}: VillainListProps) {
+export default function VillainList({handleDeleteVillain}: VillainListProps) {
+  const [villains] = useVillainsContext()
+
   const deferredVillains = useDeferredValue(villains)
   const isStale = deferredVillains !== villains
   const [filteredVillains, setFilteredVillains] = useState(deferredVillains)
