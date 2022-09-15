@@ -51,7 +51,7 @@ describe('Create hero', () => {
       .should('contain', newHero.name)
       .and('contain', newHero.description)
 
-    cy.getEntityByProperty(newHero.name).then(myHero =>
+    cy.getHeroByProperty(newHero.name).then(myHero =>
       cy.crud('DELETE', `heroes/${myHero.id}`),
     )
   })

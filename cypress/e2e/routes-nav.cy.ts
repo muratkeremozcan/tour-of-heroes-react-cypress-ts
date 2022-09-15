@@ -20,6 +20,13 @@ describe('routes navigation (ui-integration)', () => {
     cy.getByCy('heroes').should('be.visible')
   })
 
+  it('should direct-navigate to /villains', () => {
+    const route = '/villains'
+    cy.visit(route)
+    cy.url().should('include', route)
+    cy.getByCy('villains').should('be.visible')
+  })
+
   it('should land on not found when visiting an non-existing route', () => {
     const route = '/route48'
     cy.visit(route)

@@ -55,8 +55,14 @@ declare global {
       /** Visits baseUrl, uses real network, verifies path */
       visitHeroes(): Cypress.Chainable<string>
 
+      /** Visits villains route, uses real network, verifies path */
+      visitVillains(): Cypress.Chainable<string>
+
       /** Visits baseUrl, uses stubbed network, verifies path */
       visitStubbedHeroes(): Cypress.Chainable<string>
+
+      /** Visits villains route, uses stubbed network, verifies path */
+      visitStubbedVillains(): Cypress.Chainable<string>
 
       /**
        * Gets an entity by name.
@@ -65,9 +71,13 @@ declare global {
        * ```
        * @param name: Hero['name']
        */
-      getEntityByProperty(
+      getHeroByProperty(
         property: Hero['name'] | Hero['description'] | Hero['id'],
       ): Cypress.Chainable<Hero>
+
+      getVillainByProperty(
+        property: Villain['name'] | Villain['description'] | Villain['id'],
+      ): Cypress.Chainable<Villain>
 
       /**
        * Given a hero property (name, description or id),
@@ -76,6 +86,14 @@ declare global {
       findHeroIndex(
         property: Hero['name'] | Hero['description'] | Hero['id'],
       ): Cypress.Chainable<{heroIndex: number; heroesArray: Hero[]}>
+
+      /**
+       * Given a villain property (name, description or id),
+       * returns the index of the villain, and the entire collection, as an object.
+       */
+      findVillainIndex(
+        property: Villain['name'] | Villain['description'] | Villain['id'],
+      ): Cypress.Chainable<{villainIndex: number; villainsArray: Villain[]}>
 
       /**
        * Performs crud operations GET, POST, PUT and DELETE.
