@@ -15,19 +15,6 @@ describe('Delete hero', () => {
     cy.get('modal-yes-no').should('not.exist')
   })
 
-  it('should go through the DELETE error flow (ui-integration)', () => {
-    cy.visitStubbedHeroes()
-    cy.intercept('DELETE', `${Cypress.env('API_URL')}/heroes/*`, {
-      statusCode: 500,
-    }).as('isDeleteError')
-
-    cy.getByCy('delete-button').eq(0).click()
-    yesOnModal()
-
-    cy.wait('@isDeleteError')
-    cy.getByCy('error')
-  })
-
   it('should go through the edit flow (ui-e2e)', () => {
     const hero: Hero = {
       id: faker.datatype.uuid(),

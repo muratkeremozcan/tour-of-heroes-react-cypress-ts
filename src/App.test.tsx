@@ -10,9 +10,7 @@ describe('200 flow', () => {
   const handlers = [
     rest.get(
       `${process.env.REACT_APP_API_URL}/heroes`,
-      async (_req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(heroes))
-      },
+      async (_req, res, ctx) => res(ctx.status(200), ctx.json(heroes)),
     ),
   ]
   const server = setupServer(...handlers)
