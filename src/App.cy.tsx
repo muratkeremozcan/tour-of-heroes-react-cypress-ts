@@ -6,11 +6,18 @@ describe('ct sanity', () => {
       fixture: 'heroes.json',
     }).as('getHeroes')
 
+    cy.intercept('GET', `${Cypress.env('API_URL')}/villains`, {
+      fixture: 'villains.json',
+    }).as('getVillains')
+
     cy.mount(<App />)
     cy.getByCy('not-found').should('be.visible')
 
     cy.contains('Heroes').click()
     cy.getByCy('heroes').should('be.visible')
+
+    cy.contains('Villains').click()
+    cy.getByCy('villains').should('be.visible')
 
     cy.contains('About').click()
     cy.getByCy('about').should('be.visible')

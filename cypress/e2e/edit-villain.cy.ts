@@ -17,7 +17,7 @@ describe('Edit villain', () => {
     Cypress._.random(0, villains.length - 1)
 
   it('should go through the cancel flow for a random villain (ui-integration)', () => {
-    cy.visitStubbedVillains()
+    cy.visitStubbedEntities('villains')
 
     cy.fixture('villains').then(villains => {
       const villainIndex = randomVillainIndex(villains)
@@ -31,7 +31,7 @@ describe('Edit villain', () => {
   })
 
   it('should go through the PUT error flow (ui-integration)', () => {
-    cy.visitStubbedVillains()
+    cy.visitStubbedEntities('villains')
 
     cy.fixture('villains').then(villains => {
       const villainIndex = randomVillainIndex(villains)
@@ -51,7 +51,7 @@ describe('Edit villain', () => {
   })
 
   it('should navigate to add from an existing villain (ui-integration)', () => {
-    cy.visitStubbedVillains()
+    cy.visitStubbedEntities('villains')
 
     cy.fixture('villains').then(villains => {
       const villainIndex = randomVillainIndex(villains)
@@ -100,8 +100,8 @@ describe('Edit villain', () => {
       .should('contain', editedVillain.name)
       .and('contain', editedVillain.description)
 
-    cy.getVillainByProperty(newVillain.id).then(myVillain =>
-      cy.crud('DELETE', `villains/${myVillain.id}`),
+    cy.getEntityByProperty('villain', newVillain.id).then(
+      (myVillain: Villain) => cy.crud('DELETE', `villains/${myVillain.id}`),
     )
   })
 })

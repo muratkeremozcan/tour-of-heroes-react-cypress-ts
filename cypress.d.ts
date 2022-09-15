@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MountOptions, MountReturn} from 'cypress/react'
-import {HeroProperty} from 'models/types'
+import {HeroProperty, VillainProperty, EntityType} from 'models/types'
 import type {Hero} from './cypress/support/commands'
 
 export {}
@@ -53,17 +53,11 @@ declare global {
         options?: MountOptions,
       ): Cypress.Chainable<MountReturn>
 
-      /** Visits baseUrl, uses real network, verifies path */
-      visitHeroes(): Cypress.Chainable<string>
+      /** Visits heroes or villains routes, uses real network, verifies path */
+      visitEntities(entityRoute: EntityRoute): Cypress.Chainable<string>
 
-      /** Visits villains route, uses real network, verifies path */
-      visitVillains(): Cypress.Chainable<string>
-
-      /** Visits baseUrl, uses stubbed network, verifies path */
-      visitStubbedHeroes(): Cypress.Chainable<string>
-
-      /** Visits villains route, uses stubbed network, verifies path */
-      visitStubbedVillains(): Cypress.Chainable<string>
+      /** Visits heroes or villains routes, uses stubbed network, verifies path */
+      visitStubbedEntities(entityRoute: EntityRoute): Cypress.Chainable<string>
 
       /**
        * Gets an entity by name.
@@ -72,27 +66,19 @@ declare global {
        * ```
        * @param name: Hero['name']
        */
-      getHeroByProperty(property: HeroProperty): Cypress.Chainable<Hero>
-
-      getVillainByProperty(
-        property: Villain['name'] | Villain['description'] | Villain['id'],
-      ): Cypress.Chainable<Villain>
+      getEntityByProperty(
+        entityType: EntityType,
+        property: HeroProperty | VillainProperty,
+      ): Cypress.Chainable<Hero | Villain>
 
       /**
        * Given a hero property (name, description or id),
        * returns the index of the hero, and the entire collection, as an object.
        */
-      findHeroIndex(
+      findEntityIndex(
+        entityType: EntityType,
         property: HeroProperty,
-      ): Cypress.Chainable<{heroIndex: number; heroesArray: Hero[]}>
-
-      /**
-       * Given a villain property (name, description or id),
-       * returns the index of the villain, and the entire collection, as an object.
-       */
-      findVillainIndex(
-        property: Villain['name'] | Villain['description'] | Villain['id'],
-      ): Cypress.Chainable<{villainIndex: number; villainsArray: Villain[]}>
+      ): Cypress.Chainable<{entityIndex: number; entityArray: Hero[]}>
 
       /**
        * Performs crud operations GET, POST, PUT and DELETE.

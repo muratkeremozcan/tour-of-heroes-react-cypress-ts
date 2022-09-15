@@ -11,7 +11,7 @@ describe('Create villain', () => {
   }
 
   it('should go through the refresh flow (ui-integration)', () => {
-    cy.visitStubbedVillains()
+    cy.visitStubbedEntities('villains')
     navToAddVillain()
 
     cy.getByCy('refresh-button').click()
@@ -32,7 +32,7 @@ describe('Create villain', () => {
   })
 
   it('should go through the add villain flow (ui-e2e)', () => {
-    cy.visitVillains()
+    cy.visitEntities('villains')
     navToAddVillain()
 
     const newVillain = {
@@ -51,7 +51,7 @@ describe('Create villain', () => {
       .should('contain', newVillain.name)
       .and('contain', newVillain.description)
 
-    cy.getVillainByProperty(newVillain.name).then(myVillain =>
+    cy.getEntityByProperty('villain', newVillain.name).then(myVillain =>
       cy.crud('DELETE', `villains/${myVillain.id}`),
     )
   })

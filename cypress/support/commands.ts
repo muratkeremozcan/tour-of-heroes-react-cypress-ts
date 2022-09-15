@@ -1,6 +1,11 @@
 import {Villain} from './../../src/models/Villain'
 import {Hero} from '../../src/models/Hero'
-import {HeroProperty, VillainProperty} from '../../src/models/types'
+import {
+  EntityRoute,
+  EntityType,
+  HeroProperty,
+  VillainProperty,
+} from '../../src/models/types'
 import data from '../fixtures/db.json'
 
 Cypress.Commands.add('getByCy', (selector, ...args) =>
@@ -44,63 +49,42 @@ const propExists =
     entity.description === property ||
     entity.id === property
 
-const getHeroes = () => cy.crud('GET', 'heroes').its('body')
-const getVillains = () => cy.crud('GET', 'villains').its('body')
+const getEntities = (entityRoute: EntityRoute) =>
+  cy.crud('GET', entityRoute).its('body')
 
-Cypress.Commands.add('getHeroByProperty', (property: HeroProperty) =>
-  getHeroes()
-    .then((body: Hero[]) => _.filter(body, propExists(property)))
-    .its(0),
+Cypress.Commands.add(
+  'getEntityByProperty',
+  (entityType: EntityType, property: HeroProperty | VillainProperty) =>
+    getEntities(entityType === 'hero' ? 'heroes' : 'villains').then(entities =>
+      _.find(entities, propExists(property)),
+    ),
 )
 
-Cypress.Commands.add('getVillainByProperty', (property: VillainProperty) =>
-  getVillains()
-    .then((body: Villain[]) => _.filter(body, propExists(property)))
-    .its(0),
+Cypress.Commands.add(
+  'findEntityIndex',
+  (entityType: EntityType, property: HeroProperty | VillainProperty) =>
+    getEntities(entityType === 'hero' ? 'heroes' : 'villains').then(
+      (body: Hero[]) => ({
+        entityIndex: _.findIndex(body, propExists(property)),
+        entityArray: body,
+      }),
+    ),
 )
 
-Cypress.Commands.add('findHeroIndex', (property: HeroProperty) =>
-  getHeroes().then((body: Hero[]) => ({
-    heroIndex: _.findIndex(body, propExists(property)),
-    heroesArray: body,
-  })),
-)
-
-Cypress.Commands.add('findVillainIndex', (property: VillainProperty) =>
-  getVillains().then((body: Villain[]) => ({
-    villainIndex: _.findIndex(body, propExists(property)),
-    villainsArray: body,
-  })),
-)
-
-Cypress.Commands.add('visitStubbedHeroes', () => {
-  cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`, {
-    fixture: 'heroes',
-  }).as('stubbedGetHeroes')
-  cy.visit('/')
-  cy.wait('@stubbedGetHeroes')
-  return cy.location('pathname').should('eq', '/heroes')
+Cypress.Commands.add('visitStubbedEntities', (entityRoute: EntityRoute) => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/${entityRoute}`, {
+    fixture: `${entityRoute}.json`,
+  }).as(`stubbed${_.startCase(entityRoute)}`)
+  cy.visit(`/${entityRoute}`)
+  cy.wait(`@stubbed${_.startCase(entityRoute)}`)
+  return cy.location('pathname').should('eq', `/${entityRoute}`)
 })
 
-Cypress.Commands.add('visitStubbedVillains', () => {
-  cy.intercept('GET', `${Cypress.env('API_URL')}/villains`, {
-    fixture: 'villains',
-  }).as('stubbedGetVillains')
-  cy.visit('/villains')
-  cy.wait('@stubbedGetVillains')
-  return cy.location('pathname').should('eq', '/villains')
-})
-
-Cypress.Commands.add('visitHeroes', () => {
-  cy.intercept('GET', `${Cypress.env('API_URL')}/heroes`).as('getHeroes')
-  cy.visit('/')
-  cy.wait('@getHeroes')
-  return cy.location('pathname').should('eq', '/heroes')
-})
-
-Cypress.Commands.add('visitVillains', () => {
-  cy.intercept('GET', `${Cypress.env('API_URL')}/villains`).as('getVillains')
-  cy.visit('/villains')
-  cy.wait('@getVillains')
-  return cy.location('pathname').should('eq', '/villains')
+Cypress.Commands.add('visitEntities', (entityRoute: EntityRoute) => {
+  cy.intercept('GET', `${Cypress.env('API_URL')}/${entityRoute}`).as(
+    `get${_.startCase(entityRoute)}`,
+  )
+  cy.visit(`/${entityRoute}`)
+  cy.wait(`@get${_.startCase(entityRoute)}`)
+  return cy.location('pathname').should('eq', `/${entityRoute}`)
 })
