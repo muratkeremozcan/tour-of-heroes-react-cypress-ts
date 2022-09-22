@@ -19,8 +19,8 @@ describe('InputDetail', () => {
 
     cy.contains('label', name)
     cy.findByPlaceholderText(placeholder).clear().type(newValue)
-    cy.get('input').should('have.value', newValue)
-    cy.get('@onChange').should('have.been.calledTwice')
+    cy.findByDisplayValue(newValue).should('be.visible')
+    cy.get('@onChange').its('callCount').should('eq', newValue.length)
   })
 
   it('should not allow the input field to be modified', () => {
@@ -34,7 +34,8 @@ describe('InputDetail', () => {
     )
 
     cy.contains('label', name)
-    cy.findByPlaceholderText(placeholder).should('have.attr', 'readOnly')
-    cy.get('input').should('have.value', value)
+    cy.findByPlaceholderText(placeholder)
+      .should('have.value', value)
+      .and('have.attr', 'readOnly')
   })
 })

@@ -16,7 +16,7 @@ describe('Heroes', () => {
     const handlers = [
       rest.get(
         `${process.env.REACT_APP_API_URL}/heroes`,
-        async (_req, res, ctx) => res(ctx.status(500)),
+        async (_req, res, ctx) => res(ctx.status(400)),
       ),
     ]
     const server = setupServer(...handlers)

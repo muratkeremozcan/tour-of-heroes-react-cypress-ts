@@ -24,6 +24,7 @@ describe('InputDetail', () => {
     await userEvent.clear(inputField)
     await userEvent.type(inputField, newValue)
     expect(inputField).toHaveDisplayValue(newValue)
+    expect(onChange).toHaveBeenCalledTimes(newValue.length)
   })
 
   it('should not allow the input field to be modified', async () => {
@@ -38,7 +39,7 @@ describe('InputDetail', () => {
 
     await screen.findByText(name)
     const inputField = await screen.findByPlaceholderText(placeholder)
-    expect(inputField).toHaveAttribute('readOnly')
     expect(inputField).toHaveDisplayValue(value)
+    expect(inputField).toHaveAttribute('readOnly')
   })
 })

@@ -21,9 +21,7 @@ describe('HeaderBarBrand', () => {
 
   it('should verify internal link spans and navigation', () => {
     cy.getByCy('navLink').within(() =>
-      cy
-        .wrap(['TOUR', 'OF', 'HEROES'])
-        .each((part: string) => cy.contains('span', part)),
+      ['TOUR', 'OF', 'HEROES'].map((part: string) => cy.contains('span', part)),
     )
     cy.getByCy('navLink').click()
     cy.url().should('contain', '/')

@@ -16,7 +16,7 @@ describe('NavBar', () => {
       const routes = ['heroes', 'villains', 'about']
       cy.getByCy('menu-list').children().should('have.length', routes.length)
 
-      cy.wrap(routes).each((route: string) => {
+      routes.forEach((route: string) => {
         cy.get(`[href="/${route}"]`)
           .contains(route, {matchCase: false})
           .click()
