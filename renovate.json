@@ -16,7 +16,8 @@
         "typescript",
         "jest",
         "ts-jest",
-        "jest-environment-jsdom"
+        "jest-environment-jsdom",
+        "msw"
       ],
       "enabled": false
     }

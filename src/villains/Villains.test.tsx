@@ -27,11 +27,11 @@ describe('Villains', () => {
 
     expect(await screen.findByTestId('page-spinner')).toBeVisible()
 
-    jest.advanceTimersByTime(25000)
+    jest.advanceTimersByTime(30000)
     await waitForElementToBeRemoved(
       () => screen.queryByTestId('page-spinner'),
       {
-        timeout: 25000,
+        timeout: 30000,
       },
     )
 
