@@ -11,9 +11,7 @@
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
 
-A template with React, TS, Cypress (e2e & ct), GHA with CI architecture, Jest,
-ESLint, Prettier, Renovate, Husky, Lint-staged, and most of the things you need
-to get started with a new project.
+The application built in the book [CCTDD: Cypress Component Test Driven Development](https://github.com/muratkeremozcan/cctdd).
 
 ```bash
 yarn install --registry https://registry.yarnpkg.com # specify the registry in case you are using a proprietary registry
