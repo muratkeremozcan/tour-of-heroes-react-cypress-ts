@@ -4,7 +4,7 @@
 ![cypress version](https://img.shields.io/badge/cypress-10.8.0-brightgreen)
 ![typescript version](https://img.shields.io/badge/typescript-4.8.3-brightgreen)
 ![jest version](https://img.shields.io/badge/jest-27.5.1-brightgreen)
-![eslint version](https://img.shields.io/badge/eslint-8.23.1-brightgreen)
+![eslint version](https://img.shields.io/badge/eslint-8.24.0-brightgreen)
 ![prettier version](https://img.shields.io/badge/prettier-2.7.1-brightgreen)
 [![renovate-app badge][renovate-badge]][renovate-app]
 
