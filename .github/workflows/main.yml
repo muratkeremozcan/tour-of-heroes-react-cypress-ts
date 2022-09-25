@@ -48,7 +48,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: coverage/
-          flags: unit-test-coverage
+          flags: jest-rtl-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
