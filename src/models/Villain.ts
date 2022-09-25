@@ -3,3 +3,5 @@ export interface Villain {
   name: string
   description: string
 }
+
+/* istanbul ignore file */

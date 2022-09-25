@@ -1,0 +1,20 @@
+codecov:
+  notify:
+    after_n_builds: 6
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        # this allows a 1% drop from the previous base commit coverage
+        threshold: 2%
+  # makes it so that unit, cy ct and cy e2e reports finish running before the report is shown in a PAR
+  # https://docs.codecov.com/docs/notifications#preventing-notifications-until-after-n-builds
+  ignore:
+    - 'src/setupTests.ts'
+    - 'src/**/*.test.tsx'
+    - 'src/**/*.cy.ts'
+    - 'src/**/*.cy.tsx'
+    - 'src/**/*.d.ts'
+    - './src/models'
+    - 'src/reportWebVitals.ts'
