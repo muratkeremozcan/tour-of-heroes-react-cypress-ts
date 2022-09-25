@@ -57,5 +57,5 @@ function updateEntityCache(
     // use queryClient's setQueryData to set the cache
     // takes a key as the first arg, the 2nd arg is the new cache
     return queryClient.setQueryData([entityRoute], entityCache)
-  } else return null
+  }
 }

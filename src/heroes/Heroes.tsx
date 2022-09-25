@@ -12,7 +12,7 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {entities: heroes, status, getError} = useGetEntities('heroes')
+  const {entities: heroes, getError} = useGetEntities('heroes')
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {deleteEntity: deleteHero, isDeleteError} = useDeleteEntity('hero')
 
@@ -32,10 +32,6 @@ export default function Heroes() {
   const handleDeleteFromModal = () => {
     heroToDelete ? deleteHero(heroToDelete) : null
     setShowModal(false)
-  }
-
-  if (status === 'loading') {
-    return <PageSpinner />
   }
 
   if (getError || isDeleteError) {

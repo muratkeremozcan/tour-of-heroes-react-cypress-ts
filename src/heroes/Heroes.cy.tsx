@@ -17,8 +17,6 @@ describe('Heroes', () => {
       cy.tick(5000)
       cy.wait('@notFound')
     })
-
-    cy.getByCy('error')
   })
 
   context('200 flows', () => {
