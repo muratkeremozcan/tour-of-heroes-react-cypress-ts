@@ -34,22 +34,22 @@ jobs:
         env:
           CYPRESS_INSTALL_BINARY: 0
       - name: unit-test
-        run: yarn test
+        run: yarn test:coverage
 
       # if you want to enable codecov
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3.1.0
-      #   with:
-      #     name: coverage
-      #     path: coverage/
-      #     retention-days: 1
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 1
 
-      # - name: ✅ Upload Jest coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     directory: coverage/
-      #     flags: unit-test-coverage
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+      - name: ✅ Upload Jest coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage/
+          flags: unit-test-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     needs: install-dependencies
@@ -109,19 +109,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
-      # - name: Upload artifacts (Coverage_step3)
-      #   uses: actions/upload-artifact@v3.1.0
-      #   with:
-      #     name: coverage-cy-e2e
-      #     path: coverage-cy/
-      #     retention-days: 1
+      - name: Upload artifacts (Coverage_step3)
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: coverage-cy-e2e
+          path: coverage-cy/
+          retention-days: 1
 
-      # - name: ✅ Upload e2e coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     directory: coverage-cy/
-      #     flags: cypress-e2e-coverage
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+      - name: ✅ Upload e2e coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage-cy/
+          flags: cypress-e2e-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   cypress-ct-test:
     # if you want to enable parallelization
@@ -155,16 +155,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
-      # - name: Upload artifacts (Coverage_step3)
-      #   uses: actions/upload-artifact@v3.1.0
-      #   with:
-      #     name: coverage-cy-ct
-      #     path: coverage-cy/
-      #     retention-days: 1
+      - name: Upload artifacts (Coverage_step3)
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: coverage-cy-ct
+          path: coverage-cy/
+          retention-days: 1
 
-      # - name: ✅ Upload CT coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     directory: coverage-cy/
-      #     flags: cypress-ct-coverage
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+      - name: ✅ Upload CT coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage-cy/
+          flags: cypress-ct-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}

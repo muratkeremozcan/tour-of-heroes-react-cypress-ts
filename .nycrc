@@ -3,6 +3,15 @@
   "excludeAfterRemap": true,
   "report-dir": "coverage-cy",
   "reporter": ["text", "json", "html"],
-  "extension": [".ts"],
-  "include": "src/**/*.ts"
+  "extension": [".ts", ".tsx", "js", "jsx"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.jsx", "src/**/*.js"],
+  "exclude": [
+    "src/setupTests.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx",
+    "src/**/*.d.ts",
+    "./src/models",
+    "src/reportWebVitals.ts"
+  ]
 }

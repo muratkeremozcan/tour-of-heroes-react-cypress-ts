@@ -10,3 +10,5 @@ export type VillainProperty =
 export type EntityRoute = 'heroes' | 'villains'
 
 export type EntityType = 'hero' | 'villain'
+
+/* istanbul ignore file */
