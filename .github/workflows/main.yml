@@ -105,7 +105,7 @@ jobs:
           tag: e2e-tests
         env:
           # if you want to enable parallelization
-          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
@@ -151,7 +151,7 @@ jobs:
           tag: ct-tests
         env:
           # if you want to enable parallelization
-          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
