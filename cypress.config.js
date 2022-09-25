@@ -3,6 +3,7 @@ import {defineConfig} from 'cypress'
 const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
 
 module.exports = defineConfig({
+  projectId: '7mypio',
   experimentalSingleTabRunMode: true,
   retries: {
     runMode: 2,
