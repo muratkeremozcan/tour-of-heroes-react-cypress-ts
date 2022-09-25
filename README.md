@@ -1,3 +1,4 @@
+[![Tour of Heroes CCTDD](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/7mypio/main&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/7mypio/runs)
 [![unit-lint-typecheck-e2e-ct](https://github.com/muratkeremozcan/tour-of-heroes-react-cypress-ts/actions/workflows/main.yml/badge.svg)](https://github.com/muratkeremozcan/tour-of-heroes-react-cypress-ts/actions/workflows/main.yml)
 ![react version](https://img.shields.io/badge/react-18.2.0-brightgreen)
 ![react-scripts version](https://img.shields.io/badge/react--scripts-5.0.1-brightgreen)
