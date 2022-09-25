@@ -12,7 +12,7 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {entities: heroes, getError} = useGetEntities('heroes')
+  const {entities: heroes, status, getError} = useGetEntities('heroes')
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {deleteEntity: deleteHero, isDeleteError} = useDeleteEntity('hero')
 
