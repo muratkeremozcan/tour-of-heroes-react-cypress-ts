@@ -2,7 +2,6 @@ import {useState} from 'react'
 import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
-import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
@@ -12,7 +11,7 @@ import {Hero} from 'models/Hero'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {entities: heroes, status, getError} = useGetEntities('heroes')
+  const {entities: heroes, getError} = useGetEntities('heroes')
   const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
   const {deleteEntity: deleteHero, isDeleteError} = useDeleteEntity('hero')
 
