@@ -3,3 +3,5 @@ export interface Boy {
   name: string
   description: string
 }
+
+/* istanbul ignore file */
