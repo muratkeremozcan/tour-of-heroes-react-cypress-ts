@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MountOptions, MountReturn} from 'cypress/react'
 import {HeroProperty, VillainProperty, EntityType} from 'models/types'
-import type {Hero} from './cypress/support/commands'
+import type {Hero} from './models/types/Hero'
+import type {Villain} from './models/types/Villain'
+import type {Boy} from './models/types/Boy'
 
 export {}
 declare global {
@@ -69,7 +71,7 @@ declare global {
       getEntityByProperty(
         entityType: EntityType,
         property: HeroProperty | VillainProperty,
-      ): Cypress.Chainable<Hero | Villain>
+      ): Cypress.Chainable<Hero | Villain | Boy>
 
       /**
        * Given a hero property (name, description or id),
@@ -78,7 +80,10 @@ declare global {
       findEntityIndex(
         entityType: EntityType,
         property: HeroProperty,
-      ): Cypress.Chainable<{entityIndex: number; entityArray: Hero[]}>
+      ): Cypress.Chainable<{
+        entityIndex: number
+        entityArray: Hero[] | Villain[] | Boy[]
+      }>
 
       /**
        * Performs crud operations GET, POST, PUT and DELETE.
@@ -105,7 +110,9 @@ declare global {
       /**
        * Resets the data in the database to the initial data.
        */
-      resetData(): Cypress.Chainable<Response<Hero[] & Hero>>
+      resetData(): Cypress.Chainable<
+        Response<(Hero[] & Hero) | (Villain[] & Villain) | (Boy[] & Boy)>
+      >
     }
   }
 }

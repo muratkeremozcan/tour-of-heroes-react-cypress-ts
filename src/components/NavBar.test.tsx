@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {BrowserRouter} from 'react-router-dom'
 import '@testing-library/jest-dom'
 
-const routes = ['Heroes', 'Villains', 'About']
+const routes = ['Heroes', 'Villains', 'Boys', 'About']
 const link = async (name: string) => screen.findByRole('link', {name})
 
 describe('NavBar', () => {

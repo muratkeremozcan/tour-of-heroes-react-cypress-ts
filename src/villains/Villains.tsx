@@ -2,7 +2,6 @@ import {useState} from 'react'
 import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
-import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import VillainList from './VillainList'
 import VillainDetail from './VillainDetail'
@@ -13,7 +12,7 @@ import VillainsContext from 'hooks/useVillainsContext'
 
 export default function Villains() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {entities: villains, status, getError} = useGetEntities('villains')
+  const {entities: villains, getError} = useGetEntities('villains')
   const [villainToDelete, setVillainToDelete] = useState<Villain | null>(null)
   const {deleteEntity: deleteVillain, isDeleteError} =
     useDeleteEntity('villain')

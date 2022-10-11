@@ -14,6 +14,9 @@ export default function NavBar() {
         <NavLink to="/villains" className={linkIsActive}>
           Villains
         </NavLink>
+        <NavLink to="/boys" className={linkIsActive}>
+          Boys
+        </NavLink>
         <NavLink to="/about" className={linkIsActive}>
           About
         </NavLink>

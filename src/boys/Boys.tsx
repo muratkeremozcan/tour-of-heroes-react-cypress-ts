@@ -3,33 +3,33 @@ import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
 import ErrorComp from 'components/ErrorComp'
-import HeroList from './HeroList'
-import HeroDetail from './HeroDetail'
+import BoyList from './BoyList'
+import BoyDetail from './BoyDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
-import {Hero} from 'models/Hero'
+import {Boy} from 'models/Boy'
 
-export default function Heroes() {
+export default function Boys() {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {entities: heroes, getError} = useGetEntities('heroes')
-  const [heroToDelete, setHeroToDelete] = useState<Hero | null>(null)
-  const {deleteEntity: deleteHero, isDeleteError} = useDeleteEntity('hero')
+  const {entities: boys, getError} = useGetEntities('boys')
+  const [boyToDelete, setBoyToDelete] = useState<Boy | null>(null)
+  const {deleteEntity: deleteBoy, isDeleteError} = useDeleteEntity('boy')
 
   const navigate = useNavigate()
-  const addNewHero = () => navigate('/heroes/add-hero')
-  const handleRefresh = () => navigate('/heroes')
+  const addNewBoy = () => navigate('/boys/add-boy')
+  const handleRefresh = () => navigate('/boys')
 
   const handleCloseModal = () => {
-    setHeroToDelete(null)
+    setBoyToDelete(null)
     setShowModal(false)
   }
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleDeleteHero = (hero: Hero) => () => {
-    setHeroToDelete(hero)
+  const handleDeleteBoy = (boy: Boy) => () => {
+    setBoyToDelete(boy)
     setShowModal(true)
   }
   const handleDeleteFromModal = () => {
-    heroToDelete ? deleteHero(heroToDelete) : null
+    boyToDelete ? deleteBoy(boyToDelete) : null
     setShowModal(false)
   }
 
@@ -38,10 +38,10 @@ export default function Heroes() {
   }
 
   return (
-    <div data-cy="heroes">
+    <div data-cy="boys">
       <ListHeader
-        title="Heroes"
-        handleAdd={addNewHero}
+        title="Boys"
+        handleAdd={addNewBoy}
         handleRefresh={handleRefresh}
       />
       <div>
@@ -50,15 +50,15 @@ export default function Heroes() {
             <Route
               path=""
               element={
-                <HeroList heroes={heroes} handleDeleteHero={handleDeleteHero} />
+                <BoyList boys={boys} handleDeleteBoy={handleDeleteBoy} />
               }
             />
-            <Route path="/add-hero" element={<HeroDetail />} />
-            <Route path="/edit-hero/:id" element={<HeroDetail />} />
+            <Route path="/add-boy" element={<BoyDetail />} />
+            <Route path="/edit-boy/:id" element={<BoyDetail />} />
             <Route
               path="*"
               element={
-                <HeroList heroes={heroes} handleDeleteHero={handleDeleteHero} />
+                <BoyList boys={boys} handleDeleteBoy={handleDeleteBoy} />
               }
             />
           </Routes>
@@ -67,7 +67,7 @@ export default function Heroes() {
 
       {showModal && (
         <ModalYesNo
-          message="Would you like to delete the hero?"
+          message="Would you like to delete the boy?"
           onNo={handleCloseModal}
           onYes={handleDeleteFromModal}
         />

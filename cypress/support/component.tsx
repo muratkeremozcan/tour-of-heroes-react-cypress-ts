@@ -1,6 +1,4 @@
 import './commands'
-import '@testing-library/cypress/add-commands'
-import '@bahmutov/cypress-code-coverage/support'
 import {mount} from 'cypress/react18'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClient, QueryClientProvider} from 'react-query'
