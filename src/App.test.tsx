@@ -1,7 +1,7 @@
 import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
-import {heroes, villains} from '../db.json'
+import {heroes, villains, boys} from '../db.json'
 
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
@@ -15,6 +15,9 @@ describe('200 flow', () => {
     rest.get(
       `${process.env.REACT_APP_API_URL}/villains`,
       async (_req, res, ctx) => res(ctx.status(200), ctx.json(villains)),
+    ),
+    rest.get(`${process.env.REACT_APP_API_URL}/boys`, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(boys)),
     ),
   ]
   const server = setupServer(...handlers)
@@ -38,5 +41,8 @@ describe('200 flow', () => {
 
     await userEvent.click(screen.getByText('Villains'))
     expect(await screen.findByTestId('villains')).toBeVisible()
+
+    await userEvent.click(screen.getByText('Boys'))
+    expect(await screen.findByTestId('boys')).toBeVisible()
   })
 })
