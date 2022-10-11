@@ -9,17 +9,17 @@ export type VillainProperty =
   | Villain['id']
 
 export type BoyProperty = Boy['name'] | Boy['description'] | Boy['id']
-export type EntityRoute = 'heroes' | 'villains' | 'theboys'
+export type EntityRoute = 'heroes' | 'villains' | 'boys'
 export type EntityType = 'hero' | 'villain' | 'boy'
 
 /** Returns the corresponding route for the entity;
  *
- * `hero` -> `/heroes`, `villain` -> `/villains`, `boy` -> `/theboys` */
+ * `hero` -> `/heroes`, `villain` -> `/villains`, `boy` -> `/boys` */
 export const entityRoute = (entityType: EntityType) =>
   entityType === 'hero'
     ? 'heroes'
     : entityType === 'villain'
     ? 'villains'
-    : 'theboys'
+    : 'boys'
 
 /* istanbul ignore file */

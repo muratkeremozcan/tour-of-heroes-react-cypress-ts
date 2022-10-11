@@ -7,6 +7,7 @@ import NavBar from 'components/NavBar'
 import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import Villains from 'villains/Villains'
+import Boys from 'boys/Boys'
 import './styles.scss'
 const Heroes = lazy(() => import('heroes/Heroes'))
 const NotFound = lazy(() => import('components/NotFound'))
@@ -14,7 +15,7 @@ const About = lazy(() => import('About'))
 
 const queryClient = new QueryClient()
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <HeaderBar />
@@ -28,6 +29,7 @@ function App() {
                   <Route path="/" element={<Navigate replace to="/heroes" />} />
                   <Route path="/heroes/*" element={<Heroes />} />
                   <Route path="/villains/*" element={<Villains />} />
+                  <Route path="/boys/*" element={<Boys />} />
                   <Route path="/about" element={<About />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
@@ -39,8 +41,6 @@ function App() {
     </BrowserRouter>
   )
 }
-
-export default App
 
 // why react-query? https://react-query.tanstack.com/
 // to prevent duplicated data-fetching, we want to move all the data-fetching code into a central store

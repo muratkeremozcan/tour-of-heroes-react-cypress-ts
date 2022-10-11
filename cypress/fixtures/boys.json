@@ -1,0 +1,22 @@
+[
+  {
+    "id": "BoyHomelander",
+    "name": "Homelander",
+    "description": "Like Superman, but a jerk."
+  },
+  {
+    "id": "BoyAnnieJanuary",
+    "name": "Annie January",
+    "description": "The Defender of Des Moines."
+  },
+  {
+    "id": "BoyBillyButcher",
+    "name": "Billy Butcher",
+    "description": "A former member of the British special forces turned vigilante."
+  },
+  {
+    "id": "BoyBlackNoir",
+    "name": "Black Noir",
+    "description": "Master Martial Artist, expert hand-to-hand combatant highly trained in various forms of martial arts."
+  }
+]

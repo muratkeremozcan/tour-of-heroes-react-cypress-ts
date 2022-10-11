@@ -4,7 +4,7 @@ import {FiRefreshCcw} from 'react-icons/fi'
 import {GrAdd} from 'react-icons/gr'
 
 type ListHeaderProps = {
-  title: 'Heroes' | 'Villains' | 'About'
+  title: 'Heroes' | 'Villains' | 'Boys' | 'About'
   handleAdd: (e: MouseEvent<HTMLButtonElement>) => void
   handleRefresh: (e: MouseEvent<HTMLButtonElement>) => void
 }

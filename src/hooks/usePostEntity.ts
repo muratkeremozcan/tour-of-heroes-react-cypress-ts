@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import {createItem} from '../api/api'
 
 /**
- * Helper for simple POST to `/heroes`, `/villains`, `/theboys` routes
+ * Helper for simple POST to `/heroes`, `/villains`, `/boys` routes
  * @returns {object} {mutate, status, error}
  */
 export function usePostEntity(entityType: EntityType) {

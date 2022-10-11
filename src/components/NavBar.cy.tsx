@@ -13,7 +13,7 @@ describe('NavBar', () => {
     cy.getByCy('nav-bar').within(() => {
       cy.contains('p', 'Menu')
 
-      const routes = ['heroes', 'villains', 'about']
+      const routes = ['heroes', 'villains', 'boys', 'about']
       cy.getByCy('menu-list').children().should('have.length', routes.length)
 
       routes.forEach((route: string) => {

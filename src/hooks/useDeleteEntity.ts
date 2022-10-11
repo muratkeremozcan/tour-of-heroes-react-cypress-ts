@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import {deleteItem} from '../api/api'
 
 /**
- * Helper for DELETE to `/heroes`, `/villains` or 'theboys' routes.
+ * Helper for DELETE to `/heroes`, `/villains` or 'boys' routes.
  * @returns {object} {deleteEntity, isDeleting, isDeleteError, deleteError}
  */
 export function useDeleteEntity(entityType: EntityType) {
