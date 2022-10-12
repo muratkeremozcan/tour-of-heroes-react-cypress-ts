@@ -22,4 +22,9 @@ export const entityRoute = (entityType: EntityType) =>
     ? 'villains'
     : 'boys'
 
+export interface State {
+  loading: boolean
+  data: Boy[]
+  error: undefined
+}
 /* istanbul ignore file */

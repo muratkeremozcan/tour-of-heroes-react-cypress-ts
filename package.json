@@ -30,6 +30,8 @@
     "cov:reset": "rm -rf .nyc_output && rm -rf reports && rm -rf coverage && rm -rf coverage-cy && rm -rf combined-coverage"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.6",
+    "@types/redux-saga": "^0.10.5",
     "axios": "0.27.2",
     "bulma": "0.9.4",
     "json-server": "0.17.0",
@@ -38,8 +40,10 @@
     "react-error-boundary": "3.1.4",
     "react-icons": "4.4.0",
     "react-query": "3.39.2",
+    "react-redux": "^8.0.4",
     "react-router-dom": "6.4.2",
     "react-scripts": "5.0.1",
+    "redux-saga": "^1.2.1",
     "web-vitals": "3.0.3"
   },
   "devDependencies": {
@@ -60,6 +64,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/react-icons": "3.0.0",
+    "@types/react-redux": "^7.1.24",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.39.0",
     "babel-loader": "8.2.5",
