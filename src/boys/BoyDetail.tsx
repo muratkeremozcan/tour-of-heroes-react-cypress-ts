@@ -9,7 +9,7 @@ import {useEntityParams} from 'hooks/useEntityParams'
 import {usePostEntity} from 'hooks/usePostEntity'
 import {Boy} from 'models/Boy'
 import {usePutEntity} from 'hooks/usePutEntity'
-import {partial, ifElse} from 'ramda'
+import {partial, ifElse, cond} from 'ramda'
 import {isTruthy} from 'ramda-adjunct'
 
 export default function BoyDetail() {
@@ -36,12 +36,11 @@ export default function BoyDetail() {
     () => createBoy(boy as Boy),
   )
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setBoy({...boy, name: e.target.value})
-  }
-  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) =>
     setBoy({...boy, description: e.target.value})
-  }
 
   if (status === 'loading' || isUpdating) {
     return <PageSpinner />
