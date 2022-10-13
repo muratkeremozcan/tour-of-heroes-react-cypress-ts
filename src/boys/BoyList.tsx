@@ -12,6 +12,7 @@ import {
 } from 'react'
 import {Boy} from 'models/Boy'
 import {BoyProperty} from 'models/types'
+import {curry} from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]
