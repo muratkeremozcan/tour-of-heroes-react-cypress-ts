@@ -26,9 +26,13 @@ export default function Boys() {
   //   setBoyToDelete(null)
   //   setShowModal(false)
   // }
+  // const handleCloseModal = pipe(
+  //   () => setBoyToDelete(null),
+  //   () => setShowModal(false),
+  // )
   const handleCloseModal = pipe(
-    () => setBoyToDelete(null),
-    () => setShowModal(false),
+    partial(setBoyToDelete, [null]),
+    partial(setShowModal, [false]),
   )
 
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
@@ -36,16 +40,22 @@ export default function Boys() {
   //   setBoyToDelete(boy)
   //   setShowModal(true)
   // }
+  // const handleDeleteBoy = (boy: Boy) =>
+  //   pipe(
+  //     () => setBoyToDelete(boy),
+  //     () => setShowModal(true),
+  //   )
   const handleDeleteBoy = (boy: Boy) =>
-    pipe(
-      () => setBoyToDelete(boy),
-      () => setShowModal(true),
-    )
+    pipe(partial(setBoyToDelete, [boy]), partial(setShowModal, [true]))
 
-  const handleDeleteFromModal = () => {
-    boyToDelete ? deleteBoy(boyToDelete) : null
-    setShowModal(false)
-  }
+  // const handleDeleteFromModal = () => {
+  //   boyToDelete ? deleteBoy(boyToDelete) : null
+  //   setShowModal(false)
+  // }
+  const handleDeleteFromModal = pipe(
+    () => (boyToDelete ? deleteBoy(boyToDelete) : null),
+    partial(setShowModal, [false]),
+  )
 
   if (getError || isDeleteError) {
     return <ErrorComp />
