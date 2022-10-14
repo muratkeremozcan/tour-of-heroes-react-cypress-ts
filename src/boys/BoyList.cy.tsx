@@ -1,53 +1,61 @@
-import BoyDetail from './BoyDetail'
+import BoyList from './BoyList'
 import '../styles.scss'
+import boys from '../../cypress/fixtures/boys.json'
 
-describe('BoyDetail', () => {
-  beforeEach(() => {
-    cy.wrappedMount(<BoyDetail />)
+describe('BoyList', () => {
+  it('no boys should not display a list nor search bar', () => {
+    cy.wrappedMount(
+      <BoyList boys={[]} handleDeleteBoy={cy.stub().as('handleDeleteBoy')} />,
+    )
+
+    cy.getByCy('boy-list').should('exist')
+    cy.getByCyLike('boy-list-item').should('not.exist')
+    cy.getByCy('search').should('not.exist')
   })
 
-  it('should handle Save', () => {
-    cy.intercept('POST', '*', {statusCode: 200}).as('postBoy')
-    cy.getByCy('save-button').click()
-    cy.wait('@postBoy')
-  })
+  context('with boys in the list', () => {
+    beforeEach(() => {
+      cy.wrappedMount(
+        <BoyList
+          boys={boys}
+          handleDeleteBoy={cy.stub().as('handleDeleteBoy')}
+        />,
+      )
+    })
 
-  it('should handle non-200 Save', () => {
-    cy.intercept('POST', '*', {statusCode: 400, delay: 100}).as('postBoy')
-    cy.getByCy('save-button').click()
-    cy.getByCy('spinner')
-    cy.wait('@postBoy')
-    cy.getByCy('error')
-  })
+    it('should render the boy layout', () => {
+      cy.getByCyLike('boy-list-item').should('have.length', boys.length)
 
-  it('should handle Cancel', () => {
-    cy.getByCy('cancel-button').click()
-    cy.location('pathname').should('eq', '/boys')
-  })
+      cy.getByCy('card-content')
+      cy.contains(boys[0].name)
+      cy.contains(boys[0].description)
 
-  it('should handle name change', () => {
-    const newBoyName = 'abc'
-    cy.getByCy('input-detail-name').type(newBoyName)
+      cy.get('footer').within(() => {
+        cy.getByCy('delete-button')
+        cy.getByCy('edit-button')
+      })
+    })
 
-    cy.findByDisplayValue(newBoyName).should('be.visible')
-  })
+    it('should search and filter boy by name and description', () => {
+      cy.getByCy('search').type(boys[0].name)
+      cy.getByCyLike('boy-list-item')
+        .should('have.length', 1)
+        .contains(boys[0].name)
 
-  it('should handle description change', () => {
-    const newBoyDescription = '123'
-    cy.getByCy('input-detail-description').type(newBoyDescription)
+      cy.getByCy('search').clear().type(boys[2].description)
+      cy.getByCyLike('boy-list-item')
+        .should('have.length', 1)
+        .contains(boys[2].description)
+    })
 
-    cy.findByDisplayValue(newBoyDescription).should('be.visible')
-  })
+    it('should handle delete', () => {
+      cy.getByCy('delete-button').first().click()
+      cy.get('@handleDeleteBoy').should('have.been.called')
+    })
 
-  it('id: false, name: false - should verify the minimal state of the component', () => {
-    cy.get('p').then($el => cy.wrap($el.text()).should('equal', ''))
-    cy.getByCyLike('input-detail').should('have.length', 2)
-    cy.getByCy('input-detail-id').should('not.exist')
-
-    cy.findByPlaceholderText('e.g. Colleen').should('be.visible')
-    cy.findByPlaceholderText('e.g. dance fight!').should('be.visible')
-
-    cy.getByCy('save-button').should('be.visible')
-    cy.getByCy('cancel-button').should('be.visible')
+    it('should handle edit', () => {
+      cy.getByCy('edit-button').first().click()
+      cy.location('pathname').should('eq', '/boys/edit-boy/' + boys[0].id)
+    })
   })
 })
