@@ -12,6 +12,7 @@ import {
 } from 'react'
 import {Boy} from 'models/Boy'
 import {BoyProperty} from 'models/types'
+import * as R from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]
@@ -37,16 +38,33 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   }
 
   /** returns a boolean whether the boy properties exist in the search field */
+  // const searchExists = (searchProperty: BoyProperty, searchField: string) =>
+  //   String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
+  //   -1
   const searchExists = (searchProperty: BoyProperty, searchField: string) =>
     String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
     -1
 
   /** given the data and the search field, returns the data in which the search field exists */
+  // const searchProperties = (searchField: string, data: Boy[]) =>
+  //   [...data].filter((item: Boy) =>
+  //     Object.values(item).find((property: BoyProperty) =>
+  //       searchExists(property, searchField),
+  //     ),
+  //   )
+
   const searchProperties = (searchField: string, data: Boy[]) =>
-    [...data].filter((item: Boy) =>
-      Object.values(item).find((property: BoyProperty) =>
-        searchExists(property, searchField),
-      ),
+    R.filter(
+      // (item: Boy) =>
+      // R.find(
+      //   (property: BoyProperty) => searchExists(property, searchField),
+      //   Object.values(item),
+      // ),
+      (item: Boy) =>
+        Object.values(item).find((property: BoyProperty) =>
+          searchExists(property, searchField),
+        ),
+      [...data],
     )
 
   /** filters the boys data to see if the any of the properties exist in the list */
