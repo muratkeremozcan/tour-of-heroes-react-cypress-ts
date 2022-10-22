@@ -38,7 +38,7 @@ jobs:
 
       # if you want to enable codecov
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: coverage
           path: coverage/
@@ -110,7 +110,7 @@ jobs:
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: coverage-cy-e2e
           path: coverage-cy/
@@ -156,7 +156,7 @@ jobs:
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: coverage-cy-ct
           path: coverage-cy/
