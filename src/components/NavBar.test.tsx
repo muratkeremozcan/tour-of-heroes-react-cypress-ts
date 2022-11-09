@@ -20,7 +20,7 @@ describe('NavBar', () => {
     expect(await screen.findByText('Menu')).toBeVisible()
 
     const menuList = await screen.findByTestId('menu-list')
-    routes.map(route => within(menuList).getByText(route))
+    routes.forEach(route => within(menuList).getByText(route))
   })
 
   it.each(routes)('should navigate to route %s', async (route: string) => {
@@ -30,7 +30,7 @@ describe('NavBar', () => {
     expect(window.location.pathname).toEqual(`/${route.toLowerCase()}`)
 
     const remainingRoutes = routes.filter(r => r !== route)
-    remainingRoutes.map(async inActiveRoute => {
+    remainingRoutes.forEach(async inActiveRoute => {
       expect(await link(inActiveRoute)).not.toHaveClass('active-link')
     })
   })
