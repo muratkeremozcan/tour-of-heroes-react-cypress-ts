@@ -1,20 +1,22 @@
-import VillainDetail from '../villains/VillainDetail'
+import HeaderBar from '../components/HeaderBar'
 import '../styles.scss'
 import React from 'react'
-import * as InputDetail from '../components/InputDetail'
+import * as HeaderBarBrand from '../components/HeaderBarBrand'
 import * as sum from './sum'
-// mock the child component InputDetail in VillainDetail parent component
+// mock the child component HeaderBarBrand in HeaderBar parent component
 
-describe('Should mock the child component InputDetail in VillainDetail parent component', () => {
+describe('Should mock the child component HeaderBarBrand in HeaderBar parent component', () => {
   it('should spy on child component', () => {
-    const mockInputDetail = React.createElement('span', {
-      children: 'InputDetail',
+    const mockHeaderBarBrand = React.createElement('span', {
+      children: 'HeaderBarBrand',
     })
-    // we want to make this work, but it has no effect
-    cy.stub(InputDetail, 'default').as('mockInputDetail').value('div')
 
-    cy.wrappedMount(<VillainDetail />)
-    // cy.get('@mockInputDetail').should('have.been.called')
+    // we want to make this work, but it has no effect
+    cy.stub(HeaderBarBrand, 'default')
+      .as('mockHeaderBarBrand')
+      .value(mockHeaderBarBrand)
+    cy.wrappedMount(<HeaderBar />)
+    // cy.get('@mockHeaderBarBrand').should('have.been.called')
 
     // the same thing works with a simple module
     cy.stub(sum, 'default').as('sum').returns(5) // ok for the compiler
