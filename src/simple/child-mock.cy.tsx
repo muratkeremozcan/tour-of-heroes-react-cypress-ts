@@ -11,14 +11,15 @@ describe('Should mock the child component InputDetail in VillainDetail parent co
       children: 'InputDetail',
     })
     // we want to make this work, but it has no effect
-    cy.stub(InputDetail, 'default')
-      .as('mockInputDetail')
-      .returns(mockInputDetail)
-
-    cy.spy(sum, 'default').as('sum') // ok for the compiler
-    // cy.spy(InputDetail, 'default').as('mockInputDetail') // error: Attempted to wrap undefined property default as function
+    cy.stub(InputDetail, 'default').as('mockInputDetail').value('div')
 
     cy.wrappedMount(<VillainDetail />)
     // cy.get('@mockInputDetail').should('have.been.called')
+
+    // the same thing works with a simple module
+    cy.stub(sum, 'default').as('sum').returns(5) // ok for the compiler
+    const result = sum.default(1, 2)
+    cy.get('@sum').should('be.called')
+    expect(result).to.equal(5)
   })
 })
