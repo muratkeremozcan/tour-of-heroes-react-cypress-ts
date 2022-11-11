@@ -14,6 +14,8 @@ describe('Should mock the child component HeaderBarBrand in HeaderBar', () => {
       .as('HeaderBarBrand')
       .returns(mockHeaderBarBrand)
 
+    // cy.mount(mockHeaderBarBrand) // this makes it sure that the mock is ok
+    // it just doesn't get used when we mount the parent component
     cy.mount(
       <BrowserRouter>
         <HeaderBar />
