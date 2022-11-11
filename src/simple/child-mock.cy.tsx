@@ -22,6 +22,6 @@ describe('Mocking child components in a parent', () => {
       </BrowserRouter>,
     )
 
-    // cy.contains('hello')
+    // cy.contains('mockHeaderBarBrand')
   })
 })
