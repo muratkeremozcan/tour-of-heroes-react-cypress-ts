@@ -1,4 +1,3 @@
-// component file
 import sum from './sum'
 
 export default function App() {
@@ -8,5 +7,3 @@ export default function App() {
     </div>
   )
 }
-
-// test file
