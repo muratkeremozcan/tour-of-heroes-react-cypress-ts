@@ -7,8 +7,8 @@ import React from 'react'
 const mockHeaderBarBrand = React.createElement('div', {
   children: [React.createElement('span', {children: 'mockHeaderBarBrand'})],
 })
-describe('Should mock the child component HeaderBarBrand in HeaderBar', () => {
-  it('should spy on child component', () => {
+describe('Mocking child components in a parent', () => {
+  it('Should mock the child component HeaderBarBrand in HeaderBar', () => {
     // we want to make this work, but it has no effect
     cy.stub(HeaderBarBrand, 'default')
       .as('HeaderBarBrand')
