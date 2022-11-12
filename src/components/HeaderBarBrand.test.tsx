@@ -27,7 +27,7 @@ describe('HeaderBarBrand', () => {
   it('should verify internal link spans and navigation', async () => {
     const navLink = await screen.findByTestId('navLink')
     const withinNavLink = within(navLink)
-    ;['TOUR', 'OF', 'HEROES'].map(part => withinNavLink.getByText(part))
+    ;['TOUR', 'OF', 'HEROES'].forEach(part => withinNavLink.getByText(part))
 
     await userEvent.click(navLink)
     expect(window.location.pathname).toBe('/')
