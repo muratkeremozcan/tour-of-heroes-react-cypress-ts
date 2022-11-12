@@ -12,7 +12,7 @@ import {
 } from 'react'
 import {Boy} from 'models/Boy'
 import {BoyProperty} from 'models/types'
-import * as R from 'ramda'
+import {indexOf, filter, find, curry, toLower, pipe, values} from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]
@@ -38,42 +38,31 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   }
 
   /** returns a boolean whether the boy properties exist in the search field */
-  // const searchExists = (searchProperty: BoyProperty, searchField: string) =>
-  //   String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
-  //   -1
-  const searchExists = (searchProperty: BoyProperty, searchField: string) =>
-    String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
-    -1
+  const searchExists = (searchField: string, searchProperty: BoyProperty) =>
+    indexOf(toLower(searchField), toLower(searchProperty)) !== -1
 
-  /** given the data and the search field, returns the data in which the search field exists */
-  // const searchProperties = (searchField: string, data: Boy[]) =>
-  //   [...data].filter((item: Boy) =>
-  //     Object.values(item).find((property: BoyProperty) =>
-  //       searchExists(property, searchField),
-  //     ),
-  //   )
-
-  const searchProperties = (searchField: string, data: Boy[]) =>
-    R.filter(
-      // (item: Boy) =>
-      // R.find(
-      //   (property: BoyProperty) => searchExists(property, searchField),
-      //   Object.values(item),
-      // ),
-      (item: Boy) =>
-        Object.values(item).find((property: BoyProperty) =>
-          searchExists(property, searchField),
-        ),
-      [...data],
+  /** finds the given boy's property in the search field  */
+  const propertyExists = curry((searchField: string, item: Boy) =>
+    pipe(
+      values,
+      find((property: BoyProperty) => searchExists(searchField, property)),
+    )(item),
+  )
+  /** given the search field and the boy array, returns the boy in which the search field exists */
+  const searchProperties = (searchField: string) =>
+    pipe(
+      filter((item: Boy) => propertyExists(searchField, item)),
+      values,
     )
 
   /** filters the boys data to see if the any of the properties exist in the list */
   const handleSearch =
     (data: Boy[]) => (event: ChangeEvent<HTMLInputElement>) => {
       const searchField = event.target.value
+      const searchedBoy = searchProperties(searchField)(data)
 
       return startTransition(() =>
-        setFilteredBoys(searchProperties(searchField, data)),
+        setFilteredBoys(searchedBoy as React.SetStateAction<Boy[]>),
       )
     }
 
