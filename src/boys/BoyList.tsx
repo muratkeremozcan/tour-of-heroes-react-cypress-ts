@@ -50,10 +50,7 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   )
   /** given the search field and the boy array, returns the boy in which the search field exists */
   const searchProperties = (searchField: string) =>
-    pipe(
-      filter((item: Boy) => propertyExists(searchField, item)),
-      values,
-    )
+    pipe(filter((item: Boy) => propertyExists(searchField, item)))
 
   /** filters the boys data to see if the any of the properties exist in the list */
   const handleSearch =
