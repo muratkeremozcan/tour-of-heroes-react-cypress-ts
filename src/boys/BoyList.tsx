@@ -38,12 +38,14 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   // needed to refresh the list after deleting a boy
   useEffect(() => setFilteredBoys(deferredBoys), [deferredBoys])
 
-  const handleSelectBoy = (boyId: string) => () => {
-    const boy = deferredBoys.find((b: Boy) => b.id === boyId)
-    navigate(
-      `/boys/edit-boy/${boy?.id}?name=${boy?.name}&description=${boy?.description}`,
-    )
-  }
+  const handleSelectBoy = curry(
+    (boyId: string, e: MouseEvent<HTMLButtonElement>) => {
+      const boy = deferredBoys.find((b: Boy) => b.id === boyId)
+      navigate(
+        `/boys/edit-boy/${boy?.id}?name=${boy?.name}&description=${boy?.description}`,
+      )
+    },
+  )
 
   /** returns a boolean whether the boy properties exist in the search field */
   const searchExists = (searchField: string, searchProperty: BoyProperty) =>
