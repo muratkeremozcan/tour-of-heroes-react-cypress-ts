@@ -32,6 +32,8 @@
   "dependencies": {
     "axios": "0.27.2",
     "bulma": "0.9.4",
+    "ramda": "^0.28.0",
+    "ramda-adjunct": "^3.3.0",
     "json-server": "0.17.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -62,6 +64,7 @@
     "@types/react-icons": "3.0.0",
     "@typescript-eslint/eslint-plugin": "5.42.1",
     "@typescript-eslint/parser": "5.42.1",
+    "@types/ramda": "^0.28.15",
     "babel-loader": "9.1.0",
     "concurrently": "7.5.0",
     "cypress": "11.0.1",

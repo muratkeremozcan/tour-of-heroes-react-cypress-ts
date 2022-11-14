@@ -8,6 +8,7 @@ import BoyDetail from './BoyDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
 import {Boy} from 'models/Boy'
+import {partial, pipe} from 'ramda'
 
 export default function Boys() {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -16,22 +17,21 @@ export default function Boys() {
   const {deleteEntity: deleteBoy, isDeleteError} = useDeleteEntity('boy')
 
   const navigate = useNavigate()
-  const addNewBoy = () => navigate('/boys/add-boy')
-  const handleRefresh = () => navigate('/boys')
+  const addNewBoy = partial(navigate, ['/boys/add-boy'])
+  const handleRefresh = partial(navigate, ['/boys'])
 
-  const handleCloseModal = () => {
-    setBoyToDelete(null)
-    setShowModal(false)
-  }
-  // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleDeleteBoy = (boy: Boy) => () => {
-    setBoyToDelete(boy)
-    setShowModal(true)
-  }
-  const handleDeleteFromModal = () => {
-    boyToDelete ? deleteBoy(boyToDelete) : null
-    setShowModal(false)
-  }
+  const handleCloseModal = pipe(
+    partial(setBoyToDelete, [null]),
+    partial(setShowModal, [false]),
+  )
+
+  const handleDeleteBoy = (boy: Boy) =>
+    pipe(partial(setBoyToDelete, [boy]), partial(setShowModal, [true]))
+
+  const handleDeleteFromModal = pipe(
+    () => (boyToDelete ? deleteBoy(boyToDelete) : null),
+    partial(setShowModal, [false]),
+  )
 
   if (getError || isDeleteError) {
     return <ErrorComp />

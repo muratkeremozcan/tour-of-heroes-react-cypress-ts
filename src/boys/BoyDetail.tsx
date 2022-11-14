@@ -9,6 +9,8 @@ import {useEntityParams} from 'hooks/useEntityParams'
 import {usePostEntity} from 'hooks/usePostEntity'
 import {Boy} from 'models/Boy'
 import {usePutEntity} from 'hooks/usePutEntity'
+import {partial, ifElse} from 'ramda'
+import {isTruthy} from 'ramda-adjunct'
 
 export default function BoyDetail() {
   const {id} = useParams()
@@ -22,15 +24,20 @@ export default function BoyDetail() {
   } = usePutEntity('boy')
 
   const navigate = useNavigate()
-  const handleCancel = () => navigate('/boys')
-  const handleSave = () =>
-    name ? updateBoy(boy as Boy) : createBoy(boy as Boy)
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleCancel = partial(navigate, ['/boys'])
+
+  const handleSave = ifElse(
+    () => isTruthy(name),
+    () => updateBoy(boy as Boy),
+    () => createBoy(boy as Boy),
+  )
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setBoy({...boy, name: e.target.value})
-  }
-  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) =>
     setBoy({...boy, description: e.target.value})
-  }
 
   if (status === 'loading' || isUpdating) {
     return <PageSpinner />

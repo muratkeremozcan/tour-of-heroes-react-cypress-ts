@@ -12,6 +12,16 @@ import {
 } from 'react'
 import {Boy} from 'models/Boy'
 import {BoyProperty} from 'models/types'
+import {
+  indexOf,
+  find,
+  curry,
+  toLower,
+  pipe,
+  values,
+  filter,
+  Dictionary,
+} from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]
@@ -28,34 +38,41 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   // needed to refresh the list after deleting a boy
   useEffect(() => setFilteredBoys(deferredBoys), [deferredBoys])
 
-  // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleSelectBoy = (boyId: string) => () => {
-    const boy = deferredBoys.find((b: Boy) => b.id === boyId)
-    navigate(
-      `/boys/edit-boy/${boy?.id}?name=${boy?.name}&description=${boy?.description}`,
-    )
-  }
+  const handleSelectBoy = curry(
+    (boyId: string, e: MouseEvent<HTMLButtonElement>) => {
+      const boy = deferredBoys.find((b: Boy) => b.id === boyId)
+      navigate(
+        `/boys/edit-boy/${boy?.id}?name=${boy?.name}&description=${boy?.description}`,
+      )
+    },
+  )
 
   /** returns a boolean whether the boy properties exist in the search field */
-  const searchExists = (searchProperty: BoyProperty, searchField: string) =>
-    String(searchProperty).toLowerCase().indexOf(searchField.toLowerCase()) !==
-    -1
+  const searchExists = (searchField: string, searchProperty: BoyProperty) =>
+    indexOf(toLower(searchField), toLower(searchProperty)) !== -1
 
-  /** given the data and the search field, returns the data in which the search field exists */
-  const searchProperties = (searchField: string, data: Boy[]) =>
-    [...data].filter((item: Boy) =>
-      Object.values(item).find((property: BoyProperty) =>
-        searchExists(property, searchField),
-      ),
-    )
+  /** finds the given boy's property in the search field  */
+  const propertyExists = curry((searchField: string, item: Boy) =>
+    pipe(
+      values,
+      find((property: BoyProperty) => searchExists(searchField, property)),
+    )(item),
+  )
+  /** given the search field and the boy array, returns the boy in which the search field exists */
+  const searchProperties = (
+    searchField: string,
+  ): (<P extends Boy, C extends readonly P[] | Dictionary<P>>(
+    collection: C,
+  ) => C) => filter(propertyExists(searchField))
 
   /** filters the boys data to see if the any of the properties exist in the list */
   const handleSearch =
     (data: Boy[]) => (event: ChangeEvent<HTMLInputElement>) => {
       const searchField = event.target.value
+      const searchedBoy = searchProperties(searchField)(data)
 
       return startTransition(() =>
-        setFilteredBoys(searchProperties(searchField, data)),
+        setFilteredBoys(searchedBoy as React.SetStateAction<Boy[]>),
       )
     }
 

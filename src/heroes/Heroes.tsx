@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {useNavigate, Routes, Route} from 'react-router-dom'
 import ListHeader from 'components/ListHeader'
 import ModalYesNo from 'components/ModalYesNo'
@@ -8,6 +8,7 @@ import HeroDetail from './HeroDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
 import {Hero} from 'models/Hero'
+import {curry} from 'ramda'
 
 export default function Heroes() {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -24,10 +25,16 @@ export default function Heroes() {
     setShowModal(false)
   }
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleDeleteHero = (hero: Hero) => () => {
+  // const handleDeleteHero = (hero: Hero) => () => {
+  //   setHeroToDelete(hero)
+  //   setShowModal(true)
+  // }
+  // we can use Ramda curry instead, we have to pass the unused event argument though
+  const handleDeleteHero = curry((hero: Hero, e: React.MouseEvent) => {
     setHeroToDelete(hero)
     setShowModal(true)
-  }
+  })
+
   const handleDeleteFromModal = () => {
     heroToDelete ? deleteHero(heroToDelete) : null
     setShowModal(false)

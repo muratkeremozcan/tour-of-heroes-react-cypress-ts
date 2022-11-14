@@ -12,6 +12,7 @@ import {
 } from 'react'
 import {Hero} from 'models/Hero'
 import {HeroProperty} from 'models/types'
+import {curry} from 'ramda'
 
 type HeroListProps = {
   heroes: Hero[]
@@ -29,12 +30,21 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   useEffect(() => setFilteredHeroes(deferredHeroes), [deferredHeroes])
 
   // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  const handleSelectHero = (heroId: string) => () => {
-    const hero = deferredHeroes.find((h: Hero) => h.id === heroId)
-    navigate(
-      `/heroes/edit-hero/${hero?.id}?name=${hero?.name}&description=${hero?.description}`,
-    )
-  }
+  // const handleSelectHero = (heroId: string) => () => {
+  //   const hero = deferredHeroes.find((h: Hero) => h.id === heroId)
+  //   navigate(
+  //     `/heroes/edit-hero/${hero?.id}?name=${hero?.name}&description=${hero?.description}`,
+  //   )
+  // }
+  // we can use Ramda curry instead, we have to pass the unused event argument though
+  const handleSelectHero = curry(
+    (heroId: string, e: MouseEvent<HTMLButtonElement>) => {
+      const hero = deferredHeroes.find((h: Hero) => h.id === heroId)
+      navigate(
+        `/heroes/edit-hero/${hero?.id}?name=${hero?.name}&description=${hero?.description}`,
+      )
+    },
+  )
 
   /** returns a boolean whether the hero properties exist in the search field */
   const searchExists = (searchProperty: HeroProperty, searchField: string) =>
