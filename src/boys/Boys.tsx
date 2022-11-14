@@ -17,41 +17,17 @@ export default function Boys() {
   const {deleteEntity: deleteBoy, isDeleteError} = useDeleteEntity('boy')
 
   const navigate = useNavigate()
-  // const addNewBoy = () => navigate('/boys/add-boy')
   const addNewBoy = partial(navigate, ['/boys/add-boy'])
-  // const handleRefresh = () => navigate('/boys')
   const handleRefresh = partial(navigate, ['/boys'])
 
-  // const handleCloseModal = () => {
-  //   setBoyToDelete(null)
-  //   setShowModal(false)
-  // }
-  // const handleCloseModal = pipe(
-  //   () => setBoyToDelete(null),
-  //   () => setShowModal(false),
-  // )
   const handleCloseModal = pipe(
     partial(setBoyToDelete, [null]),
     partial(setShowModal, [false]),
   )
 
-  // currying: the outer fn takes our custom arg and returns a fn that takes the event
-  // const handleDeleteBoy = (boy: Boy) => () => {
-  //   setBoyToDelete(boy)
-  //   setShowModal(true)
-  // }
-  // const handleDeleteBoy = (boy: Boy) =>
-  //   pipe(
-  //     () => setBoyToDelete(boy),
-  //     () => setShowModal(true),
-  //   )
   const handleDeleteBoy = (boy: Boy) =>
     pipe(partial(setBoyToDelete, [boy]), partial(setShowModal, [true]))
 
-  // const handleDeleteFromModal = () => {
-  //   boyToDelete ? deleteBoy(boyToDelete) : null
-  //   setShowModal(false)
-  // }
   const handleDeleteFromModal = pipe(
     () => (boyToDelete ? deleteBoy(boyToDelete) : null),
     partial(setShowModal, [false]),

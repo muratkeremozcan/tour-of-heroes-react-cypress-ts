@@ -25,11 +25,8 @@ export default function BoyDetail() {
 
   const navigate = useNavigate()
 
-  // const handleCancel = () => navigate('/boys')
   const handleCancel = partial(navigate, ['/boys'])
 
-  // const handleSave = () =>
-  //   name ? updateBoy(boy as Boy) : createBoy(boy as Boy)
   const handleSave = ifElse(
     () => isTruthy(name),
     () => updateBoy(boy as Boy),

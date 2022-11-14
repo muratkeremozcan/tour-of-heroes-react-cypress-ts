@@ -12,7 +12,16 @@ import {
 } from 'react'
 import {Boy} from 'models/Boy'
 import {BoyProperty} from 'models/types'
-import {indexOf, filter, find, curry, toLower, pipe, values} from 'ramda'
+import {
+  indexOf,
+  find,
+  curry,
+  toLower,
+  pipe,
+  values,
+  filter,
+  Dictionary,
+} from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]
@@ -29,7 +38,6 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   // needed to refresh the list after deleting a boy
   useEffect(() => setFilteredBoys(deferredBoys), [deferredBoys])
 
-  // currying: the outer fn takes our custom arg and returns a fn that takes the event
   const handleSelectBoy = (boyId: string) => () => {
     const boy = deferredBoys.find((b: Boy) => b.id === boyId)
     navigate(
@@ -49,8 +57,11 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
     )(item),
   )
   /** given the search field and the boy array, returns the boy in which the search field exists */
-  const searchProperties = (searchField: string) =>
-    pipe(filter((item: Boy) => propertyExists(searchField, item)))
+  const searchProperties = (
+    searchField: string,
+  ): (<P extends Boy, C extends readonly P[] | Dictionary<P>>(
+    collection: C,
+  ) => C) => filter(propertyExists(searchField))
 
   /** filters the boys data to see if the any of the properties exist in the list */
   const handleSearch =
