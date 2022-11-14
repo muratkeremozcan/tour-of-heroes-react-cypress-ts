@@ -9,7 +9,7 @@ import {useEntityParams} from 'hooks/useEntityParams'
 import {usePostEntity} from 'hooks/usePostEntity'
 import {Boy} from 'models/Boy'
 import {usePutEntity} from 'hooks/usePutEntity'
-import {partial, ifElse, cond} from 'ramda'
+import {partial, ifElse} from 'ramda'
 import {isTruthy} from 'ramda-adjunct'
 
 export default function BoyDetail() {
