@@ -80,7 +80,7 @@
     "istanbul-lib-coverage": "3.2.0",
     "jest": "27.5.1",
     "jest-environment-jsdom": "27.5.1",
-    "json-server-reset": "1.3.3",
+    "json-server-reset": "1.4.0",
     "lint-staged": "13.0.4",
     "msw": "0.47.2",
     "node-sass": "8.0.0",
