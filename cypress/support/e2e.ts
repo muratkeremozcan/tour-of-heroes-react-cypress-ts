@@ -1,3 +1,5 @@
+import '@replayio/cypress/support'
+
 import './commands'
 import {Villain} from './../../src/models/Villain'
 import {Hero} from '../../src/models/Hero'
