@@ -17,7 +17,7 @@
     "reset:db": "npm run reset",
     "validate": "npm-run-all --parallel format lint typecheck build",
     "cy:open": "cypress open --e2e --browser chrome",
-    "cy:run": "RECORD_ALL_CONTENT=1 RECORD_REPLAY_METADATA_FILE=$(mktemp) cypress run --e2e --browser 'Replay Firefox'",
+    "cy:run": "cypress run --e2e --browser chrome",
     "cy:open-e2e": "concurrently -k yarn:start:api 'server-test 3000 cy:open'",
     "cy:run-e2e": "concurrently -k yarn:start:api 'server-test 3000 cy:run'",
     "cy:open-ct": "cypress open --component --browser chrome",
