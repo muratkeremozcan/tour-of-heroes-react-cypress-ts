@@ -87,7 +87,7 @@ jobs:
         with:
           start: yarn dev
           wait-on: 'http://localhost:3000'
-          browser: chrome
+          browser: 'Replay Chromium'
           # if you want to enable parallelization
           record: true
           parallel: true
@@ -97,6 +97,12 @@ jobs:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Replays ►
+        uses: replayio/action-upload
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+          public: true
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
