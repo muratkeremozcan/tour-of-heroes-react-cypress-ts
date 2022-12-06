@@ -1,5 +1,6 @@
 import '@testing-library/cypress/add-commands'
 import '@bahmutov/cypress-code-coverage/support'
+import '@replayio/cypress/support'
 
 Cypress.Commands.add('getByCy', (selector, ...args) =>
   cy.get(`[data-cy="${selector}"]`, ...args),

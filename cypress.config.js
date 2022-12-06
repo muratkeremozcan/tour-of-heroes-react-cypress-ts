@@ -1,8 +1,18 @@
 import '@cypress/instrument-cra'
 import {defineConfig} from 'cypress'
+import cypressReplay from '@replayio/cypress'
 const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
 
+const allConfig = (on, config) =>
+  Object.assign(
+    {},
+    config,
+    codeCoverageTask(on, config),
+    cypressReplay(on, config),
+  )
+
 module.exports = defineConfig({
+  screenshotOnRunFailure: false,
   projectId: '7mypio',
   experimentalSingleTabRunMode: true,
   retries: {
@@ -16,13 +26,13 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
-      return Object.assign({}, config, codeCoverageTask(on, config))
+      return allConfig(on, config)
     },
   },
 
   component: {
     setupNodeEvents(on, config) {
-      return Object.assign({}, config, codeCoverageTask(on, config))
+      return allConfig(on, config)
     },
     specPattern: 'src/**/*.cy.{js,jsx,ts,tsx}',
     devServer: {
