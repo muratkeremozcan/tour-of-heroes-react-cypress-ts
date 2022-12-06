@@ -26,12 +26,29 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
+      // workaround to replay browser crash
+      // https://blog.hao.dev/fixing-cypress-errors-part-1-chromium-out-of-memory-crashes
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.family === 'chromium') {
+          launchOptions.args.push('--disable-dev-shm-usage')
+        }
+
+        return launchOptions
+      })
       return allConfig(on, config)
     },
   },
 
   component: {
     setupNodeEvents(on, config) {
+      // workaround to replay browser crash
+      // https://blog.hao.dev/fixing-cypress-errors-part-1-chromium-out-of-memory-crashes
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.family === 'chromium') {
+          launchOptions.args.push('--disable-dev-shm-usage')
+        }
+        return launchOptions
+      })
       return allConfig(on, config)
     },
     specPattern: 'src/**/*.cy.{js,jsx,ts,tsx}',
