@@ -1,4 +1,4 @@
-name: unit-lint-typecheck-e2e-ct
+name: unit-lint-typecheck-e2e-ct #
 on:
   push:
   workflow_dispatch:
@@ -87,7 +87,7 @@ jobs:
         with:
           start: yarn dev
           wait-on: 'http://localhost:3000'
-          browser: chrome
+          browser: 'Replay Chromium'
           # if you want to enable parallelization
           record: true
           parallel: true
@@ -96,7 +96,15 @@ jobs:
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
@@ -127,7 +135,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.0
         with:
           component: true
-          browser: chrome
+          browser: 'Replay Chromium'
           # if you want to enable parallelization
           record: true
           parallel: true
@@ -136,7 +144,15 @@ jobs:
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
