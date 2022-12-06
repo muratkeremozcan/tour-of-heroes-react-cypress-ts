@@ -28,13 +28,13 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // workaround to replay browser crash
       // https://blog.hao.dev/fixing-cypress-errors-part-1-chromium-out-of-memory-crashes
-      on('before:browser:launch', (browser = {}, launchOptions) => {
-        if (browser.family === 'chromium') {
-          launchOptions.args.push('--disable-dev-shm-usage')
-        }
+      // on('before:browser:launch', (browser = {}, launchOptions) => {
+      //   if (browser.family === 'chromium') {
+      //     launchOptions.args.push('--disable-dev-shm-usage')
+      //   }
 
-        return launchOptions
-      })
+      //   return launchOptions
+      // })
       return allConfig(on, config)
     },
   },
@@ -43,12 +43,12 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // workaround to replay browser crash
       // https://blog.hao.dev/fixing-cypress-errors-part-1-chromium-out-of-memory-crashes
-      on('before:browser:launch', (browser = {}, launchOptions) => {
-        if (browser.family === 'chromium') {
-          launchOptions.args.push('--disable-dev-shm-usage')
-        }
-        return launchOptions
-      })
+      // on('before:browser:launch', (browser = {}, launchOptions) => {
+      //   if (browser.family === 'chromium') {
+      //     launchOptions.args.push('--disable-dev-shm-usage')
+      //   }
+      //   return launchOptions
+      // })
       return allConfig(on, config)
     },
     specPattern: 'src/**/*.cy.{js,jsx,ts,tsx}',
