@@ -2043,10 +2043,10 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.5.tgz#d5c65626add4c3c185a89aa5bd38b1e42daec075"
   integrity sha512-my0Mycd+jruq/1lQuO5LBB6WTlL/e8DTCYWp44DfMTDcXz8DcTlgF0ISaLsGewt+ctHN+yA8xMq3q/N7uWJPug==
 
-"@replayio/cypress@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@replayio/cypress/-/cypress-0.4.0.tgz#c749f32876f191b64f04692feaa36c7d2eb4ba46"
-  integrity sha512-e56rGoXaOUir77IkqAUC2h8QT2rMf53hxU/oAI1lBbrRdJWU9kgZ9ToP7Z9l9dxzKaWZ0rU9iPlHmYodj2IRDA==
+"@replayio/cypress@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@replayio/cypress/-/cypress-0.4.1.tgz#518e350918f59e50ca0802b7e749a7786e35dffe"
+  integrity sha512-PnIQBky2+M5O6b/M3JcBd/NpcS5pOflowAYAwsUZ3wldtKg5Wjx5q90FPgEiDd88Jto1j96ISRrB9XsYQq97IA==
   dependencies:
     "@replayio/replay" "^0.10.6"
     "@replayio/test-utils" "^0.3.4"
