@@ -76,7 +76,7 @@ jobs:
     #    if you want to enable parallelization
     strategy:
       matrix:
-        machines: [1, 2]
+        machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
