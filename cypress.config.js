@@ -14,7 +14,7 @@ const allConfig = (on, config) =>
 module.exports = defineConfig({
   screenshotOnRunFailure: false,
   projectId: '7mypio',
-  experimentalSingleTabRunMode: true,
+  // experimentalSingleTabRunMode: true, // test with this off to see if replay records all component tests
   retries: {
     runMode: 2,
     openMode: 0,
