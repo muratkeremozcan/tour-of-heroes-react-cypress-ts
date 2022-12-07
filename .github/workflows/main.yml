@@ -76,11 +76,17 @@ jobs:
     #    if you want to enable parallelization
     strategy:
       matrix:
-        machines: [1, 2]
+        machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install Specific Chrome Version
+        run: |
+          sudo apt-get install -y wget
+          sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install ./google-chrome-stable_current_amd64.deb
 
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.0
@@ -122,6 +128,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install Specific Chrome Version
+        run: |
+          sudo apt-get install -y wget
+          sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install ./google-chrome-stable_current_amd64.deb
 
       - name: Cypress component tests 🧪
         uses: cypress-io/github-action@v5.0.0
