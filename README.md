@@ -8,7 +8,7 @@
 ![typescript version](https://img.shields.io/badge/typescript-4.8.3-brightgreen)
 ![jest version](https://img.shields.io/badge/jest-27.5.1-brightgreen)
 ![eslint version](https://img.shields.io/badge/eslint-8.29.0-brightgreen)
-![prettier version](https://img.shields.io/badge/prettier-2.8.0-brightgreen)
+![prettier version](https://img.shields.io/badge/prettier-2.8.1-brightgreen)
 [![renovate-app badge][renovate-badge]][renovate-app]
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
