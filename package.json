@@ -92,11 +92,6 @@
     "ts-jest": "27.1.4",
     "typescript": "4.8.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn typecheck && yarn test --watchAll=false && yarn cy:run-ct-fast && lint-staged "
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
