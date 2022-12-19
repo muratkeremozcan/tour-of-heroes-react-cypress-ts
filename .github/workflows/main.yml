@@ -1,4 +1,4 @@
-name: unit-lint-typecheck-e2e-ct
+name: unit-lint-typecheck-e2e-ct #
 on:
   push:
   workflow_dispatch:
@@ -17,6 +17,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.0
         with:
           runTests: false
+      - run: npx @replayio/replay update-browsers
 
   unit-test:
     needs: [install-dependencies]
@@ -73,10 +74,6 @@ jobs:
         run: yarn typecheck
 
   cypress-e2e-test:
-    #    if you want to enable parallelization
-    strategy:
-      matrix:
-        machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -93,37 +90,19 @@ jobs:
         with:
           start: yarn dev
           wait-on: 'http://localhost:3000'
-          browser: chrome
-          # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: e2e-tests
-          tag: e2e-tests
+          browser: 'Replay Chromium'
         env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # if you want to enable codecov
-      - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.1
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
         with:
-          name: coverage-cy-e2e
-          path: coverage-cy/
-          retention-days: 1
-
-      - name: ✅ Upload e2e coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage-cy/
-          flags: cypress-e2e-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
 
   cypress-ct-test:
-    # if you want to enable parallelization
-    strategy:
-      matrix:
-        machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -139,28 +118,14 @@ jobs:
         uses: cypress-io/github-action@v5.0.0
         with:
           component: true
-          browser: chrome
-          # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: ct-tests
-          tag: ct-tests
+          browser: 'Replay Chromium'
         env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # if you want to enable codecov
-      - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.1
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
         with:
-          name: coverage-cy-ct
-          path: coverage-cy/
-          retention-days: 1
-
-      - name: ✅ Upload CT coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage-cy/
-          flags: cypress-ct-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
