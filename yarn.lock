@@ -2043,20 +2043,20 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.1.0.tgz#b48db8148c8a888e50580a8152b6f68161c49406"
   integrity sha512-rGl+jH/7x1KBCQScz9p54p0dtPLNeKGb3e0wD2H5/oZj41bwQUnXdzbj2TbUAFhvD7cp9EyEQA4dEgpUFa1O7Q==
 
-"@replayio/cypress@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@replayio/cypress/-/cypress-0.4.3.tgz#c40df475754201b7d12b7312b005acee185f4515"
-  integrity sha512-CKgq5c4ud84L+gL48WORylusybCbuvN7Bqh2XoZEGWgTvTfbFfy943YbMrghowv1+F0nkQbDGMb3ul4iWcwyYw==
+"@replayio/cypress@0.4.5-alpha.0":
+  version "0.4.5-alpha.0"
+  resolved "https://registry.yarnpkg.com/@replayio/cypress/-/cypress-0.4.5-alpha.0.tgz#69900e9d202942775e29c41d68f9c0f17ef48d97"
+  integrity sha512-l+ZlIedtrtKOa6gY4T+HWxupuhVCDEGCAP37ThgBg/pQXIYxod5mmC7tdUKeOHQo9/rO+wWSJLcbz84zbE6WkA==
   dependencies:
-    "@replayio/replay" "^0.10.6"
-    "@replayio/test-utils" "^0.3.4"
+    "@replayio/replay" "^0.10.7"
+    "@replayio/test-utils" "^0.3.5"
     semver "^7.3.8"
     uuid "^8.3.2"
 
-"@replayio/replay@^0.10.6":
-  version "0.10.6"
-  resolved "https://registry.yarnpkg.com/@replayio/replay/-/replay-0.10.6.tgz#b86596d5934f9121057c9f50b1e7ab5f66d5701a"
-  integrity sha512-U4rFSKzcG69UduV4LVPSCCnvcoF2ogXLHc0mHEUgd195puhTsZcLZPV4byXCzIUCLR+tkJNrWBPcM9Nwn5JauQ==
+"@replayio/replay@^0.10.7":
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/@replayio/replay/-/replay-0.10.7.tgz#55b2d619e8344f308a0bdbd5925ff50c755ff29b"
+  integrity sha512-1gssO66mf+IuC7vOKXleqEmLTkX04aRQAdxrU8GwEMpQupMwKP6gIVelZCmt0gfATcHMB7MbetgGEOhMq1j93Q==
   dependencies:
     "@replayio/sourcemap-upload" "^1.0.5"
     commander "^7.2.0"
@@ -2078,12 +2078,12 @@
     node-fetch "^2.6.1"
     string.prototype.matchall "^4.0.5"
 
-"@replayio/test-utils@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@replayio/test-utils/-/test-utils-0.3.4.tgz#6bb78700994f61177193da8903584a9ae398f27a"
-  integrity sha512-5kkfRWZnDth/SdbvEAliD+fanrT0BG8uPzn+dqGYREr8e58GiL/bf0uOtrurIhzuQoKBSseYtmL2amdqIg27ng==
+"@replayio/test-utils@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@replayio/test-utils/-/test-utils-0.3.5.tgz#eb1c762a9561a325bcac665a8434616b0ceb7a92"
+  integrity sha512-/0L86mXgJnfo4PuQsGe8QMboFYHbY/5aarmw2MJCts97csEooRceZwSftu1GKZKEmzdeDAOAWbOZnNLyIM0vHA==
   dependencies:
-    "@replayio/replay" "^0.10.6"
+    "@replayio/replay" "^0.10.7"
     "@types/node-fetch" "^2.6.2"
     node-fetch "^2.6.7"
     uuid "^8.3.2"
