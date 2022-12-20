@@ -13,10 +13,11 @@ describe('Heroes', () => {
     cy.wrappedMount(<Heroes />)
 
     cy.getByCy('page-spinner').should('be.visible')
-    Cypress._.times(4, () => {
+    Cypress._.times(3, () => {
       cy.tick(5000)
       cy.wait('@notFound')
     })
+    cy.tick(5000)
   })
 
   context('200 flows', () => {
