@@ -36,3 +36,4 @@ ignored/
 .eslintcache
 combined-coverage
 .nyc_output
+cypress.env.json
