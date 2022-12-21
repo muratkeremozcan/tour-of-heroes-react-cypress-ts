@@ -91,6 +91,7 @@ jobs:
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.2
         with:
+          # yarn cypress run
           start: yarn dev
           wait-on: 'http://localhost:3000'
           browser: 'Replay Chromium'
