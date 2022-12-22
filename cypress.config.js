@@ -1,6 +1,7 @@
 import '@cypress/instrument-cra'
 import {defineConfig} from 'cypress'
 import cypressReplay from '@replayio/cypress'
+import {writeFileSync} from 'fs'
 const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
 
 const allConfig = (on, config) =>
@@ -26,6 +27,12 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
+      on('after:run', afterRun => {
+        const data = JSON.stringify(afterRun.totalDuration)
+        const filename = 'duration.json'
+        writeFileSync(filename, data)
+        console.log('cypress-json-results: wrote results to %s', filename)
+      })
       return allConfig(on, config)
     },
   },

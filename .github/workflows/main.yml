@@ -19,62 +19,65 @@ jobs:
           runTests: false
       - run: npx @replayio/replay update-browsers
 
-  unit-test:
+  # unit-test:
+  #   needs: [install-dependencies]
+  #   name: Run Unit Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       uses: cypress-io/github-action@v5.0.0
+  #       with:
+  #         runTests: false
+  #     - name: unit-test
+  #       run: yarn test:coverage
+
+  #     # if you want to enable codecov
+  #     - name: Upload artifacts
+  #       uses: actions/upload-artifact@v3.1.1
+  #       with:
+  #         name: coverage
+  #         path: coverage/
+  #         retention-days: 1
+
+  #     - name: ✅ Upload Jest coverage to Codecov
+  #       uses: codecov/codecov-action@v3
+  #       with:
+  #         directory: coverage/
+  #         flags: jest-rtl-coverage
+  #         token: ${{ secrets.CODECOV_TOKEN }}
+
+  # lint:
+  #   needs: install-dependencies
+  #   name: Run Lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       uses: cypress-io/github-action@v5.0.0
+  #       with:
+  #         runTests: false
+  #     - name: lint
+  #       run: yarn lint
+
+  # typecheck:
+  #   needs: install-dependencies
+  #   name: Run typecheck
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       uses: cypress-io/github-action@v5.0.0
+  #       with:
+  #         runTests: false
+  #     - name: typecheck
+  #       run: yarn typecheck
+
+  record:
     needs: [install-dependencies]
-    name: Run Unit Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.0
-        with:
-          runTests: false
-      - name: unit-test
-        run: yarn test:coverage
-
-      # if you want to enable codecov
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 1
-
-      - name: ✅ Upload Jest coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage/
-          flags: jest-rtl-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  lint:
-    needs: install-dependencies
-    name: Run Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.0
-        with:
-          runTests: false
-      - name: lint
-        run: yarn lint
-
-  typecheck:
-    needs: install-dependencies
-    name: Run typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.0
-        with:
-          runTests: false
-      - name: typecheck
-        run: yarn typecheck
-
-  cypress-e2e-test:
-    needs: [install-dependencies]
+    outputs:
+      recordDuration: ${{steps.end.outputs.recordDuration}}
+      uploadDuration: ${{steps.end.outputs.uploadDuration}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -96,14 +99,35 @@ jobs:
           RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Parse test run duration
+        id: set_var
+        if: always()
+        run: |
+          content=`cat duration.json`
+          echo "::set-output name=duration::$content"
+
+      - name: Set upload start
+        if: always()
+        id: uploadStart
+        run: echo "time=`date +%s`" >> $GITHUB_OUTPUT
+
       - name: Upload replays
         if: ${{ always() }}
         uses: replayio/action-upload@v0.4.3
         with:
           api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
 
-  cypress-ct-test:
+      - name: Set duration in output
+        id: end
+        if: always()
+        run: |
+          echo "recordDuration=${{fromJson(steps.set_var.outputs.duration)}}" >> $GITHUB_OUTPUT
+          echo "uploadDuration=$(((`date +%s` - ${{ steps.uploadStart.outputs.time }}) * 1000))" >> $GITHUB_OUTPUT
+
+  no-record:
     needs: [install-dependencies]
+    outputs:
+      noRecordDuration: ${{steps.end.outputs.noRecordDuration}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -114,18 +138,120 @@ jobs:
           sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt-get install ./google-chrome-stable_current_amd64.deb
 
-      - name: Cypress component tests 🧪
+      - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.0
         with:
-          component: true
+          start: yarn dev
+          wait-on: 'http://localhost:3000'
           browser: 'Replay Chromium'
         env:
           RECORD_ALL_CONTENT: 1
           RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RECORD_REPLAY_DRIVER: /tmp/not-here
 
-      - name: Upload replays
-        if: ${{ always() }}
-        uses: replayio/action-upload@v0.4.3
+      - name: Parse test run duration
+        id: set_var
+        if: always()
+        run: |
+          content=`cat duration.json`
+          echo "::set-output name=duration::$content"
+
+      - name: Set duration in output
+        if: always()
+        id: end
+        run:
+          echo "noRecordDuration=${{fromJson(steps.set_var.outputs.duration)}}"
+          >> $GITHUB_OUTPUT
+
+  original:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    outputs:
+      originalDuration: ${{steps.end.outputs.originalDuration}}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Specific Chrome Version
+        run: |
+          sudo apt-get install -y wget
+          sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install ./google-chrome-stable_current_amd64.deb
+
+      - name: Cypress e2e tests 🧪
+        uses: cypress-io/github-action@v5.0.0
         with:
-          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+          start: yarn dev
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse test run duration
+        id: set_var
+        if: always()
+        run: |
+          content=`cat duration.json`
+          echo "::set-output name=duration::$content"
+
+      - name: Set duration in output
+        id: end
+        if: always()
+        run:
+          echo "originalDuration=${{fromJson(steps.set_var.outputs.duration)}}"
+          >> $GITHUB_OUTPUT
+
+  # cypress-ct-test:
+  #   needs: [install-dependencies]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Install Specific Chrome Version
+  #       run: |
+  #         sudo apt-get install -y wget
+  #         sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  #         sudo apt-get install ./google-chrome-stable_current_amd64.deb
+
+  #     - name: Cypress component tests 🧪
+  #       uses: cypress-io/github-action@v5.0.0
+  #       with:
+  #         component: true
+  #         browser: 'Replay Chromium'
+  #       env:
+  #         RECORD_ALL_CONTENT: 1
+  #         RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  #     - name: Upload replays
+  #       if: ${{ always() }}
+  #       uses: replayio/action-upload@v0.4.3
+  #       with:
+  #         api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+
+  upload-benchmarks:
+    name: Upload benchmarks
+    runs-on: ubuntu-latest
+    needs: [record, no-record, original]
+    if: always()
+    steps:
+      - run: |
+          echo "Record Duration: ${{ needs.record.outputs.recordDuration }}"
+          echo "No Record Duration: ${{ needs.no-record.outputs.noRecordDuration }}"
+          echo "Original Duration: ${{ needs.original.outputs.originalDuration }}"
+          echo "Upload Duration: ${{ needs.record.outputs.uploadDuration }}"
+      - name: Fetch API Data 📦
+        uses: JamesIves/fetch-api-data-action@v2
+        # Don't upload metrics for pull requests, so our stats are clean
+        if: ${{ github.ref_name == 'main' }}
+        with:
+          endpoint: 'https://telemetry.replay.io'
+          # Make sure to append the correct project name in the JSON below
+          configuration:
+            '{ "method": "POST", "body": {"event": "Webhook", "source":
+            "metrics", "name": "action-finished-2", "project":
+            "tour-of-heroes-react-cypress-ts", "originalDuration": "${{
+            needs.original.outputs.originalDuration }}", "recordDuration": "${{
+            needs.record.outputs.recordDuration }}", "noRecordDuration": "${{
+            needs.no-record.outputs.noRecordDuration }}", "uploadDuration": "${{
+            needs.record.outputs.uploadDuration }}"} }'
