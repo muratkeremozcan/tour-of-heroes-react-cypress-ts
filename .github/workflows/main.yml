@@ -2,10 +2,8 @@ name: unit-lint-typecheck-e2e-ct #
 on:
   push:
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   install-dependencies:
