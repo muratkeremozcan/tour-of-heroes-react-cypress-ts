@@ -1,5 +1,6 @@
 import HeroDetail from './HeroDetail'
-import '../styles.scss'
+
+import '@testing-library/cypress/add-commands'
 
 describe('HeroDetail', () => {
   beforeEach(() => {

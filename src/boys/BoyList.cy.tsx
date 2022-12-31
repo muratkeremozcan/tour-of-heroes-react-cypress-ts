@@ -1,5 +1,5 @@
 import BoyList from './BoyList'
-import '../styles.scss'
+
 import boys from '../../cypress/fixtures/boys.json'
 
 describe('BoyList', () => {

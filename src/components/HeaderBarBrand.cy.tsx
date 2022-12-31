@@ -1,6 +1,5 @@
 import HeaderBarBrand from './HeaderBarBrand'
 import {BrowserRouter} from 'react-router-dom'
-import '../styles.scss'
 
 describe('HeaderBarBrand', () => {
   beforeEach(() => {

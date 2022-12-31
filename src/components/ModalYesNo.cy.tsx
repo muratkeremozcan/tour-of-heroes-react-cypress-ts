@@ -1,5 +1,4 @@
 import ModalYesNo from './ModalYesNo'
-import '../styles.scss'
 
 describe('ModalYesNo', () => {
   it('should render the modal and call onClick handlers', () => {

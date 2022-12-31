@@ -1,5 +1,4 @@
 import Villains from './Villains'
-import '../styles.scss'
 
 describe('Villains', () => {
   it('should see error on initial load with GET', () => {

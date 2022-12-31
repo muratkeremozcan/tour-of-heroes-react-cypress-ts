@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker'
 import {Boy} from '../../src/models/Boy'
+import '@testing-library/cypress/add-commands'
 describe('Edit boy', () => {
   before(cy.resetData)
 

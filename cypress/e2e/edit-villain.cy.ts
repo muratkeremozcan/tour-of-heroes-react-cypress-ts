@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker'
 import {Villain} from '../../src/models/Villain'
+import '@testing-library/cypress/add-commands'
 describe('Edit villain', () => {
   before(cy.resetData)
 

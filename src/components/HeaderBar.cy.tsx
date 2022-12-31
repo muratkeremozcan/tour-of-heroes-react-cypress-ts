@@ -1,5 +1,5 @@
 import HeaderBar from './HeaderBar'
-import '../styles.scss'
+
 import {BrowserRouter} from 'react-router-dom'
 
 describe('HeaderBar', () => {

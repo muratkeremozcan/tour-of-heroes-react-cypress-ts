@@ -1,5 +1,4 @@
 import Spinner from './Spinner'
-import '../styles.scss'
 
 describe('Spinner', () => {
   it('should render a spinner', () => {

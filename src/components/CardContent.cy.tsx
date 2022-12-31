@@ -1,5 +1,4 @@
 import CardContent from './CardContent'
-import '../styles.scss'
 
 describe('CardContent', () => {
   it('should render the card content', () => {

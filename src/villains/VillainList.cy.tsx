@@ -1,5 +1,5 @@
 import VillainList from './VillainList'
-import '../styles.scss'
+
 import villains from '../../cypress/fixtures/villains.json'
 import VillainsContext from 'hooks/useVillainsContext'
 

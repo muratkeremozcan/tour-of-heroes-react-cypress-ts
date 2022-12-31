@@ -1,5 +1,4 @@
 import ErrorComp from './ErrorComp'
-import '../styles.scss'
 
 describe('ErrorComp', () => {
   it('should render error', () => {

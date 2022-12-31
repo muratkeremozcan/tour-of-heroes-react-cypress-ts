@@ -1,5 +1,4 @@
 import NotFound from './NotFound'
-import '../styles.scss'
 
 describe('NotFound', () => {
   it('should', () => {

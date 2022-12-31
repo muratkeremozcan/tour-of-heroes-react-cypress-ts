@@ -1,3 +1,5 @@
+// put e2e only commands and plugins here
+
 import './commands'
 import {Villain} from './../../src/models/Villain'
 import {Hero} from '../../src/models/Hero'

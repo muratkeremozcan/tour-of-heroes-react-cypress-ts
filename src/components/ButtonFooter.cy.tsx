@@ -1,6 +1,5 @@
 import ButtonFooter from './ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
-import '../styles.scss'
 
 describe('ButtonFooter', () => {
   const doAssertions = (label: string) => {

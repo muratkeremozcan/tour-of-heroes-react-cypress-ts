@@ -1,7 +1,8 @@
 import BoyDetail from './BoyDetail'
-import '../styles.scss'
+
 import React from 'react'
 import * as postHook from 'hooks/usePostEntity'
+import '@testing-library/cypress/add-commands'
 
 describe('BoyDetail', () => {
   beforeEach(() => {
