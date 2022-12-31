@@ -1,3 +1,4 @@
+import cypressReplay from '@replayio/cypress'
 const cyCodeCov = require('@bahmutov/cypress-code-coverage/plugin')
 
 /**
@@ -12,6 +13,7 @@ export default function plugins(
   return {
     // add plugins here
     // ...cyDataSession(on, config), // example
+    ...cypressReplay(on, config),
     ...cyCodeCov(on, config),
   }
 }
