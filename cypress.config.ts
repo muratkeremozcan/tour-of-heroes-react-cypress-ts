@@ -68,5 +68,3 @@ export default defineConfig({
     },
   },
 })
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
