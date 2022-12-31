@@ -1,5 +1,5 @@
 import HeroList from './HeroList'
-import '../styles.scss'
+
 import heroes from '../../cypress/fixtures/heroes.json'
 
 describe('HeroList', () => {

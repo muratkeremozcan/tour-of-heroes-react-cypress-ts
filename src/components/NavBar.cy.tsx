@@ -1,6 +1,5 @@
 import NavBar from './NavBar'
 import {BrowserRouter} from 'react-router-dom'
-import '../styles.scss'
 
 const routes = ['heroes', 'villains', 'boys', 'about']
 

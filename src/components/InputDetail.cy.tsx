@@ -1,5 +1,6 @@
 import InputDetail from './InputDetail'
-import '../styles.scss'
+
+import '@testing-library/cypress/add-commands'
 
 describe('InputDetail', () => {
   const placeholder = 'Aslaug'

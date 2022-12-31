@@ -1,6 +1,5 @@
 import ListHeader from './ListHeader'
 import {BrowserRouter} from 'react-router-dom'
-import '../styles.scss'
 
 describe('ListHeader', () => {
   it('should call click handlers on add & refresh button clicks', () => {

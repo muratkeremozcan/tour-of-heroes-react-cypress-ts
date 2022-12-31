@@ -1,9 +1,11 @@
 import '@cypress/instrument-cra'
 import {defineConfig} from 'cypress'
-const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
+import plugins from './cypress/support/plugins'
+import tasks from './cypress/support/tasks'
 
-module.exports = defineConfig({
+export default defineConfig({
   projectId: '7mypio',
+  // @ts-expect-error - experimentalSingleTabRunMode is not in the type definition
   experimentalSingleTabRunMode: true,
   retries: {
     runMode: 2,
@@ -16,13 +18,15 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
-      return Object.assign({}, config, codeCoverageTask(on, config))
+      tasks(on)
+      return plugins(on, config)
     },
   },
 
   component: {
     setupNodeEvents(on, config) {
-      return Object.assign({}, config, codeCoverageTask(on, config))
+      tasks(on)
+      return plugins(on, config)
     },
     specPattern: 'src/**/*.cy.{js,jsx,ts,tsx}',
     devServer: {
