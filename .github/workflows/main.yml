@@ -93,7 +93,7 @@ jobs:
         with:
           start: yarn dev
           wait-on: 'http://localhost:3000'
-          browser: chrome
+          browser: 'Replay Chromium'
           # if you want to enable parallelization
           record: true
           parallel: true
@@ -103,6 +103,17 @@ jobs:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # for replay.io
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+
+      # for replay.io
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+          metadata-file: /tmp/replay-metadata
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
@@ -139,7 +150,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.2
         with:
           component: true
-          browser: chrome
+          browser: 'Replay Chromium'
           # if you want to enable parallelization
           record: true
           parallel: true
@@ -149,6 +160,17 @@ jobs:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # for replay.io
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+
+      # for replay.io
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+          metadata-file: /tmp/replay-metadata
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
