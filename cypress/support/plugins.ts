@@ -13,7 +13,7 @@ export default function plugins(
   return {
     // add plugins here
     // ...cyDataSession(on, config), // example
-    ...cypressReplay(on, config),
     ...cyCodeCov(on, config),
+    ...cypressReplay(on, config),
   }
 }
