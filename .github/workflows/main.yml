@@ -22,6 +22,9 @@ jobs:
     needs: [install-dependencies]
     name: Run Unit Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
@@ -29,7 +32,9 @@ jobs:
         with:
           runTests: false
       - name: unit-test
-        run: yarn test:coverage
+        run:
+          yarn test:coverage --shard=${{ matrix.shard }}/${{ strategy.job-total
+          }}
 
       # if you want to enable codecov
       - name: Upload artifacts
