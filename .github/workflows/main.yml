@@ -32,9 +32,8 @@ jobs:
         with:
           runTests: false
       - name: unit-test
-        run:
-          yarn test:coverage --shard=${{ matrix.shard }}/${{ strategy.job-total
-          }}
+        run: |
+          yarn test:coverage --shard=${{ matrix.shard }}/${{ strategy.job-total }}
 
       # if you want to enable codecov
       - name: Upload artifacts
