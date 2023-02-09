@@ -23,7 +23,7 @@ describe('HeroDetail', () => {
 
   it('should handle Cancel', () => {
     cy.getByCy('cancel-button').click()
-    cy.location('pathname').should('eq', '/heroes')
+    cy.location('pathname').should('eq', '/heroes3242342')
   })
 
   it('should handle name change', () => {
