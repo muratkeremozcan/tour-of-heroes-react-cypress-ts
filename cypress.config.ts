@@ -2,6 +2,7 @@ import '@cypress/instrument-cra'
 import {defineConfig} from 'cypress'
 import plugins from './cypress/support/plugins'
 import tasks from './cypress/support/tasks'
+const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
 
 export default defineConfig({
   projectId: '7mypio',
@@ -18,6 +19,7 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
+      on('file:preprocessor', createBundler())
       tasks(on)
       return plugins(on, config)
     },
