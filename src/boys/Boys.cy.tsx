@@ -13,10 +13,10 @@ describe('Boys', () => {
 
     cy.getByCy('page-spinner').should('be.visible')
     Cypress._.times(3, () => {
-      cy.tick(5000)
+      cy.tick(5100)
       cy.wait('@notFound')
     })
-    cy.tick(5000)
+    cy.tick(5100)
 
     cy.getByCy('error')
   })
