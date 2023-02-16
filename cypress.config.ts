@@ -3,6 +3,12 @@ import {defineConfig} from 'cypress'
 import plugins from './cypress/support/plugins'
 import tasks from './cypress/support/tasks'
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
+const {
+  NodeGlobalsPolyfillPlugin,
+} = require('@esbuild-plugins/node-globals-polyfill')
+const {
+  NodeModulesPolyfillPlugin,
+} = require('@esbuild-plugins/node-modules-polyfill')
 
 export default defineConfig({
   projectId: '7mypio',
@@ -19,7 +25,19 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
-      on('file:preprocessor', createBundler())
+      on(
+        'file:preprocessor',
+        createBundler({
+          plugins: [
+            NodeModulesPolyfillPlugin(),
+            NodeGlobalsPolyfillPlugin({
+              process: true,
+              buffer: true,
+              crypto: true,
+            }),
+          ],
+        }),
+      )
       tasks(on)
       return plugins(on, config)
     },
