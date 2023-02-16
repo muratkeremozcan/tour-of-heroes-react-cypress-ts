@@ -13,13 +13,13 @@ export const generateAccessToken = (overrides = {}): string => {
     },
     secret: 'TEST',
     expiresIn: '3m', // sets default token expiry to 3 minutes, which should be enough for most tests.
-    sub: '',
+    sub: uuid(),
   }
   const {user, secret, expiresIn, sub} = Cypress._.merge(defaults, overrides)
   return jwt.sign(
     {
       ...user,
-      jti: '',
+      jti: uuid(),
     },
     secret,
     {
