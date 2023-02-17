@@ -2,7 +2,7 @@ import '@cypress/instrument-cra'
 import {defineConfig} from 'cypress'
 import plugins from './cypress/support/plugins'
 import tasks from './cypress/support/tasks'
-import esbuildPreprocessor from './cypress/support/esbuild-preprocess'
+import esbuildPreprocessor from './cypress/support/esbuild-preprocessor'
 
 export default defineConfig({
   projectId: '7mypio',
