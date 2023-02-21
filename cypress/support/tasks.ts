@@ -1,4 +1,5 @@
 import log from './log'
+import generateAccessToken from './generateAccessToken'
 
 /**
  * The collection of tasks to use with `cy.task()`
@@ -8,4 +9,5 @@ export default function tasks(on: Cypress.PluginEvents) {
   on('task', {log})
 
   // add tasks here
+  on('task', {generateAccessToken})
 }
