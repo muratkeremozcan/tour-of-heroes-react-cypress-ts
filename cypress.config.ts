@@ -6,8 +6,8 @@ import esbuildPreprocessor from './cypress/support/esbuild-preprocessor'
 
 export default defineConfig({
   projectId: '7mypio',
-  // @ts-expect-error - experimentalSingleTabRunMode is not in the type definition
-  experimentalSingleTabRunMode: true,
+  // not supported in replay.io yet
+  // experimentalSingleTabRunMode: true,
   retries: {
     runMode: 2,
     openMode: 0,
