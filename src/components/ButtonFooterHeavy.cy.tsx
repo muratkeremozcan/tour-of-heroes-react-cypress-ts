@@ -1,7 +1,7 @@
 import ButtonFooter from './ButtonFooter'
 import {FaEdit} from 'react-icons/fa'
-// import {heavy} from '../../cypress/support/heavy-import' // works
-import {heavy} from '@support/heavy-import' // does not work
+// import {heavy} from '../../cypress/support/heavy-import' // compiles TS, works with cy CT
+import {heavy} from '@support/heavy-import' // compiles TS, does not work with cy CT
 
 describe('ButtonFooter', () => {
   it('should render and Edit button, the label, and trigger an onClick', () => {
