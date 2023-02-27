@@ -38,6 +38,7 @@ export default function HeroList({heroes, handleDeleteHero}: HeroListProps) {
   // }
   // we can use Ramda curry instead, we have to pass the unused event argument though
   const handleSelectHero = curry(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (heroId: string, e: MouseEvent<HTMLButtonElement>) => {
       const hero = deferredHeroes.find((h: Hero) => h.id === heroId)
       navigate(

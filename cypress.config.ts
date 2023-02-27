@@ -34,7 +34,6 @@ export default defineConfig({
     devServer: {
       framework: 'create-react-app',
       bundler: 'webpack',
-      // here are the additional settings from Gleb's instructions
       webpackConfig: {
         // workaround to react-scripts 5 issue https://github.com/cypress-io/cypress/issues/22762
         devServer: {

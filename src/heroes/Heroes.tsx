@@ -30,6 +30,7 @@ export default function Heroes() {
   //   setShowModal(true)
   // }
   // we can use Ramda curry instead, we have to pass the unused event argument though
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDeleteHero = curry((hero: Hero, e: React.MouseEvent) => {
     setHeroToDelete(hero)
     setShowModal(true)
