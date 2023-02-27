@@ -39,7 +39,6 @@ export default function BoyList({boys, handleDeleteBoy}: BoyListProps) {
   useEffect(() => setFilteredBoys(deferredBoys), [deferredBoys])
 
   const handleSelectBoy = curry(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (boyId: string, e: MouseEvent<HTMLButtonElement>) => {
       const boy = deferredBoys.find((b: Boy) => b.id === boyId)
       navigate(
