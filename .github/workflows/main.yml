@@ -19,6 +19,8 @@ jobs:
         uses: cypress-io/github-action@v5.1.0
         with:
           runTests: false
+      - name: node-sass workaround
+        run: npm rebuild node-sass
 
   unit-test:
     needs: [install-dependencies]
