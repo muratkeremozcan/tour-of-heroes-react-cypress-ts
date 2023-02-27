@@ -8,7 +8,7 @@ import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import Villains from 'villains/Villains'
 import Boys from 'boys/Boys'
-import './styles.scss'
+import './styles.css'
 const Heroes = lazy(() => import('heroes/Heroes'))
 const NotFound = lazy(() => import('components/NotFound'))
 const About = lazy(() => import('About'))
