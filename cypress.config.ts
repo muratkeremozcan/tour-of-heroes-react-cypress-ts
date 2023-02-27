@@ -35,18 +35,13 @@ export default defineConfig({
     devServer: {
       framework: 'create-react-app',
       bundler: 'webpack',
-      // here are the additional settings from Gleb's instructions
       webpackConfig: {
-        // resolve: {
-        //   alias: {
-        //     '@support': path.resolve(__dirname, 'cypress/support/*'),
-        //     '@fixtures': path.resolve(__dirname, '.cypress/fixtures/*'),
-        //   },
-        // },
+        // enables to import files at ./cypress folder while working with component tests
         resolve: {
           alias: {
             '@cypress': path.resolve(__dirname, 'cypress'),
             '@support': path.resolve(__dirname, 'cypress', 'support'),
+            '@fixtures': path.resolve(__dirname, 'cypress', 'fixtures'),
           },
         },
         // workaround to react-scripts 5 issue https://github.com/cypress-io/cypress/issues/22762
