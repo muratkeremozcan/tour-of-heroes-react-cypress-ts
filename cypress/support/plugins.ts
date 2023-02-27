@@ -1,4 +1,4 @@
-// const cyCodeCov = require('@bahmutov/cypress-code-coverage/plugin')
+const cyCodeCov = require('@bahmutov/cypress-code-coverage/plugin')
 
 /**
  * The collection of plugins to use with Cypress
@@ -12,6 +12,6 @@ export default function plugins(
   return {
     // add plugins here
     // ...cyDataSession(on, config), // example
-    // ...cyCodeCov(on, config),
+    ...cyCodeCov(on, config),
   }
 }
