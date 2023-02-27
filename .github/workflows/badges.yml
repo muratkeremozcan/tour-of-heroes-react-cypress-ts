@@ -28,7 +28,7 @@ jobs:
       - name: Update version badges 🏷
         run:
           npx -p dependency-version-badge update-badge react react-scripts
-          cypress jest eslint prettier cypress jest typescript
+          cypress jest eslint prettier jest typescript
 
       - name: Commit any changed files 💾
         uses: stefanzweifel/git-auto-commit-action@v4
