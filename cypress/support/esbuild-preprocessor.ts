@@ -1,6 +1,6 @@
-const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
 import {NodeGlobalsPolyfillPlugin} from '@esbuild-plugins/node-globals-polyfill'
 import {NodeModulesPolyfillPlugin} from '@esbuild-plugins/node-modules-polyfill'
+const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
 
 /**
  * The collection of tasks to use with `cy.task()`
