@@ -19,7 +19,8 @@
         "jest-environment-jsdom",
         "msw",
         "axios",
-        "node-sass"
+        "node-sass",
+        "json-server-reset"
       ],
       "enabled": false
     }
