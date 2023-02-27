@@ -18,7 +18,10 @@
         "ts-jest",
         "jest-environment-jsdom",
         "msw",
-        "axios"
+        "axios",
+        "node-sass",
+        "json-server",
+        "json-server-reset"
       ],
       "enabled": false
     }

@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
+    "paths": {
+      "@cypress/*": ["../cypress/*"],
+      "@support/*": ["../cypress/support/*"],
+      "@fixtures/*": ["../cypress/fixtures/*"]
+    },
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["cypress", "node", "@testing-library/cypress"],
