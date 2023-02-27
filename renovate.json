@@ -18,7 +18,8 @@
         "ts-jest",
         "jest-environment-jsdom",
         "msw",
-        "axios"
+        "axios",
+        "node-sass"
       ],
       "enabled": false
     }
