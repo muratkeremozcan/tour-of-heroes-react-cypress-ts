@@ -3,6 +3,7 @@ import {defineConfig} from 'cypress'
 import plugins from './cypress/support/plugins'
 import tasks from './cypress/support/tasks'
 import esbuildPreprocessor from './cypress/support/esbuild-preprocessor'
+import path from 'path'
 
 export default defineConfig({
   projectId: '7mypio',
@@ -36,6 +37,13 @@ export default defineConfig({
       bundler: 'webpack',
       // here are the additional settings from Gleb's instructions
       webpackConfig: {
+        resolve: {
+          alias: {
+            '@cypress': path.resolve(__dirname, 'cypress'),
+            '@support': path.resolve(__dirname, 'cypress', 'support'),
+            '@fixtures': path.resolve(__dirname, 'cypress', 'fixtures'),
+          },
+        },
         // workaround to react-scripts 5 issue https://github.com/cypress-io/cypress/issues/22762
         devServer: {
           port: 3001,
