@@ -12,6 +12,6 @@ describe('ButtonFooter', () => {
       />,
     )
 
-    cy.log(heavy())
+    cy.wrap(heavy()).should('equal', 'heavy')
   })
 })
