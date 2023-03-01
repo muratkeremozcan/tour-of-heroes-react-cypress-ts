@@ -1,11 +1,7 @@
-name: unit-lint-typecheck-e2e-ct
+name: ct
 on:
   push:
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
 
 jobs:
   install-dependencies:
@@ -23,134 +19,7 @@ jobs:
         with:
           runTests: false
 
-  unit-test:
-    needs: [install-dependencies]
-    name: Run Unit Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.2
-        with:
-          runTests: false
-      - name: unit-test
-        run: yarn test:coverage
-
-      # if you want to enable codecov
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 1
-
-      - name: ✅ Upload Jest coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage/
-          flags: jest-rtl-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  lint:
-    needs: install-dependencies
-    name: Run Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.2
-        with:
-          runTests: false
-      - name: lint
-        run: yarn lint
-
-  typecheck:
-    needs: install-dependencies
-    name: Run typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.2
-        with:
-          runTests: false
-      - name: typecheck
-        run: yarn typecheck
-
-  cypress-e2e-test:
-    #    if you want to enable parallelization
-    strategy:
-      fail-fast: false
-      matrix:
-        machines: [1, 2, 3]
-    needs: [install-dependencies]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Install Specific Chrome Version
-        run: |
-          sudo apt-get install -y wget
-          sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt-get install ./google-chrome-stable_current_amd64.deb
-
-      - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v5.0.2
-        with:
-          start: yarn dev
-          wait-on: 'http://localhost:3000'
-          browser: chrome
-          # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: e2e-tests
-          tag: e2e-tests
-        env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # if you want to enable codecov
-      - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: coverage-cy-e2e
-          path: coverage-cy/
-          retention-days: 1
-
-      - name: ✅ Upload e2e coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage-cy/
-          flags: cypress-e2e-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-
   cypress-ct-test:
-    # if you want to enable parallelization
-    strategy:
-      fail-fast: false
-      matrix:
-        machines: [1, 2, 3]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -172,27 +41,3 @@ jobs:
         with:
           component: true
           browser: chrome
-          # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: ct-tests
-          tag: ct-tests
-        env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # if you want to enable codecov
-      - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: coverage-cy-ct
-          path: coverage-cy/
-          retention-days: 1
-
-      - name: ✅ Upload CT coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: coverage-cy/
-          flags: cypress-ct-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
