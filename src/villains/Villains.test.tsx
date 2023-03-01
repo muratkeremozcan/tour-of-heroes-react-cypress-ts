@@ -15,7 +15,7 @@ describe('Villains', () => {
   it('should see error on initial load with GET', async () => {
     const handlers = [
       rest.get(
-        `${process.env.REACT_APP_API_URL}/villains`,
+        `${import.meta.env.VITE_API_URL}/villains`,
         async (_req, res, ctx) => res(ctx.status(500)),
       ),
     ]
@@ -44,11 +44,11 @@ describe('Villains', () => {
   describe('200 flows', () => {
     const handlers = [
       rest.get(
-        `${process.env.REACT_APP_API_URL}/villains`,
+        `${import.meta.env.VITE_API_URL}/villains`,
         async (_req, res, ctx) => res(ctx.status(200), ctx.json(villains)),
       ),
       rest.delete(
-        `${process.env.REACT_APP_API_URL}/villains/${villains[0].id}`, // use /.*/ for all requests
+        `${import.meta.env.VITE_API_URL}/villains/${villains[0].id}`, // use /.*/ for all requests
         async (_req, res, ctx) =>
           res(ctx.status(400), ctx.json('expected error')),
       ),

@@ -14,9 +14,8 @@ describe('Boys', () => {
 
   it('should see error on initial load with GET', async () => {
     const handlers = [
-      rest.get(
-        `${process.env.REACT_APP_API_URL}/boys`,
-        async (_req, res, ctx) => res(ctx.status(400)),
+      rest.get(`${import.meta.env.VITE_API_URL}/boys`, async (_req, res, ctx) =>
+        res(ctx.status(400)),
       ),
     ]
     const server = setupServer(...handlers)
@@ -43,12 +42,11 @@ describe('Boys', () => {
 
   describe('200 flows', () => {
     const handlers = [
-      rest.get(
-        `${process.env.REACT_APP_API_URL}/boys`,
-        async (_req, res, ctx) => res(ctx.status(200), ctx.json(boys)),
+      rest.get(`${import.meta.env.VITE_API_URL}/boys`, async (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json(boys)),
       ),
       rest.delete(
-        `${process.env.REACT_APP_API_URL}/boys/${boys[0].id}`, // use /.*/ for all requests
+        `${import.meta.env.VITE_API_URL}/boys/${boys[0].id}`, // use /.*/ for all requests
         async (_req, res, ctx) =>
           res(ctx.status(400), ctx.json('expected error')),
       ),

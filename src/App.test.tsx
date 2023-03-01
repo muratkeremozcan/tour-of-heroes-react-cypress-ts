@@ -8,15 +8,14 @@ import {setupServer} from 'msw/node'
 
 describe('200 flow', () => {
   const handlers = [
-    rest.get(
-      `${process.env.REACT_APP_API_URL}/heroes`,
-      async (_req, res, ctx) => res(ctx.status(200), ctx.json(heroes)),
+    rest.get(`${import.meta.env.VITE_API_URL}/heroes`, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(heroes)),
     ),
     rest.get(
-      `${process.env.REACT_APP_API_URL}/villains`,
+      `${import.meta.env.VITE_API_URL}/villains`,
       async (_req, res, ctx) => res(ctx.status(200), ctx.json(villains)),
     ),
-    rest.get(`${process.env.REACT_APP_API_URL}/boys`, async (_req, res, ctx) =>
+    rest.get(`${import.meta.env.VITE_API_URL}/boys`, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(boys)),
     ),
   ]

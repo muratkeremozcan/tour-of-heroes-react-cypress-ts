@@ -7,7 +7,7 @@ export type CrudOptions = {item?: Hero | object; config?: object}
 export const client = (route: string, method: CrudType, item?: Hero | object) =>
   axios({
     method,
-    baseURL: `${process.env.REACT_APP_API_URL}/${route}`,
+    baseURL: `${import.meta.env.VITE_API_URL}/${route}`,
     data: method === 'POST' || method === 'PUT' ? item : undefined,
   })
     .then(res => res.data)
