@@ -3,7 +3,6 @@ import {defineConfig} from 'cypress'
 import plugins from './cypress/support/plugins'
 import tasks from './cypress/support/tasks'
 import esbuildPreprocessor from './cypress/support/esbuild-preprocessor'
-import path from 'path'
 
 export default defineConfig({
   projectId: '7mypio',
@@ -18,9 +17,9 @@ export default defineConfig({
   },
   e2e: {
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:5173',
     setupNodeEvents(on, config) {
-      esbuildPreprocessor(on)
+      esbuildPreprocessor(on) // no need with vite
       tasks(on)
       return plugins(on, config)
     },

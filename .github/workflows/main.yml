@@ -118,7 +118,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.2
         with:
           start: yarn dev
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:5173'
           browser: chrome
           # if you want to enable parallelization
           record: true
