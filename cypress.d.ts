@@ -4,6 +4,7 @@ import {HeroProperty, VillainProperty, EntityType} from 'models/types'
 import type {Hero} from './models/types/Hero'
 import type {Villain} from './models/types/Villain'
 import type {Boy} from './models/types/Boy'
+import 'vite/client'
 
 export {}
 declare global {
