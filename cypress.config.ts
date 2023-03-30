@@ -15,6 +15,9 @@ export default defineConfig({
   },
   env: {
     API_URL: 'http://localhost:4000/api',
+    coverage: {
+      quiet: true,
+    },
   },
   e2e: {
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
