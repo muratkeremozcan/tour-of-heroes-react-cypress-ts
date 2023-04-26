@@ -1,4 +1,4 @@
-import {EntityRoute} from 'models/types'
+import type {EntityRoute} from 'models/types'
 import {useQuery} from 'react-query'
 import {getItem} from '../api/api'
 

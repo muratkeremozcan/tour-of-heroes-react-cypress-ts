@@ -1,6 +1,6 @@
-import {Hero} from './Hero'
-import {Villain} from './Villain'
-import {Boy} from './Boy'
+import type {Hero} from './Hero'
+import type {Villain} from './Villain'
+import type {Boy} from './Boy'
 
 export type HeroProperty = Hero['name'] | Hero['description'] | Hero['id']
 export type VillainProperty =

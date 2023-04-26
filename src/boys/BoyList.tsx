@@ -2,26 +2,12 @@ import {useNavigate} from 'react-router-dom'
 import CardContent from 'components/CardContent'
 import ButtonFooter from 'components/ButtonFooter'
 import {FaEdit, FaRegSave} from 'react-icons/fa'
-import {
-  ChangeEvent,
-  MouseEvent,
-  useTransition,
-  useEffect,
-  useState,
-  useDeferredValue,
-} from 'react'
-import {Boy} from 'models/Boy'
-import {BoyProperty} from 'models/types'
-import {
-  indexOf,
-  find,
-  curry,
-  toLower,
-  pipe,
-  values,
-  filter,
-  Dictionary,
-} from 'ramda'
+import type {ChangeEvent, MouseEvent} from 'react'
+import {useTransition, useEffect, useState, useDeferredValue} from 'react'
+import type {Boy} from 'models/Boy'
+import type {BoyProperty} from 'models/types'
+import type {Dictionary} from 'ramda'
+import {indexOf, find, curry, toLower, pipe, values, filter} from 'ramda'
 
 type BoyListProps = {
   boys: Boy[]

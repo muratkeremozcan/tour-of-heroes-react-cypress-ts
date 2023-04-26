@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {MountOptions, MountReturn} from 'cypress/react'
-import {HeroProperty, VillainProperty, EntityType} from 'models/types'
+import type {MountOptions, MountReturn} from 'cypress/react'
+import type {HeroProperty, VillainProperty, EntityType} from 'models/types'
 import type {Hero} from './models/types/Hero'
 import type {Villain} from './models/types/Villain'
 import type {Boy} from './models/types/Boy'

@@ -1,4 +1,4 @@
-import {MouseEvent} from 'react'
+import type {MouseEvent} from 'react'
 import {NavLink} from 'react-router-dom'
 import {FiRefreshCcw} from 'react-icons/fi'
 import {GrAdd} from 'react-icons/gr'

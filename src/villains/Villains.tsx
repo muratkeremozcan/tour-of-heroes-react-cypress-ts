@@ -7,7 +7,7 @@ import VillainList from './VillainList'
 import VillainDetail from './VillainDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
-import {Villain} from 'models/Villain'
+import type {Villain} from 'models/Villain'
 import VillainsContext from 'hooks/useVillainsContext'
 
 export default function Villains() {

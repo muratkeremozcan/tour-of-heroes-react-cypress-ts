@@ -1,4 +1,5 @@
-import {useState, ChangeEvent} from 'react'
+import type {ChangeEvent} from 'react'
+import {useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {FaUndo, FaRegSave} from 'react-icons/fa'
 import InputDetail from 'components/InputDetail'
@@ -7,7 +8,7 @@ import PageSpinner from 'components/PageSpinner'
 import ErrorComp from 'components/ErrorComp'
 import {useEntityParams} from 'hooks/useEntityParams'
 import {usePostEntity} from 'hooks/usePostEntity'
-import {Villain} from 'models/Villain'
+import type {Villain} from 'models/Villain'
 import {usePutEntity} from 'hooks/usePutEntity'
 
 export default function VillainDetail() {
