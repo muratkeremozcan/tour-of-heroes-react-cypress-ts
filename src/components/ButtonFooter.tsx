@@ -1,5 +1,5 @@
-import {FaUndo, FaRegSave, FaEdit, FaTrash} from 'react-icons/fa'
-import {MouseEvent} from 'react'
+import type {FaUndo, FaRegSave, FaEdit, FaTrash} from 'react-icons/fa'
+import type {MouseEvent} from 'react'
 
 type ButtonFooterProps = {
   label: 'Cancel' | 'Save' | 'Edit' | 'Delete'

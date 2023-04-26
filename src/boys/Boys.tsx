@@ -7,7 +7,7 @@ import BoyList from './BoyList'
 import BoyDetail from './BoyDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
-import {Boy} from 'models/Boy'
+import type {Boy} from 'models/Boy'
 import {partial, pipe} from 'ramda'
 
 export default function Boys() {

@@ -10,6 +10,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    '@typescript-eslint/consistent-type-imports': 'error',
     'no-only-tests/no-only-tests': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-var-requires': 'off',

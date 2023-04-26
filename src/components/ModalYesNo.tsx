@@ -1,5 +1,5 @@
 import Modal from './Modal'
-import {MouseEvent} from 'react'
+import type {MouseEvent} from 'react'
 
 type ModalYesNoProps = {
   message: string

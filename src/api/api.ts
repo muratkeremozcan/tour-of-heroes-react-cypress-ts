@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Hero} from 'models/Hero'
+import type {Hero} from 'models/Hero'
 
 export type CrudType = 'GET' | 'POST' | 'PUT' | 'DELETE'
 export type CrudOptions = {item?: Hero | object; config?: object}

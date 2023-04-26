@@ -7,7 +7,7 @@ import HeroList from './HeroList'
 import HeroDetail from './HeroDetail'
 import {useGetEntities} from 'hooks/useGetEntities'
 import {useDeleteEntity} from 'hooks/useDeleteEntity'
-import {Hero} from 'models/Hero'
+import type {Hero} from 'models/Hero'
 import {curry} from 'ramda'
 
 export default function Heroes() {
