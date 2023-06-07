@@ -1,5 +1,4 @@
 import InputDetail from './InputDetail'
-
 import '@testing-library/cypress/add-commands'
 
 describe('InputDetail', () => {
