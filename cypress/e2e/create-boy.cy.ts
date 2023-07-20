@@ -48,7 +48,7 @@ describe('Create boy', () => {
     cy.getByCy('boys').should('be.visible')
     cy.getByCyLike('boy-list-item').should('have.length.gt', 0)
     cy.getByCy('boy-list')
-      .should('contain', newBoy.name)
+      .should('not.contain', newBoy.name) // intentional failures
       .and('contain', newBoy.description)
 
     cy.getEntityByProperty('boy', newBoy.name).then(myBoy =>
