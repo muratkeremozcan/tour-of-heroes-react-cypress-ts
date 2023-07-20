@@ -70,7 +70,7 @@
     "@typescript-eslint/parser": "5.47.0",
     "babel-loader": "9.1.0",
     "concurrently": "7.6.0",
-    "cypress": "12.9.0",
+    "cypress": "https://cdn.cypress.io/beta/npm/13.0.0/linux-x64/release/13.0.0-5d1e07a7aa228745b5e742aa3e912fcbd4cb217f/cypress.tgz",
     "esbuild": "0.16.17",
     "eslint": "8.30.0",
     "eslint-config-prettier": "8.7.0",
