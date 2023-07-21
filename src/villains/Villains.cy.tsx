@@ -12,7 +12,7 @@ describe('Villains', () => {
     cy.wrappedMount(<Villains />)
 
     cy.getByCy('page-spinner').should('be.visible')
-    Cypress._.times(3, () => {
+    Cypress._.times(4, () => {
       cy.tick(5100)
       cy.wait('@notFound')
     })
