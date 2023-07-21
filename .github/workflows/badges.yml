@@ -1,8 +1,7 @@
 name: badges
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
     # update README badge only if the README file changes
     # or if the package.json file changes, or this file changes
     paths:
@@ -24,6 +23,10 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v3
+        # heck out the actual HEAD commit in the pull request.
+        # so we can find the branch refernce with github.head_ref later
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
       - name: Update version badges 🏷
         run:
