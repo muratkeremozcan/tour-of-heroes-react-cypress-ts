@@ -39,7 +39,7 @@
     "react-dom": "18.2.0",
     "react-error-boundary": "3.1.4",
     "react-icons": "4.7.1",
-    "react-query": "3.39.2",
+    "react-query": "3.39.3",
     "react-router-dom": "6.8.2",
     "react-scripts": "5.0.1",
     "web-vitals": "3.4.0"
