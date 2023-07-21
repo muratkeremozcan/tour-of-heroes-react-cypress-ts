@@ -1,10 +1,10 @@
 name: badges
 on:
-  push:
-    # update README badge only if the README file changes
-    # or if the package.json file changes, or this file changes
+  pull_request:
     branches:
       - main
+    # update README badge only if the README file changes
+    # or if the package.json file changes, or this file changes
     paths:
       - README.md
       - package.json
@@ -34,7 +34,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Updated badges
-          branch: main
+          branch: ${{ github.head_ref }}
           file_pattern: README.md
           push_options: '--force'
           skip_fetch: true
