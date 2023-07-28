@@ -63,7 +63,7 @@
     "@types/jest": "29.5.3",
     "@types/node": "18.17.1",
     "@types/ramda": "0.28.20",
-    "@types/react": "18.2.16",
+    "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "@types/react-icons": "3.0.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
