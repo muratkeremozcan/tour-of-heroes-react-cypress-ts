@@ -54,7 +54,7 @@
     "@cypress/instrument-cra": "1.4.0",
     "@esbuild-plugins/node-globals-polyfill": "0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "0.2.2",
-    "@faker-js/faker": "7.6.0",
+    "@faker-js/faker": "8.0.2",
     "@testing-library/cypress": "9.0.0",
     "@testing-library/dom": "8.17.1",
     "@testing-library/jest-dom": "5.17.0",
