@@ -69,7 +69,7 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "babel-loader": "9.1.3",
-    "concurrently": "7.6.0",
+    "concurrently": "8.2.0",
     "cypress": "https://cdn.cypress.io/beta/npm/13.0.0/linux-x64/release/13.0.0-5d1e07a7aa228745b5e742aa3e912fcbd4cb217f/cypress.tgz",
     "esbuild": "0.18.17",
     "eslint": "8.30.0",
