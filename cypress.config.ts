@@ -6,7 +6,7 @@ import esbuildPreprocessor from './cypress/support/esbuild-preprocessor'
 import path from 'path'
 
 export default defineConfig({
-  projectId: '7mypio',
+  projectId: 'fnmwvn',
   // @ts-expect-error - experimentalSingleTabRunMode is not in the type definition
   experimentalSingleTabRunMode: true,
   retries: {
