@@ -56,6 +56,12 @@ jobs:
           flags: jest-rtl-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   lint:
     needs: install-dependencies
     name: Run Lint
@@ -97,7 +103,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        machines: [1, 2, 3]
+        machines: [1]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -121,10 +127,6 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: e2e-tests
-          tag: e2e-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -174,10 +176,6 @@ jobs:
           component: true
           browser: chrome
           # if you want to enable parallelization
-          record: true
-          parallel: true
-          group: ct-tests
-          tag: ct-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -197,13 +195,3 @@ jobs:
           directory: coverage-cy/
           flags: cypress-ct-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Create lcov code coverage report
-        run: |
-          yarn nyc report --reporter=lcov
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
