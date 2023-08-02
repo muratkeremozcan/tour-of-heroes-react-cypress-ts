@@ -56,6 +56,12 @@ jobs:
           flags: jest-rtl-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   lint:
     needs: install-dependencies
     name: Run Lint
@@ -97,7 +103,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        machines: [1, 2, 3]
+        machines: [1]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
