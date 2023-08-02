@@ -121,8 +121,6 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           # if you want to enable parallelization
-          group: e2e-tests
-          tag: e2e-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -182,8 +180,6 @@ jobs:
           component: true
           browser: chrome
           # if you want to enable parallelization
-          group: ct-tests
-          tag: ct-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
