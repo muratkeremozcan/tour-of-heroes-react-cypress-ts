@@ -73,7 +73,7 @@
     "cypress": "https://cdn.cypress.io/beta/npm/13.0.0/linux-x64/release/13.0.0-5d1e07a7aa228745b5e742aa3e912fcbd4cb217f/cypress.tgz",
     "esbuild": "0.18.17",
     "eslint": "8.46.0",
-    "eslint-config-prettier": "8.9.0",
+    "eslint-config-prettier": "8.10.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-chai-friendly": "0.7.2",
     "eslint-plugin-cypress": "2.12.1",
