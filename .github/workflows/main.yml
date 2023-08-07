@@ -147,6 +147,12 @@ jobs:
           flags: cypress-e2e-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   cypress-ct-test:
     # if you want to enable parallelization
     strategy:
@@ -195,3 +201,9 @@ jobs:
           directory: coverage-cy/
           flags: cypress-ct-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
