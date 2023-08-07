@@ -132,6 +132,16 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create lcov code coverage report
+        run: |
+          yarn nyc report --reporter=lcov > coverage-cy/lcov.info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.2
@@ -146,16 +156,6 @@ jobs:
           directory: coverage-cy/
           flags: cypress-e2e-coverage
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Create lcov code coverage report
-        run: |
-          yarn nyc report --reporter=lcov > coverage-cy-e2e/lcov.info
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   cypress-ct-test:
     # if you want to enable parallelization
