@@ -149,7 +149,7 @@ jobs:
 
       - name: Create lcov code coverage report
         run: |
-          yarn nyc report --reporter=lcov > coverage/lcov.info
+          yarn nyc report --reporter=lcov > coverage-cy-e2e/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
