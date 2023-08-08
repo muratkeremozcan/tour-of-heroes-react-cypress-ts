@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "7.22.5",
-    "@babel/preset-env": "7.22.9",
+    "@babel/preset-env": "7.22.10",
     "@babel/preset-react": "7.22.5",
     "@babel/preset-typescript": "7.22.5",
     "@bahmutov/cypress-code-coverage": "2.6.1",
