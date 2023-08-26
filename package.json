@@ -34,7 +34,7 @@
     "bulma": "0.9.4",
     "json-server": "0.17.1",
     "ramda": "0.28.0",
-    "ramda-adjunct": "4.1.0",
+    "ramda-adjunct": "4.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "4.0.11",
