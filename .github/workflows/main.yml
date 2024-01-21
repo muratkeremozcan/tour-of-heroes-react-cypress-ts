@@ -12,7 +12,7 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
     name: Run Unit Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
     name: Run Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
@@ -79,7 +79,7 @@ jobs:
     name: Run typecheck
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
@@ -101,7 +101,7 @@ jobs:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
@@ -154,7 +154,7 @@ jobs:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - uses: actions/checkout@v4
