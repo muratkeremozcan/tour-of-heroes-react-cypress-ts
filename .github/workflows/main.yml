@@ -50,7 +50,7 @@ jobs:
           retention-days: 1
 
       - name: ✅ Upload Jest coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           directory: coverage/
           flags: jest-rtl-coverage
@@ -139,7 +139,7 @@ jobs:
           retention-days: 1
 
       - name: ✅ Upload e2e coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           directory: coverage-cy/
           flags: cypress-e2e-coverage
@@ -191,7 +191,7 @@ jobs:
           retention-days: 1
 
       - name: ✅ Upload CT coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           directory: coverage-cy/
           flags: cypress-ct-coverage
