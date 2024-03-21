@@ -45,10 +45,10 @@
     "web-vitals": "3.5.2"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "7.23.3",
-    "@babel/preset-env": "7.24.0",
-    "@babel/preset-react": "7.23.3",
-    "@babel/preset-typescript": "7.23.3",
+    "@babel/plugin-transform-modules-commonjs": "7.24.1",
+    "@babel/preset-env": "7.24.3",
+    "@babel/preset-react": "7.24.1",
+    "@babel/preset-typescript": "7.24.1",
     "@bahmutov/cypress-code-coverage": "2.6.1",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
     "@cypress/instrument-cra": "1.4.0",
