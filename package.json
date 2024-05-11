@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "axios": "0.27.2",
-    "bulma": "0.9.4",
+    "bulma": "1.0.0",
     "json-server": "0.17.1",
     "ramda": "0.28.0",
     "ramda-adjunct": "4.1.1",
