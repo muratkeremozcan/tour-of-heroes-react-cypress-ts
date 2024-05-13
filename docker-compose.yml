@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend:
+    labels:
+      shipyard.route: '/'
+    build: '.'
+    environment:
+      CI: 'true'
+      DANGEROUSLY_DISABLE_HOST_CHECK: 'true'
+    env_file:
+      - ./.env
+    volumes:
+      - './src:/src'
+      - './public:/public'
+    ports:
+      - '3000:3000'
