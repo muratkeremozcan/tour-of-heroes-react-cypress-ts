@@ -10,9 +10,6 @@ COPY . /src
 # Install any needed packages specified in package.json
 RUN yarn install
 
-# Rebuild node-sass for the container's environment
-RUN yarn add node-sass && npm rebuild node-sass
-
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
 
