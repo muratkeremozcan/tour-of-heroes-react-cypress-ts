@@ -18,4 +18,4 @@ ENV CI=true
 ENV DANGEROUSLY_DISABLE_HOST_CHECK=true
 
 # Run start and start:api when the container launches
-CMD ["yarn", "dev"]
+CMD ["yarn", "dev", "--host", "0.0.0.0"]

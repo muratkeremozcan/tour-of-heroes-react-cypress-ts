@@ -13,4 +13,5 @@ services:
     volumes:
       - '.:/src'
     ports:
-      - '3000:3000'
+      - '3000:3000' # React app
+      - '3001:3001' # JSON server
