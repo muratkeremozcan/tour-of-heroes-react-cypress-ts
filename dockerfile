@@ -17,5 +17,5 @@ EXPOSE 3000
 ENV CI=true
 ENV DANGEROUSLY_DISABLE_HOST_CHECK=true
 
-# Run npm start when the container launches
-CMD ["yarn", "start"]
+# Run start and start:api when the container launches
+CMD ["yarn", "dev"]
