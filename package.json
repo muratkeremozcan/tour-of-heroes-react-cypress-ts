@@ -42,6 +42,7 @@
     "react-query": "3.39.3",
     "react-router-dom": "6.22.3",
     "react-scripts": "5.0.1",
+    "sass": "^1.77.1",
     "web-vitals": "3.5.2"
   },
   "devDependencies": {
@@ -87,7 +88,6 @@
     "json-server-reset": "1.6.0",
     "lint-staged": "14.0.1",
     "msw": "0.47.2",
-    "node-sass": "6.0.1",
     "npm-run-all2": "6.1.2",
     "nyc": "15.1.0",
     "prettier": "2.8.8",
