@@ -10,19 +10,8 @@
   "dependencyDashboardApproval": false,
   "packageRules": [
     {
-      "packageNames": [
-        "node",
-        "husky",
-        "typescript",
-        "jest",
-        "ts-jest",
-        "jest-environment-jsdom",
-        "msw",
-        "axios",
-        "node-sass",
-        "json-server",
-        "json-server-reset"
-      ],
+      "packagePatterns": ["*"],
+      "excludePackagePatterns": ["cypress", "@cypress/code-coverage"],
       "enabled": false
     }
   ]
