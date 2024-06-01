@@ -51,7 +51,7 @@
     "@babel/preset-react": "7.24.1",
     "@babel/preset-typescript": "7.24.1",
     "@bahmutov/cypress-code-coverage": "2.6.1",
-    "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "2.2.1",
     "@cypress/instrument-cra": "1.4.0",
     "@esbuild-plugins/node-globals-polyfill": "0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "0.2.2",
