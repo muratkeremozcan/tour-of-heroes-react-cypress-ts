@@ -7,6 +7,11 @@ concurrency:
   group: ${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+env:
+  # if you want to enable parallelization
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   install-dependencies:
     name: Install Dependencies
@@ -19,7 +24,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
 
@@ -35,7 +40,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       - name: unit-test
@@ -43,9 +48,9 @@ jobs:
 
       # if you want to enable codecov
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage
+          name: coverage-jest-${{ matrix.machines }}
           path: coverage/
           retention-days: 1
 
@@ -68,7 +73,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       - name: lint
@@ -86,7 +91,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       - name: typecheck
@@ -115,7 +120,7 @@ jobs:
           sudo apt-get install ./google-chrome-stable_current_amd64.deb
 
       - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           start: yarn dev
           wait-on: 'http://localhost:3000'
@@ -125,16 +130,12 @@ jobs:
           parallel: true
           group: e2e-tests
           tag: e2e-tests
-        env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-cy-e2e
+          name: coverage-cy-e2e-${{ matrix.machines }}
           path: coverage-cy/
           retention-days: 1
 
@@ -168,7 +169,7 @@ jobs:
           sudo apt-get install ./google-chrome-stable_current_amd64.deb
 
       - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v5.8.4
+        uses: cypress-io/github-action@v6
         with:
           component: true
           browser: chrome
@@ -177,16 +178,12 @@ jobs:
           parallel: true
           group: ct-tests
           tag: ct-tests
-        env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # if you want to enable codecov
       - name: Upload artifacts (Coverage_step3)
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-cy-ct
+          name: coverage-cy-ct-${{ matrix.machines }}
           path: coverage-cy/
           retention-days: 1
 
