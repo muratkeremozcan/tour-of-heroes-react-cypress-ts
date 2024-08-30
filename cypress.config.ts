@@ -30,6 +30,7 @@ export default defineConfig({
   },
 
   component: {
+    experimentalJustInTimeCompile: true,
     setupNodeEvents(on, config) {
       tasks(on)
       return plugins(on, config)
