@@ -2252,12 +2252,12 @@
     rimraf "^4.4.1"
     sort-array "^4.1.5"
 
-"@bahmutov/cypress-esbuild-preprocessor@2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.2.4.tgz#2724ac884702925739d8fde23dcf256f198408aa"
-  integrity sha512-t5xOKK+a6PlsxgRBtZDzayUcPJGDLKJt1pwKK/Y8szuDPPF+DbEsrqL8fbKgE1+koPvOVaYMX4ggwQwqfk99hA==
+"@bahmutov/cypress-esbuild-preprocessor@2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.2.5.tgz#92ca9a623b5d6b3d9c488b75f1b9557802c0b5ca"
+  integrity sha512-T8jugcaKdK3G470eWTo9fxeLXupnlTHLdWrjcfWuFM9spkHrASkiG20IpmAKiSPUjeXU0+A1EDssD48XMMxaKg==
   dependencies:
-    debug "4.4.0"
+    debug "4.4.1"
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
@@ -6190,10 +6190,10 @@ debug@4.3.3:
   dependencies:
     ms "2.1.2"
 
-debug@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.0.tgz#2b3f2aea2ffeb776477460267377dc8710faba8a"
-  integrity sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==
+debug@4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.1.tgz#e5a8bc6cbc4c6cd3e64308b0693a3d4fa550189b"
+  integrity sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==
   dependencies:
     ms "^2.1.3"
 
