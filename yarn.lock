@@ -2252,10 +2252,10 @@
     rimraf "^4.4.1"
     sort-array "^4.1.5"
 
-"@bahmutov/cypress-esbuild-preprocessor@2.2.6":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.2.6.tgz#e3bbdec23162add93470aae39e0807a0cc53fb34"
-  integrity sha512-njJI3neexUcRh3iK/hXRZLwGa7tsjzO87MsoXkmqx0lmNaasJzewTau8hW6K9Tt74smA57e/uuskBUqU9SYrGw==
+"@bahmutov/cypress-esbuild-preprocessor@2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.2.8.tgz#9d3a9d6c6dc06598695b6933af1d7e79844386d5"
+  integrity sha512-pN90es4T1DYcQbBuDEpa7yotC/VhE+BgfHIEGpS0uxibTIqt7g4ZITQZbTFcaQATZh3QmPIMMkeZyBE7PWf1LA==
   dependencies:
     debug "4.4.3"
 
