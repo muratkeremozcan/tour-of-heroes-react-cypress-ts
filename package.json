@@ -54,7 +54,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.8",
     "@cypress/instrument-cra": "1.4.0",
     "@faker-js/faker": "8.4.1",
-    "@testing-library/cypress": "10.0.1",
+    "@testing-library/cypress": "10.1.0",
     "@testing-library/dom": "8.17.1",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "13.4.0",
