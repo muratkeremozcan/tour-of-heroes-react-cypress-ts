@@ -50,7 +50,7 @@
     "@babel/preset-env": "7.24.5",
     "@babel/preset-react": "7.24.1",
     "@babel/preset-typescript": "7.24.1",
-    "@bahmutov/cypress-code-coverage": "2.6.1",
+    "@bahmutov/cypress-code-coverage": "2.7.2",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.8",
     "@cypress/instrument-cra": "1.4.0",
     "@faker-js/faker": "8.4.1",
